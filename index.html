@@ -6,155 +6,230 @@
     <title>AI Lab Experiments</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --neon-pink: #ff00ff;
+            --neon-cyan: #00ffff;
+            --neon-green: #39ff14;
+            --dark-bg: #0d0221;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Orbitron', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--neon-cyan);
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+        }
+        
+        .neon-text {
+            color: #fff;
+            text-shadow:
+                0 0 7px #fff,
+                0 0 10px #fff,
+                0 0 21px #fff,
+                0 0 42px var(--neon-pink),
+                0 0 82px var(--neon-pink),
+                0 0 92px var(--neon-pink),
+                0 0 102px var(--neon-pink),
+                0 0 151px var(--neon-pink);
+            animation: flicker 1.5s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                text-shadow:
+                0 0 4px #fff,
+                0 0 11px #fff,
+                0 0 19px #fff,
+                0 0 40px var(--neon-pink),
+                0 0 80px var(--neon-pink),
+                0 0 90px var(--neon-pink),
+                0 0 100px var(--neon-pink),
+                0 0 150px var(--neon-pink);
+            }
+            20%, 24%, 55% {        
+                text-shadow: none;
+            }
+        }
+
+        .container {
+             background: rgba(13, 2, 33, 0.5);
+             backdrop-filter: blur(10px);
+             border: 2px solid var(--neon-cyan);
+             box-shadow: 0 0 15px var(--neon-cyan);
+             border-radius: 1rem;
+        }
+        
+        .table-container {
+            border: 1px solid var(--neon-pink);
+            border-radius: 0.5rem;
+            box-shadow: 0 0 10px var(--neon-pink);
+            background: rgba(0,0,0,0.3);
+        }
+        
+        .table-header th {
+            color: var(--neon-pink);
+            text-shadow: 0 0 5px rgba(255, 0, 255, 0.7);
+            border-bottom: 2px solid var(--neon-pink) !important;
+        }
+
+        .table-row {
+            transition: all 0.3s ease-in-out;
+            border-color: rgba(0, 255, 255, 0.2) !important;
+        }
+
+        .table-row:hover {
+            background-color: rgba(0, 255, 255, 0.1);
+            transform: scale(1.01);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+        }
+
+        .neon-btn {
+            border: 2px solid;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .btn-blue {
+            border-color: var(--neon-cyan);
+            color: var(--neon-cyan);
+            box-shadow: 0 0 5px var(--neon-cyan), inset 0 0 5px var(--neon-cyan);
+        }
+        .btn-blue:hover {
+            background-color: var(--neon-cyan);
+            color: var(--dark-bg);
+            box-shadow: 0 0 20px var(--neon-cyan);
+            text-shadow: none;
+        }
+
+        .btn-green {
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+            box-shadow: 0 0 5px var(--neon-green), inset 0 0 5px var(--neon-green);
+        }
+        .btn-green:hover {
+            background-color: var(--neon-green);
+            color: var(--dark-bg);
+            box-shadow: 0 0 20px var(--neon-green);
+            text-shadow: none;
         }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="min-h-screen flex items-center justify-center p-4">
     <div class="container mx-auto px-4 py-8 md:py-12 max-w-7xl">
-        <header class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-gray-900">AI Laboratory Assignments</h1>
-            <p class="text-lg text-gray-600 mt-2">Links to experiments and their solutions.</p>
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold neon-text">AI Laboratory Assignments</h1>
+            <p class="text-lg text-gray-300 mt-4 tracking-wider">Cyber-links to experiments and their solutions.</p>
         </header>
 
-        <main class="bg-white rounded-lg shadow-md overflow-hidden">
+        <main class="table-container overflow-hidden">
             <div class="overflow-x-auto">
                 <table class="w-full text-left">
-                    <thead class="bg-gray-50 border-b border-gray-200">
+                    <thead class="table-header">
                         <tr>
-                            <th class="px-6 py-3 text-sm font-medium text-gray-500 uppercase tracking-wider">Lab Name</th>
-                            <th class="px-6 py-3 text-sm font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                            <th class="px-6 py-3 text-sm font-medium text-gray-500 uppercase tracking-wider text-center">Experiment</th>
-                            <th class="px-6 py-3 text-sm font-medium text-gray-500 uppercase tracking-wider text-center">Solution</th>
+                            <th class="px-6 py-4 text-sm font-medium uppercase tracking-wider">Lab Name</th>
+                            <th class="px-6 py-4 text-sm font-medium uppercase tracking-wider">Date</th>
+                            <th class="px-6 py-4 text-sm font-medium uppercase tracking-wider text-center">Experiment</th>
+                            <th class="px-6 py-4 text-sm font-medium uppercase tracking-wider text-center">Solution</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-200" id="lab-table-body">
+                    <tbody class="divide-y" id="lab-table-body">
                         <!-- Lab Row 1 -->
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm font-medium text-gray-900">Lab 1</div></td>
-                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm text-gray-700">28-07-2025</div></td>
+                        <tr class="table-row">
+                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm font-medium text-white">Lab 1</div></td>
+                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm">28-07-2025</div></td>
                             <td class="px-6 py-4 whitespace-nowrap text-center">
-                                <a href="./lab1.html" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition-transform transform hover:scale-105">View Lab</a>
+                                <a href="./lab1.html" target="_blank" rel="noopener noreferrer" class="neon-btn btn-blue inline-block py-2 px-4">View Lab</a>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-center">
-                                <a href="./lab1solution.html" target="_blank" rel="noopener noreferrer" class="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition-transform transform hover:scale-105">View Solution</a>
+                                <a href="./lab1solution.html" target="_blank" rel="noopener noreferrer" class="neon-btn btn-green inline-block py-2 px-4">View Solution</a>
                             </td>
                         </tr>
                         <!-- Lab Row 2 -->
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm font-medium text-gray-900">Lab 2</div></td>
-                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm text-gray-700">04-08-2025</div></td>
+                        <tr class="table-row">
+                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm font-medium text-white">Lab 2</div></td>
+                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm">04-08-2025</div></td>
                             <td class="px-6 py-4 whitespace-nowrap text-center">
-                                <a href="./lab2.html" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition-transform transform hover:scale-105">View Lab</a>
+                                <a href="./lab2.html" target="_blank" rel="noopener noreferrer" class="neon-btn btn-blue inline-block py-2 px-4">View Lab</a>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-center">
-                                <a href="./lab2solution.html" target="_blank" rel="noopener noreferrer" class="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition-transform transform hover:scale-105">View Solution</a>
+                                <a href="./lab2solution.html" target="_blank" rel="noopener noreferrer" class="neon-btn btn-green inline-block py-2 px-4">View Solution</a>
                             </td>
                         </tr>
                          <!-- Lab Row 3 -->
-                         <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm font-medium text-gray-900">Lab 3</div></td>
-                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm text-gray-700">11-08-2025</div></td>
+                         <tr class="table-row">
+                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm font-medium text-white">Lab 3</div></td>
+                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm">11-08-2025</div></td>
                             <td class="px-6 py-4 whitespace-nowrap text-center">
-                                <a href="./lab3.html" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition-transform transform hover:scale-105">View Lab</a>
+                                <a href="./lab3.html" target="_blank" rel="noopener noreferrer" class="neon-btn btn-blue inline-block py-2 px-4">View Lab</a>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-center">
-                                <a href="./lab3solution.html" target="_blank" rel="noopener noreferrer" class="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition-transform transform hover:scale-105">View Solution</a>
+                                <a href="./lab3solution.html" target="_blank" rel="noopener noreferrer" class="neon-btn btn-green inline-block py-2 px-4">View Solution</a>
                             </td>
                         </tr>
                         <!-- Lab Row 4 -->
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm font-medium text-gray-900">Lab 4</div></td>
-                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm text-gray-700">18-08-2025</div></td>
+                        <tr class="table-row">
+                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm font-medium text-white">Lab 4</div></td>
+                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm">18-08-2025</div></td>
                             <td class="px-6 py-4 whitespace-nowrap text-center">
-                                <a href="./lab4.html" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition-transform transform hover:scale-105">View Lab</a>
+                                <a href="./lab4.html" target="_blank" rel="noopener noreferrer" class="neon-btn btn-blue inline-block py-2 px-4">View Lab</a>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-center">
-                                <a href="./lab4solution.html" target="_blank" rel="noopener noreferrer" class="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition-transform transform hover:scale-105">View Solution</a>
+                                <a href="./lab4solution.html" target="_blank" rel="noopener noreferrer" class="neon-btn btn-green inline-block py-2 px-4">View Solution</a>
                             </td>
                         </tr>
                         <!-- Lab Row 5 -->
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm font-medium text-gray-900">Lab 5</div></td>
-                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm text-gray-700">25-08-2025</div></td>
+                        <tr class="table-row">
+                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm font-medium text-white">Lab 5</div></td>
+                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm">25-08-2025</div></td>
                             <td class="px-6 py-4 whitespace-nowrap text-center">
-                                <a href="#" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition-transform transform hover:scale-105">View Lab</a>
+                                <a href="#" target="_blank" rel="noopener noreferrer" class="neon-btn btn-blue inline-block py-2 px-4">View Lab</a>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-center">
-                                <a href="./NoSolution.html" target="_blank" rel="noopener noreferrer" class="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition-transform transform hover:scale-105">View Solution</a>
+                                <a href="./NoSolution.html" target="_blank" rel="noopener noreferrer" class="neon-btn btn-green inline-block py-2 px-4">View Solution</a>
                             </td>
                         </tr>
                         <!-- Lab Row 6 -->
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm font-medium text-gray-900">Lab 6</div></td>
-                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm text-gray-700">01-09-2025</div></td>
+                        <tr class="table-row">
+                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm font-medium text-white">Lab 6</div></td>
+                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm">01-09-2025</div></td>
                             <td class="px-6 py-4 whitespace-nowrap text-center">
-                                <a href="./lab6.html" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition-transform transform hover:scale-105">View Lab</a>
+                                <a href="./lab6.html" target="_blank" rel="noopener noreferrer" class="neon-btn btn-blue inline-block py-2 px-4">View Lab</a>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-center">
-                                <a href="./lab6solution.html" target="_blank" rel="noopener noreferrer" class="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition-transform transform hover:scale-105">View Solution</a>
+                                <a href="./lab6solution.html" target="_blank" rel="noopener noreferrer" class="neon-btn btn-green inline-block py-2 px-4">View Solution</a>
                             </td>
                         </tr>
                         <!-- Lab Row 7 -->
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm font-medium text-gray-900">Lab 7</div></td>
-                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm text-gray-700">08-09-2025</div></td>
+                        <tr class="table-row">
+                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm font-medium text-white">Lab 7</div></td>
+                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm">08-09-2025</div></td>
                             <td class="px-6 py-4 whitespace-nowrap text-center">
-                                <a href="./lab7.html" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition-transform transform hover:scale-105">View Lab</a>
+                                <a href="./lab7.html" target="_blank" rel="noopener noreferrer" class="neon-btn btn-blue inline-block py-2 px-4">View Lab</a>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-center">
-                                <a href="./NoSolution.html" target="_blank" rel="noopener noreferrer" class="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition-transform transform hover:scale-105">View Solution</a>
-                            </td>
-                        </tr>
-                        <!-- Lab Row 8 -->
-                        <!-- <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm font-medium text-gray-900">Lab 8</div></td>
-                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm text-gray-700">15-09-2025</div></td>
-                            <td class="px-6 py-4 whitespace-nowrap text-center">
-                                <a href="#" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition-transform transform hover:scale-105">View Lab</a>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-center">
-                                <a href="#" target="_blank" rel="noopener noreferrer" class="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition-transform transform hover:scale-105">View Solution</a>
-                            </td>
-                        </tr> -->
-                        <!-- Lab Row 9
-                        <!-- <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm font-medium text-gray-900">Lab 9</div></td>
-                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm text-gray-700">22-09-2025</div></td>
-                            <td class="px-6 py-4 whitespace-nowrap text-center">
-                                <a href="#" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition-transform transform hover:scale-105">View Lab</a>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-center">
-                                <a href="#" target="_blank" rel="noopener noreferrer" class="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition-transform transform hover:scale-105">View Solution</a>
+                                <a href="./NoSolution.html" target="_blank" rel="noopener noreferrer" class="neon-btn btn-green inline-block py-2 px-4">View Solution</a>
                             </td>
                         </tr>
-                        <!-- Lab Row 10 -->
-                        <!-- <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm font-medium text-gray-900">Lab 10</div></td>
-                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm text-gray-700">29-09-2025</div></td>
-                            <td class="px-6 py-4 whitespace-nowrap text-center">
-                                <a href="#" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition-transform transform hover:scale-105">View Lab</a>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-center">
-                                <a href="#" target="_blank" rel="noopener noreferrer" class="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition-transform transform hover:scale-105">View Solution</a>
-                            </td>
-                        </tr>  -->
-
+                        
                         <!-- ================================================== -->
                         <!-- == COPY THIS BLOCK TO ADD A NEW LAB ROW == -->
                         <!-- ================================================== -->
                         <!--
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm font-medium text-gray-900">Lab X</div></td>
-                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm text-gray-700">DD-MM-YYYY</div></td>
+                        <tr class="table-row">
+                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm font-medium text-white">Lab X</div></td>
+                            <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm">DD-MM-YYYY</div></td>
                             <td class="px-6 py-4 whitespace-nowrap text-center">
-                                <a href="YOUR_QUESTION_LINK_HERE" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition-transform transform hover:scale-105">View Lab</a>
+                                <a href="YOUR_QUESTION_LINK_HERE" target="_blank" rel="noopener noreferrer" class="neon-btn btn-blue inline-block py-2 px-4">View Lab</a>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-center">
-                                <a href="YOUR_SOLUTION_LINK_HERE" target="_blank" rel="noopener noreferrer" class="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition-transform transform hover:scale-105">View Solution</a>
+                                <a href="YOUR_SOLUTION_LINK_HERE" target="_blank" rel="noopener noreferrer" class="neon-btn btn-green inline-block py-2 px-4">View Solution</a>
                             </td>
                         </tr>
                         -->
@@ -167,8 +242,8 @@
             </div>
         </main>
         
-        <footer class="text-center mt-8">
-            <p class="text-gray-500">&copy; 2025 AI Lab. B.Tech Third Year Students.</p>
+        <footer class="text-center mt-10">
+            <p class="text-gray-400 text-sm">&copy; 2025 AI Lab. B.Tech Third Year Students.</p>
         </footer>
     </div>
 </body>
