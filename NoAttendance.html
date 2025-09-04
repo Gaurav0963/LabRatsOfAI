@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Status | Stark Industries</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for the Spiderman theme */
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Royalty-free cityscape from Pexels */
+            background-image: linear-gradient(rgba(17, 24, 39, 0.85), rgba(17, 24, 39, 1)), url('https://images.pexels.com/photos/169647/pexels-photo-169647.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            overflow: hidden; /* Hide overflow for web animations */
+        }
+
+        .font-bangers {
+            font-family: 'Bangers', cursive;
+        }
+
+        /* Spider-Sense Animation */
+        @keyframes spider-sense {
+            0%, 100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.6));
+            }
+            50% {
+                transform: scale(1.1);
+                filter: drop-shadow(0 0 16px rgba(239, 68, 68, 0.9));
+            }
+        }
+
+        .animate-spider-sense {
+            animation: spider-sense 2.5s infinite ease-in-out;
+        }
+        
+        /* Main content fade-in animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-fade-in {
+            animation: fadeIn 1.2s ease-in-out forwards;
+        }
+
+        /* Comic book style text shadow */
+        .comic-text-shadow {
+            text-shadow: 3px 3px 0 #111827, -1px -1px 0 #111827, 1px -1px 0 #111827, -1px 1px 0 #111827, 1px 1px 0 #111827;
+        }
+
+        /* Web lines animation */
+        .web {
+            position: absolute;
+            width: 2px;
+            background: linear-gradient(to bottom, rgba(209, 213, 219, 0.4), transparent);
+            opacity: 0;
+            animation: shoot-web 10s linear infinite;
+        }
+
+        @keyframes shoot-web {
+            0% {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            10%, 90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white flex items-center justify-center min-h-screen p-4">
+
+    <!-- Web animations container -->
+    <div id="web-container" class="absolute inset-0 z-0 pointer-events-none"></div>
+
+    <main class="relative z-10 w-full max-w-2xl text-center content-fade-in">
+        <!-- Spiderman Logo -->
+        <div class="mb-8">
+            <svg class="w-24 h-24 mx-auto text-red-600 animate-spider-sense" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M16.943 7.533L12 12.477l-4.943-4.944a.75.75 0 00-1.06 1.06L10.939 13.538 6 18.477a.75.75 0 101.06 1.06L12 14.598l4.943 4.943a.75.75 0 101.06-1.06L13.061 13.538l4.943-4.943a.75.75 0 00-1.06-1.06zM12 2a10 10 0 100 20 10 10 0 000-20zM3.5 12a8.5 8.5 0 1117 0 8.5 8.5 0 01-17 0z"/>
+            </svg>
+        </div>
+
+        <!-- Message Box -->
+        <div class="bg-gray-800/50 backdrop-blur-sm border-4 border-blue-600 rounded-lg p-6 md:p-10 shadow-2xl shadow-blue-600/20">
+            <h1 class="font-bangers text-4xl md:text-6xl tracking-wider text-red-600 comic-text-shadow">
+                Just a moment...
+            </h1>
+            <p class="mt-4 text-xl md:text-2xl text-gray-200">
+                The Attendance Will Be Uploaded Shortly
+            </p>
+            <p class="mt-2 text-gray-400">Pandey sir ne attendence ka excel file nhi diya!</p>
+        </div>
+
+        <!-- Return Home Button -->
+        <a href="#" class="group inline-block mt-12 bg-red-600 text-white font-bangers text-2xl tracking-wider py-3 px-8 rounded-lg border-b-4 border-red-800 transform hover:-translate-y-1 transition-all duration-300 ease-in-out shadow-lg hover:shadow-red-600/50">
+            <span class="group-hover:hidden">Return Home</span>
+            <span class="hidden group-hover:inline">THWIP!</span>
+        </a>
+    </main>
+
+    <script>
+        // JS to create random animated web lines in the background
+        document.addEventListener('DOMContentLoaded', () => {
+            const webContainer = document.getElementById('web-container');
+            const webCount = 20; // Number of web lines
+
+            for (let i = 0; i < webCount; i++) {
+                const web = document.createElement('div');
+                web.className = 'web';
+                const screenWidth = window.innerWidth;
+
+                // Style the web line
+                web.style.left = `${Math.random() * screenWidth}px`;
+                web.style.height = `${Math.random() * 200 + 100}px`; // Random height
+                web.style.animationDelay = `${Math.random() * 10}s`; // Random start time
+                web.style.animationDuration = `${Math.random() * 5 + 5}s`; // Random duration
+
+                webContainer.appendChild(web);
+            }
+        });
+    </script>
+</body>
+</html>
