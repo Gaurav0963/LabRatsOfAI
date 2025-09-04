@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gotham Data Labs</title>
+    <!-- Icon with a Bat Symbol -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path fill='%23fee12b' d='M50 10 C 20 25, 20 40, 20 40 C 20 60, 40 80, 50 90 C 60 80, 80 60, 80 40 C 80 40, 80 25, 50 10 Z M 50 15 L 75 35 L 65 33 C 65 33, 55 45, 50 55 C 45 45, 35 33, 35 33 L 25 35 Z' /></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            /* A dark, gritty Gotham night background */
+            background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+            color: #e0e0e0; /* Light gray for readability */
+        }
+        
+        .main-container {
+            max-width: 64rem;
+            margin-left: auto;
+            margin-right: auto;
+            /* A dark, semi-transparent background for the Batcomputer interface */
+            background: rgba(20, 20, 20, 0.7); /* Enhanced transparency */
+            backdrop-filter: blur(15px); /* Stronger glass effect */
+            -webkit-backdrop-filter: blur(15px); /* Safari support */
+            border-radius: 1.5rem;
+            border: 1px solid rgba(254, 225, 43, 0.2); /* Subtle Bat-yellow border */
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.2), 0 8px 10px -6px rgb(0 0 0 / 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative; /* For positioning the logo */
+            overflow: hidden; /* To contain the logo */
+        }
+
+        /* Subtle Batman logo watermark */
+        .main-container::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            height: 60%;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3e%3cpath fill='rgba(254, 225, 43, 1)' d='M50 10 C 20 25, 20 40, 20 40 C 20 60, 40 80, 50 90 C 60 80, 80 60, 80 40 C 80 40, 80 25, 50 10 Z M 50 15 L 75 35 L 65 33 C 65 33, 55 45, 50 55 C 45 45, 35 33, 35 33 L 25 35 Z' /%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            opacity: 0.05; /* Extremely subtle */
+            z-index: -1;
+        }
+
+        .main-container:hover {
+            transform: translateY(-5px);
+        }
+
+        .header-title {
+            font-weight: 700;
+            color: #fee12b; /* Bold Bat-yellow */
+            text-shadow: 0 0 10px rgba(254, 225, 43, 0.5); /* Yellow glow */
+        }
+
+        .table-header th {
+            color: #a0a0a0;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            background-color: transparent;
+        }
+
+        .table-row {
+            transition: all 0.2s ease-in-out;
+            position: relative; 
+        }
+
+        /* Bat-Signal glow on hover */
+        .table-row:hover {
+            background-color: rgba(50, 45, 10, 0.3); /* Dark yellow tint */
+            box-shadow: 0 0 20px rgba(254, 225, 43, 0.6); /* Bright yellow glow */
+            border-radius: 0.5rem;
+            z-index: 10;
+        }
+
+        .btn {
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            border: 1px solid transparent; /* For consistent sizing */
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        .btn-lab { background-color: #fee12b; color: #111; }
+        .btn-lab:hover { background-color: #d8c025; }
+
+        .btn-solution { background-color: #222222; color: #fee12b; border: 1px solid #fee12b; }
+        .btn-solution:hover { background-color: #fee12b; color: #111; }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <div class="main-container w-full p-6 md:p-10">
+        <header class="text-center mb-8">
+            <h1 class="header-title text-4xl md:text-5xl">Gotham Data Labs Assignments</h1>
+            <p class="text-lg text-gray-400 mt-2">Wayne Enterprises R&D Division</p>
+        </header>
+
+        <main class="overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead class="table-header">
+                        <tr>
+                            <th class="px-6 py-3 rounded-tl-lg">Case File</th>
+                            <th class="px-6 py-3">Date</th>
+                            <th class="px-6 py-3 text-center">Experiment</th>
+                            <th class="px-6 py-3 text-center rounded-tr-lg">Solution</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-700"> <!-- Darker divider -->
+                        <!-- Lab Row 1 -->
+                        <tr class="table-row">
+                            <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-200">Lab 1</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-300">28-07-2025</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-center">
+                                <a href="./lab1.html" target="_blank" rel="noopener noreferrer" class="btn btn-lab inline-block py-2 px-4">View Lab</a>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-center">
+                                <a href="./lab1solution.html" target="_blank" rel="noopener noreferrer" class="btn btn-solution inline-block py-2 px-4">View Solution</a>
+                            </td>
+                        </tr>
+                        <!-- Lab Row 2 -->
+                        <tr class="table-row">
+                            <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-200">Lab 2</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-300">04-08-2025</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-center">
+                                <a href="./lab2.html" target="_blank" rel="noopener noreferrer" class="btn btn-lab inline-block py-2 px-4">View Lab</a>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-center">
+                                <a href="./lab2solution.html" target="_blank" rel="noopener noreferrer" class="btn btn-solution inline-block py-2 px-4">View Solution</a>
+                            </td>
+                        </tr>
+                         <!-- Lab Row 3 -->
+                         <tr class="table-row">
+                            <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-200">Lab 3</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-300">11-08-2025</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-center">
+                                <a href="./lab3.html" target="_blank" rel="noopener noreferrer" class="btn btn-lab inline-block py-2 px-4">View Lab</a>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-center">
+                                <a href="./lab3solution.html" target="_blank" rel="noopener noreferrer" class="btn btn-solution inline-block py-2 px-4">View Solution</a>
+                            </td>
+                        </tr>
+                        <!-- Lab Row 4 -->
+                        <tr class="table-row">
+                            <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-200">Lab 4</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-300">18-08-2025</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-center">
+                                <a href="./lab4.html" target="_blank" rel="noopener noreferrer" class="btn btn-lab inline-block py-2 px-4">View Lab</a>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-center">
+                                <a href="./lab4solution.html" target="_blank" rel="noopener noreferrer" class="btn btn-solution inline-block py-2 px-4">View Solution</a>
+                            </td>
+                        </tr>
+                        <!-- Lab Row 5 -->
+                        <tr class="table-row">
+                            <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-200">Lab 5</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-300">25-08-2025</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-center">
+                                <a href="./lab5.html" target="_blank" rel="noopener noreferrer" class="btn btn-lab inline-block py-2 px-4">View Lab</a>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-center">
+                                <a href="./lab5solution.html" target="_blank" rel="noopener noreferrer" class="btn btn-solution inline-block py-2 px-4">View Solution</a>
+                            </td>
+                        </tr>
+                        <!-- Lab Row 6 -->
+                        <tr class="table-row">
+                            <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-200">Lab 6</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-300">01-09-2025</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-center">
+                                <a href="./lab6.html" target="_blank" rel="noopener noreferrer" class="btn btn-lab inline-block py-2 px-4">View Lab</a>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-center">
+                                <a href="./NoSolution.html" target="_blank" rel="noopener noreferrer" class="btn btn-solution inline-block py-2 px-4">View Solution</a>
+                            </td>
+                        </tr>
+                        <!-- Lab Row 7 -->
+                        <tr class="table-row">
+                            <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-200">Lab 7</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-300">08-09-2025</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-center">
+                                <a href="./lab7.html" target="_blank" rel="noopener noreferrer" class="btn btn-lab inline-block py-2 px-4">View Lab</a>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-center">
+                                <a href="./NoSolution.html" target="_blank" rel="noopener noreferrer" class="btn btn-solution inline-block py-2 px-4">View Solution</a>
+                            </td>
+                        </tr>
+                        
+                        <!-- ================================================== -->
+                        <!-- == COPY THIS BLOCK TO ADD A NEW LAB ROW == -->
+                        <!-- ================================================== -->
+                        <!--
+                        <tr class="table-row">
+                            <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-200">Lab X</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-300">DD-MM-YYYY</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-center">
+                                <a href="YOUR_QUESTION_LINK_HERE" target="_blank" rel="noopener noreferrer" class="btn btn-lab inline-block py-2 px-4">View Lab</a>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-center">
+                                <a href="YOUR_SOLUTION_LINK_HERE" target="_blank" rel="noopener noreferrer" class="btn btn-solution inline-block py-2 px-4">View Solution</a>
+                            </td>
+                        </tr>
+                        -->
+                        <!-- ================================================== -->
+                        <!-- == END OF COPY BLOCK == -->
+                        <!-- ================================================== -->
+
+                    </tbody>
+                </table>
+            </div>
+        </main>
+        
+        <footer class="text-center mt-8">
+            <p class="text-gray-400 text-sm">&copy; 2025 Gotham Data Labs. Property of Wayne Enterprises.</p>
+        </footer>
+    </div>
+</body>
+</html>
+
