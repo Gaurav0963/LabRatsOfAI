@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python for AI Lab</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Energetic & Playful -->
+    <!-- Application Structure Plan: The page is designed as a single-page interactive dashboard. It starts with a hero section, followed by a live interactive demonstration of a logical concept. This is followed by a section detailing Python's core strengths for AI, with detailed sections on NumPy and Pandas, and finally a section on fundamental coding concepts. This non-linear, thematic structure is chosen to make the content more digestible and engaging than a traditional linear document. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Python's role in AI/Data Science. Goal: Inform. Viz/Presentation Method: Hero section with a bold title and engaging text. Justification: Sets the stage and grabs attention. Library/Method: HTML/CSS.
+        - Report Info: Law of Contradiction (`P and not P` is false). Goal: Inform/Organize. Viz/Presentation Method: Interactive UI with buttons and a dynamic text output. Interaction: User clicks buttons to demonstrate the logical law. Justification: This makes an abstract logical concept tangible and interactive. Library/Method: Vanilla JS, HTML/CSS.
+        - Report Info: Key AI libraries (NumPy, Pandas). Goal: Inform/Organize. Viz/Presentation Method: Detailed cards for each module with code examples. Justification: Provides in-depth, focused information for each library. Library/Method: HTML/CSS.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #1A1A1A; color: #FFFFFF; }
+        .card { background-color: #2C2C2C; border-radius: 12px; border: 1px solid #444; }
+        .code-block { font-family: 'Fira Code', monospace; background-color: #0D0D0D; padding: 1rem; border-radius: 6px; }
+        .code-highlight { color: #FFD700; }
+        .btn { transition: transform 0.1s ease-in-out; }
+        .btn:hover { transform: translateY(-2px); }
+        .logical-box { background-color: #4A4A4A; border: 2px solid #C70039; padding: 1rem; border-radius: 8px; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <header class="bg-black shadow-lg">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-amber-400">AI Python Lab</h1>
+            <nav class="space-x-4">
+                <a href="index.html" class="text-white font-semibold hover:underline">Home</a>
+                <a href="questions.html" class="text-gray-400 font-semibold hover:underline">Questions</a>
+                <a href="solutions.html" class="text-gray-400 font-semibold hover:underline">Solutions</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12 md:py-16">
+        <div class="max-w-4xl mx-auto space-y-12">
+
+            <section class="text-center">
+                <h2 class="text-4xl md:text-5xl font-bold text-amber-400 mb-4">Python for AI & Data Science</h2>
+                <p class="text-xl text-gray-300">
+                    Explore the fundamental concepts and tools that make Python the leading language in Artificial Intelligence. This lab is your starting point for building intelligent systems.
+                </p>
+            </section>
+
+            <section class="card p-6 md:p-8">
+                <h3 class="text-2xl font-bold text-center text-orange-500 mb-6">Interactive Demo: Law of Contradiction</h3>
+                <p class="text-center text-gray-400 mb-6">
+                    A core principle in logic is that a proposition cannot be both true and false at the same time. This demo illustrates that `P` and `not P` is always false.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-6">
+                    <div class="logical-box text-lg">
+                        <span id="proposition-P" class="font-bold text-white">P is True</span>
+                    </div>
+                    <span class="text-4xl text-white font-bold">&and;</span>
+                    <div class="logical-box text-lg">
+                        <span id="proposition-not-P" class="font-bold text-white">not P is False</span>
+                    </div>
+                </div>
+                <div class="mt-8 text-center">
+                    <button id="test-contradiction-btn" class="btn bg-red-600 text-white font-bold py-2 px-6 rounded-lg shadow-lg hover:bg-red-700">Test the Law</button>
+                    <p id="result-message" class="mt-4 text-xl font-bold text-green-400 hidden">Result: `P` and `not P` is always False (a contradiction).</p>
+                </div>
+            </section>
+
+            <section>
+                <h3 class="text-2xl font-bold text-center text-orange-500 mb-6">Foundational Libraries for AI/ML</h3>
+                <div class="space-y-6">
+                    <div class="card p-6">
+                        <h4 class="text-xl font-bold text-amber-400 mb-2">NumPy: The Foundation of Scientific Computing</h4>
+                        <p class="text-gray-300">
+                            NumPy (Numerical Python) is the core library for scientific computing. Its most important object is the `ndarray`, a multi-dimensional array that is significantly faster and more memory-efficient than Python's built-in lists for numerical operations. In AI/ML, these arrays are used to store and manipulate data, from images to the weights of a neural network.
+                        </p>
+                        <p class="text-gray-400 mt-2">
+                            For more information, see the official NumPy documentation: <a href="https://numpy.org/doc/stable/user/whatisnumpy.html" class="text-sky-500 hover:underline" target="_blank">docs.numpy.org</a>.
+                        </p>
+                        <h5 class="text-lg font-semibold mt-4 text-white">Key Concepts:</h5>
+                        <ul class="list-disc list-inside text-gray-400 pl-4">
+                            <li><strong class="text-white">N-dimensional Arrays (`ndarray`):</strong> The primary data structure for efficient, vectorized operations.</li>
+                            <li><strong class="text-white">Vectorized Operations:</strong> Performing element-wise operations without explicit loops, which is a major performance benefit.</li>
+                            <li><strong class="text-white">Array Creation:</strong> Functions like `np.empty()`, `np.full()`, `np.zeros()`, and `np.array()` for creating arrays.</li>
+                        </ul>
+                        <div class="code-block mt-4 text-sm">
+                            <pre><code>import numpy as np
+
+# Create an array of zeros
+zeros_array = np.zeros((2, 3), dtype=int)
+print("Array with zeros:\n", zeros_array)
+
+# Perform a vectorized operation
+arr = np.array([1, 2, 3])
+squared_arr = arr ** 2
+print("\nSquared array:", squared_arr)</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="card p-6">
+                        <h4 class="text-xl font-bold text-amber-400 mb-2">Pandas: The Data Analyst's Best Friend</h4>
+                        <p class="text-gray-300">
+                            Built on top of NumPy, Pandas is a data manipulation and analysis library. It introduces two powerful data structures: `Series` (a one-dimensional labeled array) and `DataFrame` (a two-dimensional labeled data table, like a spreadsheet). In AI/ML, Pandas is crucial for data preprocessing, cleaning, and exploratory data analysis (EDA).
+                        </p>
+                        <p class="text-gray-400 mt-2">
+                            For more information, see the official Pandas documentation: <a href="https://pandas.pydata.org/pandas-docs/stable/getting_started/overview.html" class="text-sky-500 hover:underline" target="_blank">docs.pandas.pydata.org</a>.
+                        </p>
+                        <h5 class="text-lg font-semibold mt-4 text-white">Key Concepts:</h5>
+                        <ul class="list-disc list-inside text-gray-400 pl-4">
+                            <li><strong class="text-white">Series:</strong> A single column of data with an index.</li>
+                            <li><strong class="text-white">DataFrame:</strong> The primary data structure for structured data, consisting of columns and rows.</li>
+                            <li><strong class="text-white">Data Manipulation:</strong> Functions for filtering, sorting, merging, and grouping data.</li>
+                        </ul>
+                        <div class="code-block mt-4 text-sm">
+                            <pre><code>import pandas as pd
+import numpy as np
+
+exam_data = {
+    'name': ['A', 'B', 'C'],
+    'score': [12.5, np.nan, 16.5],
+    'qualify': ['yes', 'no', 'yes']
+}
+df = pd.DataFrame(exam_data, index=['a', 'b', 'c'])
+print("Original DataFrame:\n", df)
+
+# Select rows where score is greater than 10
+qualified_students = df[df['score'] > 10]
+print("\nStudents with score > 10:\n", qualified_students)</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section>
+                <h3 class="text-2xl font-bold text-center text-orange-500 mb-6">Foundational Programming Skills</h3>
+                <div class="space-y-6">
+                    <div class="card p-6">
+                        <h4 class="text-xl font-bold text-amber-400 mb-2">Conditional Logic: `if`, `elif`, `else`</h4>
+                        <p class="text-gray-300">
+                            Essential for building algorithms, conditionals allow your program to make decisions. In AI, this is used in everything from simple rules-based systems to complex control flow in machine learning models.
+                        </p>
+                        <div class="code-block mt-4 text-sm">
+                            <pre><code>if score > 90:
+    action = "Excellent"
+elif score > 70:
+    action = "Good"
+else:
+    action = "Needs Improvement"</code></pre>
+                        </div>
+                    </div>
+                    <div class="card p-6">
+                        <h4 class="text-xl font-bold text-amber-400 mb-2">Loops & Iteration: `for`, `while`, `range()`</h4>
+                        <p class="text-gray-300">
+                            Loops are used to perform repetitive tasks, such as processing a large dataset, training a model over multiple epochs, or iterating through a list of students. The `range()` function is a powerful tool for controlling the number of iterations.
+                        </p>
+                        <div class="code-block mt-4 text-sm">
+                            <pre><code>for student in student_list:
+    process_data(student)
+
+for i in range(1, 101):  # Loop for 100 students
+    print(f"Processing student {i}")</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="bg-black text-center py-6 mt-8 text-gray-500">
+        <p>&copy; 2023 AI Python Lab. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('test-contradiction-btn').addEventListener('click', () => {
+            const p = document.getElementById('proposition-P');
+            const notP = document.getElementById('proposition-not-P');
+            const result = document.getElementById('result-message');
+
+            p.classList.remove('text-green-400', 'text-red-400');
+            notP.classList.remove('text-green-400', 'text-red-400');
+            p.classList.add('text-white');
+            notP.classList.add('text-white');
+
+            result.classList.add('hidden');
+            
+            setTimeout(() => {
+                p.innerText = "P is True";
+                notP.innerText = "not P is False";
+                p.classList.add('text-green-400');
+                notP.classList.add('text-red-400');
+                result.classList.remove('hidden');
+            }, 500);
+        });
+    </script>
+</body>
+</html>
