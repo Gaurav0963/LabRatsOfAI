@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 8: AI Search Algorithms</title>
+    <!-- Icon with a Spider Symbol -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path fill='%23d10023' d='M64.9,56.5l8.6-8.6c1.6-1.6,1.6-4.1,0-5.7l-4.8-4.8c-1.6-1.6-4.1-1.6-5.7,0l-8.6,8.6c-0.6,0.6-1.5,0.6-2.1,0L43.8,37.3 c-1.6-1.6-4.1-1.6-5.7,0l-4.8,4.8c-1.6-1.6-1.6-4.1,0,5.7l8.6,8.6c0.6,0.6,0.6,1.5,0,2.1L33.4,67c-1.6,1.6-1.6,4.1,0,5.7l4.8,4.8 c1.6,1.6,4.1,1.6,5.7,0l8.6-8.6c0.6-0.6,1.5-0.6,2.1,0l8.6,8.6c1.6,1.6,4.1,1.6,5.7,0l4.8-4.8c1.6-1.6,1.6-4.1,0-5.7l-8.6-8.6 C65.5,58,65.5,57.1,64.9,56.5z M50,58.8c-4.9,0-8.8-4-8.8-8.8s4-8.8,8.8-8.8s8.8,4,8.8,8.8S54.9,58.8,50,58.8z'/></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: linear-gradient(135deg, #0a0a14 0%, #001f3f 100%);
+            color: #e0e0e0;
+            letter-spacing: 0.025em;
+        }
+        
+        .main-container {
+            max-width: 64rem;
+            margin: 2rem auto;
+            padding: 2.5rem;
+            background: rgba(10, 20, 40, 0.9);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(0, 94, 255, 0.3);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.4);
+        }
+
+        .header-title {
+            font-weight: 700;
+            color: #FFFFFF;
+            text-shadow: 0 0 8px #d10023, 0 0 12px #005eff;
+            margin-bottom: 0.5rem;
+        }
+        
+        .problem-container {
+            background: rgba(0, 0, 0, 0.2);
+            border-left: 4px solid #d10023;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-top: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #00aaff;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        pre {
+            background-color: #0c1021;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(0, 94, 255, 0.2);
+            color: #90cfff;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .output {
+            color: #7fffd4; /* AquaMarine for output */
+        }
+        
+        .btn-return {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.75rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(to right, #d10023, #a1001a);
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 15px rgba(209, 0, 35, 0.4);
+        }
+
+        .btn-return:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(209, 0, 35, 0.6);
+        }
+
+        .collapsible-btn {
+            background-color: #005eff;
+            color: white;
+            cursor: pointer;
+            padding: 12px 20px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        
+        .collapsible-btn.solution-btn {
+            background-color: #d10023; /* Spidey Red for solution */
+            margin-top: 0.5rem;
+        }
+
+        .collapsible-btn:hover, .collapsible-btn.active {
+            background-color: #004acb;
+        }
+        
+        .collapsible-btn.solution-btn:hover, .collapsible-btn.solution-btn.active {
+            background-color: #a1001a;
+        }
+
+        .collapsible-btn::after {
+            content: '+';
+            font-size: 1.5rem;
+            color: white;
+            float: right;
+            margin-left: 5px;
+        }
+
+        .collapsible-btn.active::after {
+            content: "−";
+        }
+
+        .collapsible-content {
+            padding: 0 18px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background-color: transparent;
+        }
+        .collapsible-content pre {
+            margin-top: 1rem;
+        }
+        
+        /* Tab Styles */
+        .tab-container {
+            overflow: hidden;
+            border-bottom: 2px solid #005eff;
+            margin-top: 1.5rem;
+        }
+        .tab-link {
+            background-color: transparent;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #a0a0a0;
+        }
+        .tab-link:hover {
+            color: #fff;
+        }
+        .tab-link.active {
+            color: #fff;
+            border-bottom: 2px solid #d10023;
+            background-color: rgba(209, 0, 35, 0.2);
+        }
+        .tab-content {
+            display: none;
+            padding: 6px 0;
+            margin-top: 1rem;
+        }
+        .tab-content p, .tab-content ul {
+            margin-bottom: 0.75rem;
+        }
+        .example-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #7fffd4; /* AquaMarine */
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Diagram Styles */
+        .diagram-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem 0;
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+        }
+        .diagram-container svg {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 14px;
+        }
+        .diagram-container .node circle {
+            stroke: #00aaff;
+            stroke-width: 2;
+            fill: #0a0a14;
+        }
+        .diagram-container .node text {
+            fill: #e0e0e0;
+            font-weight: 600;
+        }
+        .diagram-container .node .heuristic {
+            fill: #7fffd4;
+            font-size: 12px;
+        }
+        .diagram-container .link {
+            stroke: #005eff;
+            stroke-width: 2;
+            fill: none;
+        }
+        .diagram-container .link.highlight {
+            stroke: #d10023;
+            stroke-width: 3;
+        }
+        .diagram-container .link.pruned {
+            stroke: #555;
+            stroke-dasharray: 4;
+        }
+    </style>
+</head>
+<body class="p-4">
+    <div class="main-container">
+        <header class="text-center mb-10">
+            <h1 class="header-title text-4xl md:text-5xl">Lab 8: Heuristic Search Algorithms</h1>
+            <p class="text-lg text-gray-400 mt-2">Optimizing Paths with Intelligent Guesses</p>
+        </header>
+
+        <main>
+            <!-- Best-First Search Section -->
+            <section id="best-first">
+                <h2>1. Best-First Search: The Nearest Apple</h2>
+                <div class="problem-container">
+                    <p class="font-semibold text-lg text-gray-300">Problem Scenario:</p>
+                    <p>Spider-Man needs to find the minimum number of steps to reach the nearest apple cart ('A') from his starting position ('S') on a city grid. The grid contains obstacles (buildings represented by '#'). He can move up, down, left, or right.</p>
+                </div>
+                <h3>Sample Input</h3>
+                <pre><code>
+Grid:
+[
+  ['S', '.', '.', '#', '.', '.'],
+  ['.', '#', '.', '#', '.', '#'],
+  ['.', '#', '.', '.', '.', '.'],
+  ['.', '.', '#', '#', '.', '.'],
+  ['#', '.', '#', 'A', '.', '#']
+]
+                </code></pre>
+
+                <h3 class="mt-4">Expected Output</h3>
+                <pre><code class="output">
+Minimum steps required: 7
+                </code></pre>
+
+                <button type="button" class="collapsible-btn">View Approach</button>
+                <div class="collapsible-content">
+                    <pre><code>
+# Define a helper function to calculate Manhattan distance (our heuristic)
+def manhattan_distance(p1, p2):
+    # p1 and p2 are tuples like (row, col)
+    # Calculate and return the absolute difference of coordinates
+
+# Main search function
+def best_first_search(grid):
+    # Find start ('S') and apple ('A') positions
+    
+    # Initialize a priority queue to store (heuristic_cost, steps, current_position)
+    # The priority queue will automatically sort by the first element (heuristic_cost)
+    
+    # Initialize a 'visited' set to keep track of visited cells
+    
+    # Add the starting position to the priority queue with 0 steps
+    
+    # Loop while the priority queue is not empty:
+        # Get the cell with the smallest heuristic cost from the queue
+        
+        # If this cell is the apple, return the number of steps taken
+        
+        # If this cell has been visited, continue to the next iteration
+        
+        # Mark the current cell as visited
+        
+        # Explore neighbors (up, down, left, right):
+            # For each neighbor, check if it's a valid move (within grid, not an obstacle)
+            # If valid, calculate its heuristic cost to the apple
+            # Add (heuristic_cost, new_steps, neighbor_position) to the priority queue
+            
+    # If the loop finishes and the apple wasn't found, return -1
+                    </code></pre>
+                </div>
+                
+                <button type="button" class="collapsible-btn solution-btn">View Solved Example</button>
+                <div class="collapsible-content">
+                    <h4 class="example-title">Example: Navigating from Bhagalpur to Patna</h4>
+                    <p>Find the most promising path from Bhagalpur to Patna using straight-line distance (heuristic) to guide the search.</p>
+                    <div class="tab-container">
+                        <button class="tab-link active" onclick="openTab(event, 'bfs-explanation')">Explanation</button>
+                        <button class="tab-link" onclick="openTab(event, 'bfs-code')">Python Code</button>
+                    </div>
+                    <div id="bfs-explanation" class="tab-content" style="display: block;">
+                        <p>Best-First Search is a **greedy algorithm**. It always chooses the next node that *appears* to be closest to the goal, based on the heuristic value. It doesn't consider the cost of the path taken so far.</p>
+                        <ul class="list-disc list-inside">
+                            <li><strong>Step 1:</strong> Start at <strong>Bhagalpur</strong> (Heuristic: 210km). Add its neighbors, Munger (H:160) and Banka (H:240), to a priority queue.</li>
+                            <li><strong>Step 2:</strong> The queue is now [(160, Munger), (240, Banka)]. The algorithm greedily chooses <strong>Munger</strong> because its heuristic is lower.</li>
+                            <li><strong>Step 3:</strong> From Munger, explore its neighbors (Lakhisarai, Begusarai). Lakhisarai (H:110) is more promising than Begusarai (H:125). The queue now contains [(110, Lakhisarai), (125, Begusarai), (240, Banka)].</li>
+                             <li><strong>Step 4:</strong> The algorithm again picks the best option: <strong>Lakhisarai</strong> (H:110). Its neighbor is Patna (H:0).</li>
+                            <li><strong>Step 5:</strong> Patna is the goal (H:0). The search stops and returns the path found.</li>
+                        </ul>
+                        <div class="diagram-container">
+                            <svg width="400" height="250" viewBox="0 0 450 280">
+                                <title>Best-First Search from Bhagalpur to Patna</title>
+                                <!-- Links -->
+                                <path id="Banka-Bhagalpur" class="link" d="M350 180 L 350 80"/>
+                                <path id="Munger-Bhagalpur" class="link highlight" d="M225 150 L 350 80"/>
+                                <path id="Begusarai-Munger" class="link" d="M150 220 L 225 150"/>
+                                <path id="Lakhisarai-Munger" class="link highlight" d="M100 150 L 225 150"/>
+                                <path id="Patna-Lakhisarai" class="link highlight" d="M50 80 L 100 150"/>
+                                <!-- Nodes -->
+                                <g class="node" transform="translate(350, 50)">
+                                    <circle r="30"/>
+                                    <text text-anchor="middle" y="0" dy="5">Bhagalpur</text>
+                                    <text class="heuristic" text-anchor="middle" y="15" dy="5">H=210</text>
+                                </g>
+                                <g class="node" transform="translate(350, 210)">
+                                    <circle r="30"/>
+                                    <text text-anchor="middle" y="0" dy="5">Banka</text>
+                                    <text class="heuristic" text-anchor="middle" y="15" dy="5">H=240</text>
+                                </g>
+                                <g class="node" transform="translate(225, 150)">
+                                    <circle r="30"/>
+                                    <text text-anchor="middle" y="0" dy="5">Munger</text>
+                                    <text class="heuristic" text-anchor="middle" y="15" dy="5">H=160</text>
+                                </g>
+                                <g class="node" transform="translate(150, 220)">
+                                    <circle r="30"/>
+                                    <text text-anchor="middle" y="0" dy="5">Begusarai</text>
+                                    <text class="heuristic" text-anchor="middle" y="15" dy="5">H=125</text>
+                                </g>
+                                <g class="node" transform="translate(100, 150)">
+                                    <circle r="30"/>
+                                    <text text-anchor="middle" y="0" dy="5">Lakhisarai</text>
+                                    <text class="heuristic" text-anchor="middle" y="15" dy="5">H=110</text>
+                                </g>
+                                <g class="node" transform="translate(50, 50)">
+                                    <circle r="30" style="stroke: #7fffd4;"/>
+                                    <text text-anchor="middle" y="0" dy="5">Patna</text>
+                                    <text class="heuristic" text-anchor="middle" y="15" dy="5">H=0</text>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                    <div id="bfs-code" class="tab-content">
+                        <pre><code>
+import heapq
+
+def solve_bihar_navigation_example():
+    # Road connections between cities
+    graph = {
+        'Bhagalpur': ['Munger', 'Banka'],
+        'Munger': ['Begusarai', 'Lakhisarai'],
+        'Banka': ['Munger'],
+        'Begusarai': ['Patna'],
+        'Lakhisarai': ['Patna'],
+        'Patna': []
+    }
+    
+    # Heuristic: Approx. straight-line distance to Patna in km
+    heuristics = {
+        'Bhagalpur': 210, 'Munger': 160, 'Banka': 240,
+        'Begusarai': 125, 'Lakhisarai': 110, 'Patna': 0
+    }
+    
+    start = 'Bhagalpur'
+    goal = 'Patna'
+
+    pq = [(heuristics[start], [start])] # (heuristic, path)
+    visited = set()
+
+    while pq:
+        h, path = heapq.heappop(pq)
+        current_city = path[-1]
+
+        if current_city == goal:
+            return f"Path found: {' -> '.join(path)}"
+
+        if current_city in visited:
+            continue
+        visited.add(current_city)
+        
+        for neighbor in graph[current_city]:
+            if neighbor not in visited:
+                new_path = path + [neighbor]
+                heapq.heappush(pq, (heuristics[neighbor], new_path))
+                
+    return "Path not found"
+
+# Expected Output: Path found: Bhagalpur -> Munger -> Lakhisarai -> Patna
+                        </code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="my-12 border-gray-700">
+
+            <!-- Beam Search Section -->
+            <section id="beam-search">
+                <h2>2. Beam Search: Tracking Villains</h2>
+                <div class="problem-container">
+                    <p class="font-semibold text-lg text-gray-300">Problem Scenario:</p>
+                    <p>Spider-Man is tracking multiple leads to find a villain's lair. He starts at a location ('A') and explores connected locations (nodes). To be efficient, he uses Beam Search with a beam width of 2. This means at each level of his search, he only considers the 2 most promising paths based on heuristic values (estimated distance to the goal).</p>
+                </div>
+                <h3>Sample Input</h3>
+                <pre><code>
+Graph Heuristics (estimated distance to Goal 'G'):
+A: 10, B: 8, C: 9, D: 6, E: 4, F: 5, G: 0
+
+Connections:
+A -> B, C
+B -> D, E
+C -> F, G
+
+Beam Width (β): 2
+Start Node: 'A'
+Goal Node: 'G'
+                </code></pre>
+
+                <h3 class="mt-4">Expected Output</h3>
+                <pre><code class="output">
+Path Found: ['A', 'C', 'G']
+                </code></pre>
+                
+                <button type="button" class="collapsible-btn">View Approach</button>
+                <div class="collapsible-content">
+                    <pre><code>
+# Main beam search function
+def beam_search(graph, heuristics, start, goal, beam_width):
+    # Initialize the beam with the starting path: [(heuristic, [path_nodes])]
+    # For the start node, this would be [(heuristics[start], [start])]
+    
+    # Loop until the goal is found or the beam becomes empty
+        # Create a list to store all possible next paths (candidates)
+        
+        # For each path in the current beam:
+            # Get the last node of the path
+            
+            # If the last node is the goal, return this path
+            
+            # For each neighbor of the last node:
+                # Create a new path by extending the current path
+                # Calculate the heuristic of the neighbor
+                # Add (heuristic, new_path) to the candidates list
+        
+        # If no candidates were generated, the search fails
+        # Sort the candidates based on their heuristic values (ascending)
+        
+        # Select the top 'beam_width' candidates to form the new beam
+        # This is the "pruning" step
+        
+    # If the loop finishes, no path was found
+                    </code></pre>
+                </div>
+
+                <button type="button" class="collapsible-btn solution-btn">View Solved Example</button>
+                <div class="collapsible-content">
+                    <h4 class="example-title">Example: Food Delivery Route Planning</h4>
+                    <p>A delivery agent needs a route from 'Sabor' to 'Tilkamanjhi'. To quickly find a good-enough route, they use Beam Search with a width (β) of 2.</p>
+                     <div class="tab-container">
+                        <button class="tab-link active" onclick="openTab(event, 'beam-explanation')">Explanation</button>
+                        <button class="tab-link" onclick="openTab(event, 'beam-code')">Python Code</button>
+                    </div>
+                    <div id="beam-explanation" class="tab-content" style="display: block;">
+                        <p>Beam Search is a compromise between greedy search and breadth-first search. It explores multiple paths at once, but limits how many paths it keeps at each step (the "beam width").</p>
+                        <ul class="list-disc list-inside">
+                             <li><strong>Level 1:</strong> Start at <strong>Sabor</strong>. Neighbors are Zero Mile (H:8) and Adampur (H:10). Since β=2, both paths are kept. The beam is now [Path to Zero Mile, Path to Adampur].</li>
+                             <li><strong>Level 2 Candidates:</strong> We generate all next steps from our beam.
+                                 <ul>
+                                     <li>From Zero Mile -> Sandis Compound (H:5)</li>
+                                     <li>From Adampur -> Manali Chowk (H:6), Kotwali Chowk (H:4)</li>
+                                 </ul>
+                                 This gives us 3 candidate paths.
+                             </li>
+                             <li><strong>Level 2 Pruning:</strong> The candidates are sorted by heuristic: Path to Kotwali (H:4), Path to Sandis (H:5), Path to Manali (H:6). Since β=2, we **keep the best two** (Kotwali, Sandis) and **prune the path to Manali Chowk**.</li>
+                             <li><strong>Level 3:</strong> From Kotwali and Sandis, we explore their neighbors. The path to the goal, Tilkamanjhi (H:0), is found via Kotwali Chowk.</li>
+                        </ul>
+                        <div class="diagram-container">
+                             <svg width="400" height="300" viewBox="0 0 450 320">
+                                <title>Beam Search with width 2</title>
+                                <!-- Links -->
+                                <path class="link highlight" d="M225,50 L100,125"/>
+                                <path class="link highlight" d="M225,50 L350,125"/>
+                                <path class="link" d="M100,125 L50,200"/>
+                                <path class="link highlight" d="M350,125 L300,200"/>
+                                <path class="link pruned" d="M350,125 L400,200"/>
+                                <path class="link highlight" d="M300,200 L225,275"/>
+                                <!-- Nodes -->
+                                <g class="node" transform="translate(225, 50)"><circle r="30"/><text text-anchor="middle" dy="5">Sabor</text><text class="heuristic" y="15" dy="5">H=12</text></g>
+                                <g class="node" transform="translate(100, 125)"><circle r="30"/><text text-anchor="middle" dy="5">Zero Mile</text><text class="heuristic" y="15" dy="5">H=8</text></g>
+                                <g class="node" transform="translate(350, 125)"><circle r="30"/><text text-anchor="middle" dy="5">Adampur</text><text class="heuristic" y="15" dy="5">H=10</text></g>
+                                <g class="node" transform="translate(50, 200)"><circle r="30"/><text text-anchor="middle" dy="5">Sandis</text><text class="heuristic" y="15" dy="5">H=5</text></g>
+                                <g class="node" transform="translate(300, 200)"><circle r="30"/><text text-anchor="middle" dy="5">Kotwali</text><text class="heuristic" y="15" dy="5">H=4</text></g>
+                                <g class="node" transform="translate(400, 200)"><circle r="30" stroke-dasharray="4"/><text text-anchor="middle" dy="5">Manali</text><text class="heuristic" y="15" dy="5">H=6</text></g>
+                                <g class="node" transform="translate(225, 275)"><circle r="30" style="stroke: #7fffd4;"/><text text-anchor="middle" dy="5">Tilkamanjhi</text><text class="heuristic" y="15" dy="5">H=0</text></g>
+                            </svg>
+                        </div>
+                    </div>
+                    <div id="beam-code" class="tab-content">
+                        <pre><code>
+def solve_delivery_example():
+    graph = {
+        'Sabor': ['Zero Mile', 'Adampur'],
+        'Zero Mile': ['Sandis Compound'],
+        'Adampur': ['Manali Chowk', 'Kotwali Chowk'],
+        'Sandis Compound': ['Tilkamanjhi'],
+        'Manali Chowk': [],
+        'Kotwali Chowk': ['Tilkamanjhi'],
+        'Tilkamanjhi': []
+    }
+    heuristics = {
+        'Sabor': 12, 'Zero Mile': 8, 'Adampur': 10, 'Sandis Compound': 5,
+        'Manali Chowk': 6, 'Kotwali Chowk': 4, 'Tilkamanjhi': 0
+    }
+    start = 'Sabor'
+    goal = 'Tilkamanjhi'
+    beam_width = 2
+
+    beam = [(heuristics[start], [start])]
+
+    while beam:
+        candidates = []
+        for h, path in beam:
+            last_node = path[-1]
+            if last_node == goal:
+                return f"Path Found: {' -> '.join(path)}"
+            
+            for neighbor in graph.get(last_node, []):
+                new_path = path + [neighbor]
+                candidates.append((heuristics[neighbor], new_path))
+        
+        if not candidates: break
+            
+        candidates.sort(key=lambda x: x[0])
+        beam = candidates[:beam_width]
+        
+    return "Path not found"
+
+# Expected Output: Path Found: Sabor -> Adampur -> Kotwali Chowk -> Tilkamanjhi
+                        </code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <div class="text-center">
+                <a href="./index.html" class="btn-return">Return to Archives</a>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        var coll = document.getElementsByClassName("collapsible-btn");
+        for (var i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.maxHeight){
+                    content.style.maxHeight = null;
+                } else {
+                    // Set max-height large enough for content
+                    content.style.maxHeight = content.scrollHeight + "px";
+                } 
+            });
+        }
+
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            let parentCollapsible = evt.currentTarget.closest('.collapsible-content');
+            
+            tabcontent = parentCollapsible.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            tablinks = parentCollapsible.getElementsByClassName("tab-link");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+            
+            let parent = evt.currentTarget.closest('.collapsible-content');
+            if (parent.style.maxHeight) {
+                parent.style.maxHeight = parent.scrollHeight + "px";
+            }
+        }
+    </script>
+</body>
+</html>
+
