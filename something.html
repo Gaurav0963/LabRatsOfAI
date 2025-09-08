@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 8: AI Search Algorithms</title>
+    <!-- Icon with a Spider Symbol -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path fill='%23d10023' d='M64.9,56.5l8.6-8.6c1.6-1.6,1.6-4.1,0-5.7l-4.8-4.8c-1.6-1.6-4.1-1.6-5.7,0l-8.6,8.6c-0.6,0.6-1.5,0.6-2.1,0L43.8,37.3 c-1.6-1.6-4.1-1.6-5.7,0l-4.8,4.8c-1.6-1.6-1.6-4.1,0,5.7l8.6,8.6c0.6,0.6,0.6,1.5,0,2.1L33.4,67c-1.6,1.6-1.6,4.1,0,5.7l4.8,4.8 c1.6,1.6,4.1,1.6,5.7,0l8.6-8.6c0.6-0.6,1.5-0.6,2.1,0l8.6,8.6c1.6,1.6,4.1,1.6,5.7,0l4.8-4.8c1.6-1.6,1.6-4.1,0-5.7l-8.6-8.6 C65.5,58,65.5,57.1,64.9,56.5z M50,58.8c-4.9,0-8.8-4-8.8-8.8s4-8.8,8.8-8.8s8.8,4,8.8,8.8S54.9,58.8,50,58.8z'/></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: linear-gradient(135deg, #0a0a14 0%, #001f3f 100%);
+            color: #e0e0e0;
+            letter-spacing: 0.025em;
+        }
+        
+        .main-container {
+            max-width: 64rem;
+            margin: 2rem auto;
+            padding: 2.5rem;
+            background: rgba(10, 20, 40, 0.9);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(0, 94, 255, 0.3);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.4);
+        }
+
+        .header-title {
+            font-weight: 700;
+            color: #FFFFFF;
+            text-shadow: 0 0 8px #d10023, 0 0 12px #005eff;
+            margin-bottom: 0.5rem;
+        }
+        
+        .problem-container {
+            background: rgba(0, 0, 0, 0.2);
+            border-left: 4px solid #d10023;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-top: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #00aaff;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        pre {
+            background-color: #0c1021;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(0, 94, 255, 0.2);
+            color: #90cfff;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .output {
+            color: #7fffd4; /* AquaMarine for output */
+        }
+        
+        .btn-return {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.75rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(to right, #d10023, #a1001a);
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 15px rgba(209, 0, 35, 0.4);
+        }
+
+        .btn-return:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(209, 0, 35, 0.6);
+        }
+
+        .collapsible-btn {
+            background-color: #005eff;
+            color: white;
+            cursor: pointer;
+            padding: 12px 20px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        
+        .collapsible-btn.solution-btn {
+            background-color: #d10023; /* Spidey Red for solution */
+            margin-top: 0.5rem;
+        }
+
+        .collapsible-btn:hover, .collapsible-btn.active {
+            background-color: #004acb;
+        }
+        
+        .collapsible-btn.solution-btn:hover, .collapsible-btn.solution-btn.active {
+            background-color: #a1001a;
+        }
+
+        .collapsible-btn::after {
+            content: '+';
+            font-size: 1.5rem;
+            color: white;
+            float: right;
+            margin-left: 5px;
+        }
+
+        .collapsible-btn.active::after {
+            content: "−";
+        }
+
+        .collapsible-content {
+            padding: 0 18px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background-color: transparent;
+        }
+        .collapsible-content pre {
+            margin-top: 1rem;
+        }
+        
+        /* Tab Styles */
+        .tab-container {
+            overflow: hidden;
+            border-bottom: 2px solid #005eff;
+            margin-top: 1.5rem;
+        }
+        .tab-link {
+            background-color: transparent;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #a0a0a0;
+        }
+        .tab-link:hover {
+            color: #fff;
+        }
+        .tab-link.active {
+            color: #fff;
+            border-bottom: 2px solid #d10023;
+            background-color: rgba(209, 0, 35, 0.2);
+        }
+        .tab-content {
+            display: none;
+            padding: 6px 0;
+            margin-top: 1rem;
+        }
+        .tab-content p {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="p-4">
+    <div class="main-container">
+        <header class="text-center mb-10">
+            <h1 class="header-title text-4xl md:text-5xl">Lab 8: Heuristic Search Algorithms</h1>
+            <p class="text-lg text-gray-400 mt-2">Optimizing Paths with Intelligent Guesses</p>
+        </header>
+
+        <main>
+            <!-- Best-First Search Section -->
+            <section id="best-first">
+                <h2>1. Best-First Search: The Nearest Apple</h2>
+                <div class="problem-container">
+                    <p class="font-semibold text-lg text-gray-300">Problem Scenario:</p>
+                    <p>Spider-Man needs to find the minimum number of steps to reach the nearest apple cart ('A') from his starting position ('S') on a city grid. The grid contains obstacles (buildings represented by '#'). He can move up, down, left, or right.</p>
+                </div>
+                <h3>Sample Input</h3>
+                <pre><code>
+Grid:
+[
+  ['S', '.', '.', '#', '.', '.'],
+  ['.', '#', '.', '#', '.', '#'],
+  ['.', '#', '.', '.', '.', '.'],
+  ['.', '.', '#', '#', '.', '.'],
+  ['#', '.', '#', 'A', '.', '#']
+]
+                </code></pre>
+
+                <h3 class="mt-4">Expected Output</h3>
+                <pre><code class="output">
+Minimum steps required: 7
+                </code></pre>
+
+                <button type="button" class="collapsible-btn">View Approach</button>
+                <div class="collapsible-content">
+                    <pre><code>
+# Define a helper function to calculate Manhattan distance (our heuristic)
+def manhattan_distance(p1, p2):
+    # p1 and p2 are tuples like (row, col)
+    # Calculate and return the absolute difference of coordinates
+
+# Main search function
+def best_first_search(grid):
+    # Find start ('S') and apple ('A') positions
+    
+    # Initialize a priority queue to store (heuristic_cost, steps, current_position)
+    # The priority queue will automatically sort by the first element (heuristic_cost)
+    
+    # Initialize a 'visited' set to keep track of visited cells
+    
+    # Add the starting position to the priority queue with 0 steps
+    
+    # Loop while the priority queue is not empty:
+        # Get the cell with the smallest heuristic cost from the queue
+        
+        # If this cell is the apple, return the number of steps taken
+        
+        # If this cell has been visited, continue to the next iteration
+        
+        # Mark the current cell as visited
+        
+        # Explore neighbors (up, down, left, right):
+            # For each neighbor, check if it's a valid move (within grid, not an obstacle)
+            # If valid, calculate its heuristic cost to the apple
+            # Add (heuristic_cost, new_steps, neighbor_position) to the priority queue
+            
+    # If the loop finishes and the apple wasn't found, return -1
+                    </code></pre>
+                </div>
+                
+                <button type="button" class="collapsible-btn solution-btn">View Full Solution</button>
+                <div class="collapsible-content">
+                    <div class="tab-container">
+                        <button class="tab-link active" onclick="openTab(event, 'bfs-explanation')">Explanation</button>
+                        <button class="tab-link" onclick="openTab(event, 'bfs-code')">Python Code</button>
+                    </div>
+                    <div id="bfs-explanation" class="tab-content" style="display: block;">
+                        <p>This solution uses a <strong>Priority Queue</strong> (implemented with Python's `heapq` library) which is the core of a Best-First Search.</p>
+                        <p><strong>1. Heuristic:</strong> We use the <strong>Manhattan Distance</strong> `(|x1 - x2| + |y1 - y2|)` as our heuristic. It's a perfect estimate for grid-based movement where you can't move diagonally.</p>
+                        <p><strong>2. Priority Queue:</strong> We store tuples in the format `(heuristic_cost, steps, position)`. The queue automatically keeps the entry with the lowest `heuristic_cost` at the top, ensuring we always explore the most promising cell next.</p>
+                        <p><strong>3. Search Process:</strong> The algorithm continuously extracts the "closest" cell (by heuristic) from the queue. It explores its valid neighbors, calculates their heuristics, and adds them back to the queue. A `visited` set prevents us from getting stuck in loops.</p>
+                        <p><strong>4. Goal:</strong> When the cell we extract from the queue is the apple's location, we've found our path. Because we always prioritize the path that *looks* best, this greedy approach finds the solution efficiently.</p>
+                    </div>
+                    <div id="bfs-code" class="tab-content">
+                        <pre><code>
+import heapq
+
+def solve_best_first_search():
+    grid = [
+      ['S', '.', '.', '#', '.', '.'],
+      ['.', '#', '.', '#', '.', '#'],
+      ['.', '#', '.', '.', '.', '.'],
+      ['.', '.', '#', '#', '.', '.'],
+      ['#', '.', '#', 'A', '.', '#']
+    ]
+
+    def manhattan_distance(p1, p2):
+        return abs(p1[0] - p2[0]) + abs(p1[1] - p2[1])
+
+    rows, cols = len(grid), len(grid[0])
+    start_pos, apple_pos = None, None
+
+    for r in range(rows):
+        for c in range(cols):
+            if grid[r][c] == 'S':
+                start_pos = (r, c)
+            elif grid[r][c] == 'A':
+                apple_pos = (r, c)
+
+    if not start_pos or not apple_pos:
+        return "Start or Apple not found"
+
+    # Priority queue: (heuristic_cost, steps, position_tuple)
+    pq = [(manhattan_distance(start_pos, apple_pos), 0, start_pos)]
+    visited = set()
+
+    while pq:
+        heuristic, steps, current_pos = heapq.heappop(pq)
+
+        if current_pos == apple_pos:
+            return f"Minimum steps required: {steps}"
+
+        if current_pos in visited:
+            continue
+        
+        visited.add(current_pos)
+
+        r, c = current_pos
+        # Explore neighbors: Up, Down, Left, Right
+        for dr, dc in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
+            nr, nc = r + dr, c + dc
+
+            if 0 <= nr < rows and 0 <= nc < cols and grid[nr][nc] != '#' and (nr, nc) not in visited:
+                new_steps = steps + 1
+                new_heuristic = manhattan_distance((nr, nc), apple_pos)
+                heapq.heappush(pq, (new_heuristic, new_steps, (nr, nc)))
+    
+    return "Path not found"
+
+# To test:
+# print(solve_best_first_search())
+                        </code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="my-12 border-gray-700">
+
+            <!-- Beam Search Section -->
+            <section id="beam-search">
+                <h2>2. Beam Search: Tracking Villains</h2>
+                <div class="problem-container">
+                    <p class="font-semibold text-lg text-gray-300">Problem Scenario:</p>
+                    <p>Spider-Man is tracking multiple leads to find a villain's lair. He starts at a location ('A') and explores connected locations (nodes). To be efficient, he uses Beam Search with a beam width of 2. This means at each level of his search, he only considers the 2 most promising paths based on heuristic values (estimated distance to the goal).</p>
+                </div>
+                <h3>Sample Input</h3>
+                <pre><code>
+Graph Heuristics (estimated distance to Goal 'G'):
+A: 10, B: 8, C: 9, D: 6, E: 4, F: 5, G: 0
+
+Connections:
+A -> B, C
+B -> D, E
+C -> F, G
+
+Beam Width (β): 2
+Start Node: 'A'
+Goal Node: 'G'
+                </code></pre>
+
+                <h3 class="mt-4">Expected Output</h3>
+                <pre><code class="output">
+Path Found: ['A', 'B', 'E']
+(Note: The optimal path is A -> C -> G. Beam search is not guaranteed to be optimal as it pruned the path through C at the first level because B had a better heuristic value than C, and the beam width was limited to 2).
+                </code></pre>
+                
+                <button type="button" class="collapsible-btn">View Approach</button>
+                <div class="collapsible-content">
+                    <pre><code>
+# Main beam search function
+def beam_search(graph, heuristics, start, goal, beam_width):
+    # Initialize the beam with the starting path: [(heuristic, [path_nodes])]
+    # For the start node, this would be [(heuristics[start], [start])]
+    
+    # Loop until the goal is found or the beam becomes empty
+        # Create a list to store all possible next paths (candidates)
+        
+        # For each path in the current beam:
+            # Get the last node of the path
+            
+            # If the last node is the goal, return this path
+            
+            # For each neighbor of the last node:
+                # Create a new path by extending the current path
+                # Calculate the heuristic of the neighbor
+                # Add (heuristic, new_path) to the candidates list
+        
+        # If no candidates were generated, the search fails
+        # Sort the candidates based on their heuristic values (ascending)
+        
+        # Select the top 'beam_width' candidates to form the new beam
+        # This is the "pruning" step
+        
+    # If the loop finishes, no path was found
+                    </code></pre>
+                </div>
+
+                <button type="button" class="collapsible-btn solution-btn">View Full Solution</button>
+                <div class="collapsible-content">
+                    <div class="tab-container">
+                        <button class="tab-link active" onclick="openTab(event, 'beam-explanation')">Explanation</button>
+                        <button class="tab-link" onclick="openTab(event, 'beam-code')">Python Code</button>
+                    </div>
+                    <div id="beam-explanation" class="tab-content" style="display: block;">
+                        <p>Beam Search is a heuristic search algorithm that balances thoroughness and efficiency.</p>
+                        <p><strong>1. Beam Width (β):</strong> This is the key parameter. It defines the maximum number of paths to keep at each level of the search. A small beam width is faster but risks pruning the optimal path. A large beam width is more thorough but slower.</p>
+                        <p><strong>2. Level-by-Level Search:</strong> The search proceeds in levels. At each level, it generates all possible next steps from the current set of paths (the "beam").</p>
+                        <p><strong>3. Sorting and Pruning:</strong> All these potential next paths (candidates) are then sorted based on their heuristic value. The algorithm "prunes" the list by keeping only the top `β` candidates. This new, smaller set becomes the beam for the next level.</p>
+                        <p><strong>4. In this example (β=2):</strong> From 'A', the neighbors are 'B' (heuristic 8) and 'C' (heuristic 9). Both are kept. From 'B' and 'C', the candidates are 'D'(6), 'E'(4), 'F'(5), 'G'(0). We sort these: G, E, F, D. We keep only the top 2: the paths to 'G' and 'E'. The algorithm might explore 'E' next and terminate if it's considered "close enough", or find the path to 'G' first. The output shows one possible non-optimal path found. </p>
+                    </div>
+                    <div id="beam-code" class="tab-content">
+                        <pre><code>
+def solve_beam_search():
+    graph = {
+        'A': ['B', 'C'],
+        'B': ['D', 'E'],
+        'C': ['F', 'G'],
+        'D': [], 'E': [], 'F': [], 'G': []
+    }
+    heuristics = {'A': 10, 'B': 8, 'C': 9, 'D': 6, 'E': 4, 'F': 5, 'G': 0}
+    start = 'A'
+    goal = 'G'
+    beam_width = 2
+
+    # The beam stores tuples of (heuristic, path_list)
+    beam = [(heuristics[start], [start])]
+
+    while beam:
+        candidates = []
+        
+        # Generate all possible next steps from current beam
+        for h, path in beam:
+            last_node = path[-1]
+            
+            if last_node == goal:
+                return f"Path Found: {path}"
+            
+            for neighbor in graph[last_node]:
+                new_path = path + [neighbor]
+                new_heuristic = heuristics[neighbor]
+                candidates.append((new_heuristic, new_path))
+        
+        if not candidates:
+            break
+            
+        # Sort all candidates by heuristic
+        candidates.sort(key=lambda x: x[0])
+        
+        # Prune the candidates to the beam width
+        beam = candidates[:beam_width]
+        
+    return "Path not found"
+
+# To test:
+# print(solve_beam_search())
+                        </code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <div class="text-center">
+                <a href="./index.html" class="btn-return">Return to Archives</a>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        var coll = document.getElementsByClassName("collapsible-btn");
+        for (var i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.maxHeight){
+                    content.style.maxHeight = null;
+                } else {
+                    // Set max-height large enough for content
+                    content.style.maxHeight = content.scrollHeight + "px";
+                } 
+            });
+        }
+
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            // Get the parent container of the clicked tab to scope the search
+            let parentCollapsible = evt.currentTarget.closest('.collapsible-content');
+            
+            tabcontent = parentCollapsible.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            tablinks = parentCollapsible.getElementsByClassName("tab-link");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+            
+            // Recalculate parent collapsible height
+            let parent = evt.currentTarget.closest('.collapsible-content');
+            if (parent.style.maxHeight) {
+                parent.style.maxHeight = parent.scrollHeight + "px";
+            }
+        }
+    </script>
+</body>
+</html>
+
