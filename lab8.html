@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Lab 8: Spider-Sense Algorithms</title>
-    <!-- Icon with a Spider Symbol -->
+    <title>AI Lab 8</title>
+    <!-- Icon -->
     <link rel="icon" type="image/png" href="favicon-16x16.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -69,6 +69,13 @@
             background-color: rgba(0, 30, 80, 0.3);
             border-radius: 1rem;
             border-left: 4px solid #d10023;
+        }
+        .challenge-block {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: rgba(90, 0, 10, 0.3);
+            border-radius: 1rem;
+            border-left: 4px solid #ff7b72;
         }
         .code-block {
             position: relative;
@@ -155,8 +162,8 @@
 <body class="min-h-screen flex items-center justify-center p-4">
     <div class="main-container w-full p-6 md:p-10">
         <header class="text-center mb-8">
-            <h1 class="header-title text-4xl md:text-5xl">AI Lab 8: Spider-Sense Algorithms</h1>
-            <p class="text-lg text-gray-400 mt-2 mb-4">Web-slinging through A* and Hill Climbing challenges.</p>
+            <h1 class="header-title text-4xl md:text-5xl">AI Lab 8</h1>
+            <p class="text-lg text-gray-400 mt-2 mb-4">Web-slinging through <strong>A*</strong> and <strong>Hill Climbing</strong> challenges.</p>
         </header>
 
         <main>
@@ -176,42 +183,9 @@
                                 .edge-text { font-family: 'Rajdhani', sans-serif; font-size: 12px; fill: #a5d6ff; text-anchor: middle; font-weight: 500;}
                             </style>
                         </defs>
-                        
-                        <!-- Edges -->
-                        <line class="edge-line" x1="60" y1="200" x2="160" y2="100"></line>
-                        <line class="edge-line" x1="60" y1="200" x2="160" y2="300"></line>
-                        <line class="edge-line" x1="160" y1="100" x2="260" y2="50"></line>
-                        <line class="edge-line" x1="160" y1="100" x2="260" y2="150"></line>
-                        <line class="edge-line" x1="160" y1="300" x2="260" y2="250"></line>
-                        <line class="edge-line" x1="160" y1="300" x2="260" y2="350"></line>
-                        <line class="edge-line" x1="260" y1="150" x2="440" y2="200"></line>
-                        <line class="edge-line" x1="260" y1="250" x2="360" y2="200"></line>
-                        <line class="edge-line" x1="260" y1="350" x2="360" y2="300"></line>
-                        <line class="edge-line" x1="260" y1="350" x2="440" y2="200"></line>
-
-                        <!-- Edge Labels -->
-                        <text class="edge-text" x="105" y="145">3</text>
-                        <text class="edge-text" x="105" y="255">2</text>
-                        <text class="edge-text" x="205" y="70">4</text>
-                        <text class="edge-text" x="215" y="130">1</text>
-                        <text class="edge-text" x="205" y="270">3</text>
-                        <text class="edge-text" x="205" y="330">1</text>
-                        <text class="edge-text" x="350" y="170">5</text>
-                        <text class="edge-text" x="305" y="220">5</text>
-                        <text class="edge-text" x="305" y="330">2</text>
-                        <text class="edge-text" x="350" y="280">3</text>
-
-                        <!-- Nodes -->
-                        <g> <circle class="node-circle" cx="60" cy="200" r="20"></circle> <text class="node-text" x="60" y="205">S</text> <text class="node-text" font-size="10px" x="60" y="225">h=5</text> </g>
-                        <g> <circle class="node-circle" cx="160" cy="100" r="20"></circle> <text class="node-text" x="160" y="105">A</text> <text class="node-text" font-size="10px" x="160" y="75">h=7</text> </g>
-                        <g> <circle class="node-circle" cx="160" cy="300" r="20"></circle> <text class="node-text" x="160" y="305">B</text> <text class="node-text" font-size="10px" x="160" y="325">h=4</text> </g>
-                        <g> <circle class="node-circle" cx="260" cy="50" r="20"></circle> <text class="node-text" x="260" y="55">C</text> <text class="node-text" font-size="10px" x="260" y="25">h=99</text> </g>
-                        <g> <circle class="node-circle" cx="260" cy="150" r="20"></circle> <text class="node-text" x="260" y="155">D</text> <text class="node-text" font-size="10px" x="260" y="125">h=4</text> </g>
-                        <g> <circle class="node-circle" cx="260" cy="250" r="20"></circle> <text class="node-text" x="260" y="255">E</text> <text class="node-text" font-size="10px" x="260" y="225">h=6</text> </g>
-                        <g> <circle class="node-circle" cx="260" cy="350" r="20"></circle> <text class="node-text" x="260" y="355">F</text> <text class="node-text" font-size="10px" x="260" y="375">h=2</text> </g>
-                        <g> <circle class="node-circle" cx="360" cy="200" r="20"></circle> <text class="node-text" x="360" y="205">H</text> <text class="node-text" font-size="10px" x="360" y="175">h=99</text> </g>
-                        <g> <circle class="node-circle" cx="360" cy="300" r="20"></circle> <text class="node-text" x="360" y="305">I</text> <text class="node-text" font-size="10px" x="360" y="325">h=99</text> </g>
-                        <g> <circle class="node-circle" cx="440" cy="200" r="20"></circle> <text class="node-text" x="440" y="205">G</text> <text class="node-text" font-size="10px" x="440" y="225">h=0</text> </g>
+                        <line class="edge-line" x1="60" y1="200" x2="160" y2="100"></line><line class="edge-line" x1="60" y1="200" x2="160" y2="300"></line><line class="edge-line" x1="160" y1="100" x2="260" y2="50"></line><line class="edge-line" x1="160" y1="100" x2="260" y2="150"></line><line class="edge-line" x1="160" y1="300" x2="260" y2="250"></line><line class="edge-line" x1="160" y1="300" x2="260" y2="350"></line><line class="edge-line" x1="260" y1="150" x2="440" y2="200"></line><line class="edge-line" x1="260" y1="250" x2="360" y2="200"></line><line class="edge-line" x1="260" y1="350" x2="360" y2="300"></line><line class="edge-line" x1="260" y1="350" x2="440" y2="200"></line>
+                        <text class="edge-text" x="105" y="145">3</text><text class="edge-text" x="105" y="255">2</text><text class="edge-text" x="205" y="70">4</text><text class="edge-text" x="215" y="130">1</text><text class="edge-text" x="205" y="270">3</text><text class="edge-text" x="205" y="330">1</text><text class="edge-text" x="350" y="170">5</text><text class="edge-text" x="305" y="220">5</text><text class="edge-text" x="305" y="330">2</text><text class="edge-text" x="350" y="280">3</text>
+                        <g> <circle class="node-circle" cx="60" cy="200" r="20"></circle> <text class="node-text" x="60" y="205">S</text> <text class="node-text" font-size="10px" x="60" y="225">h=5</text> </g><g> <circle class="node-circle" cx="160" cy="100" r="20"></circle> <text class="node-text" x="160" y="105">A</text> <text class="node-text" font-size="10px" x="160" y="75">h=7</text> </g><g> <circle class="node-circle" cx="160" cy="300" r="20"></circle> <text class="node-text" x="160" y="305">B</text> <text class="node-text" font-size="10px" x="160" y="325">h=4</text> </g><g> <circle class="node-circle" cx="260" cy="50" r="20"></circle> <text class="node-text" x="260" y="55">C</text> <text class="node-text" font-size="10px" x="260" y="25">h=99</text> </g><g> <circle class="node-circle" cx="260" cy="150" r="20"></circle> <text class="node-text" x="260" y="155">D</text> <text class="node-text" font-size="10px" x="260" y="125">h=4</text> </g><g> <circle class="node-circle" cx="260" cy="250" r="20"></circle> <text class="node-text" x="260" y="255">E</text> <text class="node-text" font-size="10px" x="260" y="225">h=6</text> </g><g> <circle class="node-circle" cx="260" cy="350" r="20"></circle> <text class="node-text" x="260" y="355">F</text> <text class="node-text" font-size="10px" x="260" y="375">h=2</text> </g><g> <circle class="node-circle" cx="360" cy="200" r="20"></circle> <text class="node-text" x="360" y="205">H</text> <text class="node-text" font-size="10px" x="360" y="175">h=99</text> </g><g> <circle class="node-circle" cx="360" cy="300" r="20"></circle> <text class="node-text" x="360" y="305">I</text> <text class="node-text" font-size="10px" x="360" y="325">h=99</text> </g><g> <circle class="node-circle" cx="440" cy="200" r="20"></circle> <text class="node-text" x="440" y="205">G</text> <text class="node-text" font-size="10px" x="440" y="225">h=0</text> </g>
                     </svg>
                 </div>
 
@@ -236,43 +210,35 @@
                 </div>
 
                 <h3 class="font-semibold text-lg mt-6 mb-2">Expected Output</h3>
-                <div class="code-block">
-                    <pre><code>Path: ['S', 'B', 'F', 'G']
-Cost: 6</code></pre>
-                </div>
+                <div class="code-block"><pre><code>Path: ['S', 'B', 'F', 'G']
+Cost: 6</code></pre></div>
 
                 <button class="btn-toggle" onclick="toggleCode('astar-approach')">Show Suggested Approach</button>
-                <div id="astar-approach" class="content">
-                    <div class="code-block">
-                        <pre><code><span class="keyword">import</span> heapq
-
+                <div id="astar-approach" class="content"><div class="code-block"><pre><code><span class="keyword">import</span> heapq
 <span class="keyword">def</span> <span class="function">a_star_search</span>(<span class="variable">graph, heuristic, start, goal</span>):
-    <span class="comment"># TODO: Initialize the priority queue (open list) with the start node.
-    # The queue should store tuples in the format: (f_cost, node, path_list, g_cost).</span>
+    <span class="comment"># TODO: Initialize the priority queue...</span>
+    <span class="comment"># TODO: Initialize a set for visited nodes.</span>
+    <span class="comment"># TODO: Loop while the priority queue is not empty.</span>
+        <span class="comment"># TODO: Pop the node with the smallest f_cost.</span>
+        <span class="comment"># TODO: If visited, continue.</span>
+        <span class="comment"># TODO: Add to visited set.</span>
+        <span class="comment"># TODO: If it's the goal, return path and cost.</span>
+        <span class="comment"># TODO: Iterate through neighbors and update costs/path.</span>
+    <span class="comment"># TODO: Return failure if goal not found.</span>
+    <span class="keyword">pass</span></code></pre></div></div>
 
-    <span class="comment"># TODO: Initialize a set to keep track of visited nodes.</span>
-
-    <span class="comment"># TODO: Start a loop that continues as long as the open list is not empty.</span>
-
-        <span class="comment"># TODO: Pop the node with the smallest f_cost from the priority queue.</span>
-
-        <span class="comment"># TODO: If the popped node has already been visited, skip to the next iteration.</span>
-
-        <span class="comment"># TODO: Add the current node to the visited set.</span>
-
-        <span class="comment"># TODO: If the current node is the goal node, return the path and the total cost (g_cost).</span>
-
-        <span class="comment"># TODO: Iterate through the neighbors of the current node.</span>
-
-            <span class="comment"># TODO: For each neighbor, if it has not been visited:
-            # 1. Calculate the new g_cost (cost from the start to this neighbor).
-            # 2. Calculate the new f_cost (g_cost + heuristic of the neighbor).
-            # 3. Push the neighbor onto the priority queue with its f_cost, path, and g_cost.</span>
-
-    <span class="comment"># TODO: If the loop finishes without finding the goal, return None to indicate failure.</span>
-    <span class="keyword">pass</span> <span class="comment"># Remove this line after implementing the logic</span>
-</code></pre>
-                    </div>
+                <div class="challenge-block">
+                    <h3 class="text-xl font-bold text-red-300 mb-2">Deeper Dive: Trace the Search</h3>
+                    <p class="text-gray-300 mb-4">To truly understand A*, you need to see it think. Manually trace the algorithm's state at each step. Fill out a table like the one below to track how the open list (priority queue) and visited list change as Spidey finds his way.</p>
+                    <div class="code-block"><pre><code>Iteration | Node Popped | f(n) | Path          | Open List               | Visited Set
+----------|-------------|------|---------------|-------------------------|-------------
+1         | S           | 5    | ['S']         | [(6,B), (8,A)]          | {S}
+2         | B           | 6    | ['S','B']     | [(7,F), (8,A), (14,E)]  | {S, B}
+...       | ...         | ...  | ...           | ...                     | ...
+</code></pre></div>
+                    <h3 class="text-xl font-bold text-red-300 mt-6 mb-2">Challenge: The Heuristic's Power</h3>
+                    <p class="text-gray-300">What if Spidey's spider-sense was a little... off? A less accurate heuristic might still find the goal, but it could explore more dead ends. Run your algorithm again with this "weaker" heuristic. How many nodes does it expand compared to the original? This shows why a good heuristic is like a super-power for search algorithms!</p>
+                    <div class="code-block"><pre><code><span class="variable">weak_heuristic</span> = {<span class="string">'S'</span>:<span class="number">1</span>,<span class="string">'A'</span>:<span class="number">1</span>,<span class="string">'B'</span>:<span class="number">1</span>,<span class="string">'C'</span>:<span class="number">1</span>,<span class="string">'D'</span>:<span class="number">1</span>,<span class="string">'E'</span>:<span class="number">1</span>,<span class="string">'F'</span>:<span class="number">1</span>,<span class="string">'G'</span>:<span class="number">0</span>,<span class="string">'H'</span>:<span class="number">1</span>,<span class="string">'I'</span>:<span class="number">1</span>}</code></pre></div>
                 </div>
             </div>
             
@@ -283,35 +249,15 @@ Cost: 6</code></pre>
                     Spider-Man is perched on a skyscraper and needs to find the highest nearby peak to get the best view of the city. The array represents the heights of adjacent rooftops. Using the <strong>Simple Hill Climbing algorithm</strong>, help Spidey find the nearest local maximum height to survey for trouble. He can only jump to an immediately adjacent (left or right) rooftop.
                 </p>
                 <div class="graph-container">
-                    <svg viewBox="0 0 500 150" xmlns="http://www.w3.org/2000/svg">
+                     <svg viewBox="0 0 500 150" xmlns="http://www.w3.org/2000/svg">
                         <defs>
-                             <linearGradient id="hillGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                                <stop offset="0%" style="stop-color:#005eff;stop-opacity:0.4" />
-                                <stop offset="100%" style="stop-color:#00123e;stop-opacity:0.1" />
-                            </linearGradient>
-                            <style>
-                                .hill-line { stroke: #005eff; stroke-width: 3; fill: url(#hillGradient); }
-                                .hill-point { fill: #d10023; stroke: white; stroke-width: 1.5; }
-                                .hill-text { font-family: 'Rajdhani', sans-serif; font-size: 12px; fill: white; text-anchor: middle; font-weight: 600; }
-                            </style>
+                             <linearGradient id="hillGradient" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#005eff;stop-opacity:0.4" /><stop offset="100%" style="stop-color:#00123e;stop-opacity:0.1" /></linearGradient>
+                            <style>.hill-line { stroke: #005eff; stroke-width: 3; fill: url(#hillGradient); } .hill-point { fill: #d10023; stroke: white; stroke-width: 1.5; } .hill-text { font-family: 'Rajdhani', sans-serif; font-size: 12px; fill: white; text-anchor: middle; font-weight: 600; }</style>
                         </defs>
                         <polyline class="hill-line" points="0,128 62.5,95 125,60 187.5,10 250,20 312.5,50 375,0 437.5,5 500,30" transform="translate(0, 10)"/>
-
-                        <!-- Points and Labels -->
-                        <g transform="translate(0, 10)">
-                            <circle class="hill-point" cx="0" cy="128" r="4"></circle> <text class="hill-text" x="0" y="122">2</text>
-                            <circle class="hill-point" cx="62.5" cy="95" r="4"></circle> <text class="hill-text" x="62.5" y="89">5</text>
-                            <circle class="hill-point" cx="125" cy="60" r="4"></circle> <text class="hill-text" x="125" y="54">8</text>
-                            <circle class="hill-point" cx="187.5" cy="10" r="4"></circle> <text class="hill-text" x="187.5" y="0">12</text>
-                            <circle class="hill-point" cx="250" cy="20" r="4"></circle> <text class="hill-text" x="250" y="14">11</text>
-                            <circle class="hill-point" cx="312.5" cy="50" r="4"></circle> <text class="hill-text" x="312.5" y="44">9</text>
-                            <circle class="hill-point" cx="375" cy="0" r="5"></circle> <text class="hill-text" x="375" y="-6">15</text>
-                            <circle class="hill-point" cx="437.5" cy="5" r="4"></circle> <text class="hill-text" x="437.5" y="-1">14</text>
-                            <circle class="hill-point" cx="500" cy="30" r="4"></circle> <text class="hill-text" x="500" y="24">10</text>
-                        </g>
+                        <g transform="translate(0, 10)"><circle class="hill-point" cx="0" cy="128" r="4"></circle> <text class="hill-text" x="0" y="122">2</text><circle class="hill-point" cx="62.5" cy="95" r="4"></circle> <text class="hill-text" x="62.5" y="89">5</text><circle class="hill-point" cx="125" cy="60" r="4"></circle> <text class="hill-text" x="125" y="54">8</text><circle class="hill-point" cx="187.5" cy="10" r="4"></circle> <text class="hill-text" x="187.5" y="0">12</text><circle class="hill-point" cx="250" cy="20" r="4"></circle> <text class="hill-text" x="250" y="14">11</text><circle class="hill-point" cx="312.5" cy="50" r="4"></circle> <text class="hill-text" x="312.5" y="44">9</text><circle class="hill-point" cx="375" cy="0" r="5"></circle> <text class="hill-text" x="375" y="-6">15</text><circle class="hill-point" cx="437.5" cy="5" r="4"></circle> <text class="hill-text" x="437.5" y="-1">14</text><circle class="hill-point" cx="500" cy="30" r="4"></circle> <text class="hill-text" x="500" y="24">10</text></g>
                     </svg>
                 </div>
-
 
                 <h3 class="font-semibold text-lg mt-6 mb-2">Sample Input</h3>
                 <div class="code-block">
@@ -323,43 +269,36 @@ Cost: 6</code></pre>
                 </div>
 
                 <h3 class="font-semibold text-lg mt-6 mb-2">Expected Output</h3>
-                <div class="code-block">
-                    <pre><code>From start 0: Vantage point found at index 3 with height 12
+                <div class="code-block"><pre><code>From start 0: Vantage point found at index 3 with height 12
 From start 8: Vantage point found at index 6 with height 15
-</code></pre>
-                </div>
+</code></pre></div>
                 
                  <button class="btn-toggle" onclick="toggleCode('hillclimb-approach')">Show Suggested Approach</button>
-                 <div id="hillclimb-approach" class="content">
-                    <div class="code-block">
-                        <pre><code><span class="keyword">def</span> <span class="function">hill_climbing</span>(<span class="variable">landscape, start_index</span>):
+                 <div id="hillclimb-approach" class="content"><div class="code-block"><pre><code><span class="keyword">def</span> <span class="function">hill_climbing</span>(<span class="variable">landscape, start_index</span>):
     <span class="comment"># TODO: Initialize current_index with the start_index.</span>
-
     <span class="comment"># TODO: Start an infinite loop (while True).</span>
+        <span class="comment"># TODO: Assume the current position is the best.</span>
+        <span class="comment"># TODO: Check the neighbors (left and right).</span>
+        <span class="comment"># TODO: If a neighbor is better, update the best neighbor.</span>
+        <span class="comment"># TODO: If no neighbor is better, we've found a peak. Return it.</span>
+        <span class="comment"># TODO: Otherwise, move to the better neighbor.</span>
+    <span class="keyword">pass</span></code></pre></div></div>
 
-        <span class="comment"># TODO: Get the value of the landscape at the current_index.</span>
+                 <div class="challenge-block">
+                    <h3 class="text-xl font-bold text-red-300 mb-2">Deeper Dive: The Local Maximum Trap</h3>
+                    <p class="text-gray-300 mb-4">Hill Climbing is fast, but it has a famous weakness: it can get stuck on "local maximums" (smaller hills) and miss the true highest point (the "global maximum"). What happens if Spidey starts in a different spot? See how the algorithm gets trapped on a smaller peak, unable to see the taller skyscraper nearby.</p>
+                    <div class="code-block">
+                        <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+                        <pre><code><span class="comment"># A new set of rooftops with a tricky layout</span>
+<span class="variable">rooftops_trap</span> = [<span class="number">2</span>, <span class="number">10</span>, <span class="number">8</span>, <span class="number">5</span>, <span class="number">15</span>, <span class="number">12</span>]
+<span class="variable">start_pos_trap</span> = <span class="number">0</span> <span class="comment"># Start at height 2</span>
 
-        <span class="comment"># TODO: Assume the current position is the best for now.
-        # Initialize best_neighbor_index = current_index.</span>
-
-        <span class="comment"># TODO: Check the neighbors (left and right). Iterate through offsets [-1, 1].</span>
-
-            <span class="comment"># TODO: Calculate the neighbor's index.</span>
-
-            <span class="comment"># TODO: Check if the neighbor_index is within the valid bounds of the landscape array.</span>
-
-                <span class="comment"># TODO: If the neighbor's value is greater than the value of the current best neighbor,
-                # update best_neighbor_index.</span>
-
-        <span class="comment"># TODO: After checking both neighbors, if the best_neighbor_index is still the same as current_index,
-        # it means we've found a local maximum. Return the current_index and its value.</span>
-
-        <span class="comment"># TODO: If a better neighbor was found, update current_index to best_neighbor_index and
-        # continue the loop.</span>
-    <span class="keyword">pass</span> <span class="comment"># Remove this line after implementing the logic</span>
-</code></pre>
-                    </div>
-                 </div>
+<span class="comment"># Expected Output: Vantage point found at index 1 with height 10
+# Notice how it missed the true maximum of 15!</span>
+</code></pre></div>
+                    <h3 class="text-xl font-bold text-red-300 mt-6 mb-2">Challenge: Escaping the Trap</h3>
+                    <p class="text-gray-300">How can Spidey avoid getting stuck? One way is <strong>Random-Restart Hill Climbing</strong>. The idea is simple: run the algorithm multiple times from different random starting points. Can you modify your approach to implement this? Run it 10 times on `rooftops_trap` and see if you can consistently find the global maximum of 15!</p>
+                </div>
             </div>
         </main>
 
