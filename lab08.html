@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Lab 8</title>
+    <!-- Icon-->
+    <link rel="icon" type="image/png" href="favicon-16x16.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: #00123e;
+            background-image:
+                radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(135deg, #d10023 0%, #005eff 100%);
+            background-size: 20px 20px, 100% 100%;
+            color: #e0e0e0;
+            letter-spacing: 0.025em;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        .main-container {
+            max-width: 64rem;
+            margin-left: auto;
+            margin-right: auto;
+            background: rgba(10, 20, 40, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(209, 0, 35, 0.3);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.2), 0 8px 10px -6px rgb(0 0 0 / 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .main-container::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50%;
+            height: 50%;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3e%3cpath fill='rgba(0, 94, 255, 1)' d='M64.9,56.5l8.6-8.6c1.6-1.6,1.6-4.1,0-5.7l-4.8-4.8c-1.6-1.6-4.1-1.6-5.7,0l-8.6,8.6c-0.6,0.6-1.5,0.6-2.1,0L43.8,37.3 c-1.6-1.6-4.1-1.6-5.7,0l-4.8,4.8c-1.6-1.6-1.6-4.1,0,5.7l8.6,8.6c0.6,0.6,0.6,1.5,0,2.1L33.4,67c-1.6,1.6-1.6,4.1,0,5.7l4.8,4.8 c1.6,1.6,4.1,1.6,5.7,0l8.6-8.6c0.6-0.6,1.5-0.6,2.1,0l8.6,8.6c1.6,1.6,4.1,1.6,5.7,0l4.8-4.8c1.6-1.6,1.6-4.1,0-5.7l-8.6-8.6 C65.5,58,65.5,57.1,64.9,56.5z M50,58.8c-4.9,0-8.8-4-8.8-8.8s4-8.8,8.8-8.8s8.8,4,8.8,8.8S54.9,58.8,50,58.8z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        .main-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(0, 94, 255, 0.5);
+        }
+        .header-title {
+            font-weight: 700;
+            color: #FFFFFF;
+            text-shadow: 0 0 8px #d10023, 0 0 12px #005eff;
+        }
+        .question-block {
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+            background-color: rgba(0, 30, 80, 0.3);
+            border-radius: 1rem;
+            border-left: 4px solid #d10023;
+        }
+        .code-block {
+            background-color: #0d1117;
+            color: #c9d1d9;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            border: 1px solid rgba(0, 94, 255, 0.3);
+            margin-top: 1rem;
+        }
+        .code-block .comment { color: #8b949e; }
+        .code-block .keyword { color: #ff7b72; }
+        .code-block .function { color: #d2a8ff; }
+        .code-block .string { color: #a5d6ff; }
+        .code-block .number { color: #79c0ff; }
+        .code-block .variable { color: #ffa657; }
+        .btn-toggle {
+            display: inline-block;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.2s ease-in-out;
+            background: linear-gradient(to right, #005eff, #003a9e); 
+            color: white;
+            border: none;
+            margin-top: 1rem;
+        }
+        .btn-toggle:hover {
+            opacity: 0.9;
+            box-shadow: 0 0 15px rgba(0, 94, 255, 0.7);
+        }
+        .btn {
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            border: 1px solid transparent;
+            text-decoration: none;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .btn-hub { background: linear-gradient(to right, #d10023, #a1001a); color: white; }
+        .btn-hub:hover { opacity: 0.9; }
+
+        .content {
+            display: none;
+            margin-top: 1rem;
+        }
+        .graph-container {
+            width: 100%;
+            max-width: 550px;
+            margin: 1.5rem auto;
+            display: block;
+        }
+        .graph-container svg {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <div class="main-container w-full p-6 md:p-10">
+        <header class="text-center mb-8">
+            <h1 class="header-title text-4xl md:text-5xl">AI Lab 8: Spider-Sense Algorithms</h1>
+            <p class="text-lg text-gray-400 mt-2 mb-4">Web-slinging through A* and Hill Climbing challenges.</p>
+        </header>
+
+        <main>
+            <!-- Question 1: A* Algorithm -->
+            <div class="question-block">
+                <h2 class="text-2xl font-bold text-gray-100 mb-4">Mission 1: The Goblin's Gauntlet</h2>
+                <p class="text-gray-300">
+                    Spider-Man needs to swing from his starting point ('S') to the Green Goblin's hideout ('G') as fast as possible! The graph below represents different intersections in New York City. The numbers on the webs (edges) are the time (in minutes) it takes to travel between them. Spidey's spider-sense gives him a heuristic estimate (h-value) of the remaining time to the hideout from any intersection. Use the A* algorithm to find the quickest path for our hero!
+                </p>
+                <div class="graph-container">
+                    <svg viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <style>
+                                .node-circle { fill: #005eff; stroke: #d10023; stroke-width: 2; }
+                                .node-text { font-family: 'Rajdhani', sans-serif; font-size: 14px; fill: white; text-anchor: middle; font-weight: 600; }
+                                .edge-line { stroke: rgba(255, 255, 255, 0.5); stroke-width: 2; }
+                                .edge-text { font-family: 'Rajdhani', sans-serif; font-size: 12px; fill: #a5d6ff; text-anchor: middle; font-weight: 500;}
+                            </style>
+                        </defs>
+                        
+                        <!-- Edges -->
+                        <line class="edge-line" x1="60" y1="200" x2="160" y2="100"></line>
+                        <line class="edge-line" x1="60" y1="200" x2="160" y2="300"></line>
+                        <line class="edge-line" x1="160" y1="100" x2="260" y2="50"></line>
+                        <line class="edge-line" x1="160" y1="100" x2="260" y2="150"></line>
+                        <line class="edge-line" x1="160" y1="300" x2="260" y2="250"></line>
+                        <line class="edge-line" x1="160" y1="300" x2="260" y2="350"></line>
+                        <line class="edge-line" x1="260" y1="150" x2="440" y2="200"></line>
+                        <line class="edge-line" x1="260" y1="250" x2="360" y2="200"></line>
+                        <line class="edge-line" x1="260" y1="350" x2="360" y2="300"></line>
+                        <line class="edge-line" x1="260" y1="350" x2="440" y2="200"></line>
+
+                        <!-- Edge Labels -->
+                        <text class="edge-text" x="105" y="145">3</text>
+                        <text class="edge-text" x="105" y="255">2</text>
+                        <text class="edge-text" x="205" y="70">4</text>
+                        <text class="edge-text" x="215" y="130">1</text>
+                        <text class="edge-text" x="205" y="270">3</text>
+                        <text class="edge-text" x="205" y="330">1</text>
+                        <text class="edge-text" x="350" y="170">5</text>
+                        <text class="edge-text" x="305" y="220">5</text>
+                        <text class="edge-text" x="305" y="330">2</text>
+                        <text class="edge-text" x="350" y="280">3</text>
+
+                        <!-- Nodes -->
+                        <g> <circle class="node-circle" cx="60" cy="200" r="20"></circle> <text class="node-text" x="60" y="205">S</text> <text class="node-text" font-size="10px" x="60" y="225">h=5</text> </g>
+                        <g> <circle class="node-circle" cx="160" cy="100" r="20"></circle> <text class="node-text" x="160" y="105">A</text> <text class="node-text" font-size="10px" x="160" y="75">h=7</text> </g>
+                        <g> <circle class="node-circle" cx="160" cy="300" r="20"></circle> <text class="node-text" x="160" y="305">B</text> <text class="node-text" font-size="10px" x="160" y="325">h=4</text> </g>
+                        <g> <circle class="node-circle" cx="260" cy="50" r="20"></circle> <text class="node-text" x="260" y="55">C</text> <text class="node-text" font-size="10px" x="260" y="25">h=99</text> </g>
+                        <g> <circle class="node-circle" cx="260" cy="150" r="20"></circle> <text class="node-text" x="260" y="155">D</text> <text class="node-text" font-size="10px" x="260" y="125">h=4</text> </g>
+                        <g> <circle class="node-circle" cx="260" cy="250" r="20"></circle> <text class="node-text" x="260" y="255">E</text> <text class="node-text" font-size="10px" x="260" y="225">h=6</text> </g>
+                        <g> <circle class="node-circle" cx="260" cy="350" r="20"></circle> <text class="node-text" x="260" y="355">F</text> <text class="node-text" font-size="10px" x="260" y="375">h=2</text> </g>
+                        <g> <circle class="node-circle" cx="360" cy="200" r="20"></circle> <text class="node-text" x="360" y="205">H</text> <text class="node-text" font-size="10px" x="360" y="175">h=99</text> </g>
+                        <g> <circle class="node-circle" cx="360" cy="300" r="20"></circle> <text class="node-text" x="360" y="305">I</text> <text class="node-text" font-size="10px" x="360" y="325">h=99</text> </g>
+                        <g> <circle class="node-circle" cx="440" cy="200" r="20"></circle> <text class="node-text" x="440" y="205">G</text> <text class="node-text" font-size="10px" x="440" y="225">h=0</text> </g>
+                    </svg>
+                </div>
+
+                <h3 class="font-semibold text-lg mt-6 mb-2">Sample Input</h3>
+                <div class="code-block">
+                    <pre><code><span class="comment"># NYC map represented as an adjacency list: location -> (neighbor, time)</span>
+<span class="variable">graph</span> = {
+    <span class="string">'S'</span>: [(<span class="string">'A'</span>, <span class="number">3</span>), (<span class="string">'B'</span>, <span class="number">2</span>)],
+    <span class="string">'A'</span>: [(<span class="string">'C'</span>, <span class="number">4</span>), (<span class="string">'D'</span>, <span class="number">1</span>)],
+    <span class="string">'B'</span>: [(<span class="string">'E'</span>, <span class="number">3</span>), (<span class="string">'F'</span>, <span class="number">1</span>)],
+    <span class="string">'C'</span>: [],
+    <span class="string">'D'</span>: [(<span class="string">'G'</span>, <span class="number">5</span>)],
+    <span class="string">'E'</span>: [(<span class="string">'H'</span>, <span class="number">5</span>)],
+    <span class="string">'F'</span>: [(<span class="string">'I'</span>, <span class="number">2</span>), (<span class="string">'G'</span>, <span class="number">3</span>)],
+    <span class="string">'G'</span>: [], <span class="string">'H'</span>: [], <span class="string">'I'</span>: []
+}
+<span class="comment"># Spider-Sense heuristic values h(n) to the hideout 'G'</span>
+<span class="variable">heuristic</span> = {<span class="string">'S'</span>: <span class="number">5</span>, <span class="string">'A'</span>: <span class="number">7</span>, <span class="string">'B'</span>: <span class="number">4</span>, <span class="string">'C'</span>: <span class="number">99</span>, <span class="string">'D'</span>: <span class="number">4</span>, <span class="string">'E'</span>: <span class="number">6</span>, <span class="string">'F'</span>: <span class="number">2</span>, <span class="string">'G'</span>: <span class="number">0</span>, <span class="string">'H'</span>: <span class="number">99</span>, <span class="string">'I'</span>: <span class="number">99</span>}
+<span class="variable">start_node</span> = <span class="string">'S'</span>
+<span class="variable">goal_node</span> = <span class="string">'G'</span></code></pre>
+                </div>
+
+                <h3 class="font-semibold text-lg mt-6 mb-2">Expected Output</h3>
+                <div class="code-block">
+                    <pre><code>Path: ['S', 'B', 'F', 'G']
+Cost: 6</code></pre>
+                </div>
+
+                <button class="btn-toggle" onclick="toggleCode('astar-approach')">Show Suggested Approach</button>
+                <div id="astar-approach" class="content">
+                    <div class="code-block">
+                        <pre><code><span class="keyword">import</span> heapq
+
+<span class="keyword">def</span> <span class="function">a_star_search</span>(<span class="variable">graph, heuristic, start, goal</span>):
+    <span class="comment"># TODO: Initialize the priority queue (open list) with the start node.
+    # The queue should store tuples in the format: (f_cost, node, path_list, g_cost).</span>
+
+    <span class="comment"># TODO: Initialize a set to keep track of visited nodes.</span>
+
+    <span class="comment"># TODO: Start a loop that continues as long as the open list is not empty.</span>
+
+        <span class="comment"># TODO: Pop the node with the smallest f_cost from the priority queue.</span>
+
+        <span class="comment"># TODO: If the popped node has already been visited, skip to the next iteration.</span>
+
+        <span class="comment"># TODO: Add the current node to the visited set.</span>
+
+        <span class="comment"># TODO: If the current node is the goal node, return the path and the total cost (g_cost).</span>
+
+        <span class="comment"># TODO: Iterate through the neighbors of the current node.</span>
+
+            <span class="comment"># TODO: For each neighbor, if it has not been visited:
+            # 1. Calculate the new g_cost (cost from the start to this neighbor).
+            # 2. Calculate the new f_cost (g_cost + heuristic of the neighbor).
+            # 3. Push the neighbor onto the priority queue with its f_cost, path, and g_cost.</span>
+
+    <span class="comment"># TODO: If the loop finishes without finding the goal, return None to indicate failure.</span>
+    <span class="keyword">pass</span> <span class="comment"># Remove this line after implementing the logic</span>
+</code></pre>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Question 2: Hill Climbing -->
+            <div class="question-block">
+                <h2 class="text-2xl font-bold text-gray-100 mb-4">Mission 2: Skyscraper Ascent</h2>
+                <p class="text-gray-300">
+                    Spider-Man is perched on a skyscraper and needs to find the highest nearby peak to get the best view of the city. The array represents the heights of adjacent rooftops. Using the Simple Hill Climbing algorithm, help Spidey find the nearest local maximum height to survey for trouble. He can only jump to an immediately adjacent (left or right) rooftop.
+                </p>
+                <div class="graph-container">
+                    <svg viewBox="0 0 500 150" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                             <linearGradient id="hillGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#005eff;stop-opacity:0.4" />
+                                <stop offset="100%" style="stop-color:#00123e;stop-opacity:0.1" />
+                            </linearGradient>
+                            <style>
+                                .hill-line { stroke: #005eff; stroke-width: 3; fill: url(#hillGradient); }
+                                .hill-point { fill: #d10023; stroke: white; stroke-width: 1.5; }
+                                .hill-text { font-family: 'Rajdhani', sans-serif; font-size: 12px; fill: white; text-anchor: middle; font-weight: 600; }
+                            </style>
+                        </defs>
+                        <polyline class="hill-line" points="0,128 62.5,95 125,60 187.5,10 250,20 312.5,50 375,0 437.5,5 500,30" transform="translate(0, 10)"/>
+
+                        <!-- Points and Labels -->
+                        <g transform="translate(0, 10)">
+                            <circle class="hill-point" cx="0" cy="128" r="4"></circle> <text class="hill-text" x="0" y="122">2</text>
+                            <circle class="hill-point" cx="62.5" cy="95" r="4"></circle> <text class="hill-text" x="62.5" y="89">5</text>
+                            <circle class="hill-point" cx="125" cy="60" r="4"></circle> <text class="hill-text" x="125" y="54">8</text>
+                            <circle class="hill-point" cx="187.5" cy="10" r="4"></circle> <text class="hill-text" x="187.5" y="0">12</text>
+                            <circle class="hill-point" cx="250" cy="20" r="4"></circle> <text class="hill-text" x="250" y="14">11</text>
+                            <circle class="hill-point" cx="312.5" cy="50" r="4"></circle> <text class="hill-text" x="312.5" y="44">9</text>
+                            <circle class="hill-point" cx="375" cy="0" r="5"></circle> <text class="hill-text" x="375" y="-6">15</text>
+                            <circle class="hill-point" cx="437.5" cy="5" r="4"></circle> <text class="hill-text" x="437.5" y="-1">14</text>
+                            <circle class="hill-point" cx="500" cy="30" r="4"></circle> <text class="hill-text" x="500" y="24">10</text>
+                        </g>
+                    </svg>
+                </div>
+
+
+                <h3 class="font-semibold text-lg mt-6 mb-2">Sample Input</h3>
+                <div class="code-block">
+                    <pre><code><span class="variable">rooftops</span> = [<span class="number">2</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">12</span>, <span class="number">11</span>, <span class="number">9</span>, <span class="number">15</span>, <span class="number">14</span>, <span class="number">10</span>]
+<span class="variable">start_pos_1</span> = <span class="number">0</span>  <span class="comment"># Starting on rooftop of height 2</span>
+<span class="variable">start_pos_2</span> = <span class="number">8</span>  <span class="comment"># Starting on rooftop of height 10</span>
+</code></pre>
+                </div>
+
+                <h3 class="font-semibold text-lg mt-6 mb-2">Expected Output</h3>
+                <div class="code-block">
+                    <pre><code>From start 0: Vantage point found at index 3 with height 12
+From start 8: Vantage point found at index 6 with height 15
+</code></pre>
+                </div>
+                
+                 <button class="btn-toggle" onclick="toggleCode('hillclimb-approach')">Show Suggested Approach</button>
+                 <div id="hillclimb-approach" class="content">
+                    <div class="code-block">
+                        <pre><code><span class="keyword">def</span> <span class="function">hill_climbing</span>(<span class="variable">landscape, start_index</span>):
+    <span class="comment"># TODO: Initialize current_index with the start_index.</span>
+
+    <span class="comment"># TODO: Start an infinite loop (while True).</span>
+
+        <span class="comment"># TODO: Get the value of the landscape at the current_index.</span>
+
+        <span class="comment"># TODO: Assume the current position is the best for now.
+        # Initialize best_neighbor_index = current_index.</span>
+
+        <span class="comment"># TODO: Check the neighbors (left and right). Iterate through offsets [-1, 1].</span>
+
+            <span class="comment"># TODO: Calculate the neighbor's index.</span>
+
+            <span class="comment"># TODO: Check if the neighbor_index is within the valid bounds of the landscape array.</span>
+
+                <span class="comment"># TODO: If the neighbor's value is greater than the value of the current best neighbor,
+                # update best_neighbor_index.</span>
+
+        <span class="comment"># TODO: After checking both neighbors, if the best_neighbor_index is still the same as current_index,
+        # it means we've found a local maximum. Return the current_index and its value.</span>
+
+        <span class="comment"># TODO: If a better neighbor was found, update current_index to best_neighbor_index and
+        # continue the loop.</span>
+    <span class="keyword">pass</span> <span class="comment"># Remove this line after implementing the logic</span>
+</code></pre>
+                    </div>
+                 </div>
+            </div>
+        </main>
+
+        <footer class="mt-8 text-center">
+             <a href="index.html" class="btn btn-hub inline-block py-2 px-6">Back to Main Hub</a>
+        </footer>
+    </div>
+    <script>
+        function toggleCode(id) {
+            var element = document.getElementById(id);
+            if (element.style.display === "none" || element.style.display === "") {
+                element.style.display = "block";
+            } else {
+                element.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
+
