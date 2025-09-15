@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Lab 8</title>
-    <!-- Icon-->
+    <title>AI Lab 8: Spider-Sense Algorithms</title>
+    <!-- Icon with a Spider Symbol -->
     <link rel="icon" type="image/png" href="favicon-16x16.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,7 +47,7 @@
             transform: translate(-50%, -50%);
             width: 50%;
             height: 50%;
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3e%3cpath fill='rgba(0, 94, 255, 1)' d='M64.9,56.5l8.6-8.6c1.6-1.6,1.6-4.1,0-5.7l-4.8-4.8c-1.6-1.6-4.1-1.6-5.7,0l-8.6,8.6c-0.6,0.6-1.5,0.6-2.1,0L43.8,37.3 c-1.6-1.6-4.1-1.6-5.7,0l-4.8,4.8c-1.6-1.6-1.6-4.1,0,5.7l8.6,8.6c0.6,0.6,0.6,1.5,0,2.1L33.4,67c-1.6,1.6-1.6,4.1,0,5.7l4.8,4.8 c1.6,1.6,4.1,1.6,5.7,0l8.6-8.6c0.6-0.6,1.5-0.6,2.1,0l8.6,8.6c1.6,1.6,4.1,1.6,5.7,0l4.8-4.8c1.6-1.6,1.6-4.1,0-5.7l-8.6-8.6 C65.5,58,65.5,57.1,64.9,56.5z M50,58.8c-4.9,0-8.8-4-8.8-8.8s4-8.8,8.8-8.8s8.8,4,8.8,8.8S54.9,58.8,50,58.8z'/%3e%3c/svg%3e");
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3e%3cpath fill='rgba(0, 94, 255, 1)' d='M64.9,56.5l8.6-8.6c1.6-1.6,1.6-4.1,0-5.7l-4.8-4.8c-1.6-1.6-4.1-1.6-5.7,0l-8.6,8.6c-0.6,0.6-1.5,0.6-2.1,0L43.8,37.3 c-1.6-1.6-4.1-1.6-5.7,0l-4.8,4.8c-1.6-1.6,1.6-4.1,0,5.7l8.6,8.6c0.6,0.6,0.6,1.5,0,2.1L33.4,67c-1.6,1.6-1.6,4.1,0,5.7l4.8,4.8 c1.6,1.6,4.1,1.6,5.7,0l8.6-8.6c0.6-0.6,1.5-0.6,2.1,0l8.6,8.6c1.6,1.6,4.1,1.6,5.7,0l4.8-4.8c-1.6-1.6,1.6-4.1,0-5.7l-8.6-8.6 C65.5,58,65.5,57.1,64.9,56.5z M50,58.8c-4.9,0-8.8-4-8.8-8.8s4-8.8,8.8-8.8s8.8,4,8.8,8.8S54.9,58.8,50,58.8z'/%3e%3c/svg%3e");
             background-repeat: no-repeat;
             background-position: center;
             background-size: contain;
@@ -71,6 +71,7 @@
             border-left: 4px solid #d10023;
         }
         .code-block {
+            position: relative;
             background-color: #0d1117;
             color: #c9d1d9;
             padding: 1rem;
@@ -87,6 +88,23 @@
         .code-block .string { color: #a5d6ff; }
         .code-block .number { color: #79c0ff; }
         .code-block .variable { color: #ffa657; }
+        .btn-copy {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background-color: #1a2c4a;
+            color: #a5d6ff;
+            border: 1px solid #005eff;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-copy:hover {
+            background-color: #005eff;
+            color: white;
+        }
         .btn-toggle {
             display: inline-block;
             cursor: pointer;
@@ -146,7 +164,7 @@
             <div class="question-block">
                 <h2 class="text-2xl font-bold text-gray-100 mb-4">Mission 1: The Goblin's Gauntlet</h2>
                 <p class="text-gray-300">
-                    Spider-Man needs to swing from his starting point ('S') to the Green Goblin's hideout ('G') as fast as possible! The graph below represents different intersections in New York City. The numbers on the webs (edges) are the time (in minutes) it takes to travel between them. Spidey's spider-sense gives him a heuristic estimate (h-value) of the remaining time to the hideout from any intersection. Use the A* algorithm to find the quickest path for our hero!
+                    Spider-Man needs to swing from his starting point ('S') to the Green Goblin's hideout ('G') as fast as possible! The graph below represents different intersections in New York City. The numbers on the webs (edges) are the time (in minutes) it takes to travel between them. Spidey's spider-sense gives him a heuristic estimate (h-value) of the remaining time to the hideout from any intersection. Use the <strong>A* algorithm</strong> to find the quickest path for our hero!
                 </p>
                 <div class="graph-container">
                     <svg viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
@@ -199,6 +217,7 @@
 
                 <h3 class="font-semibold text-lg mt-6 mb-2">Sample Input</h3>
                 <div class="code-block">
+                    <button class="btn-copy" onclick="copyCode(this)">Copy</button>
                     <pre><code><span class="comment"># NYC map represented as an adjacency list: location -> (neighbor, time)</span>
 <span class="variable">graph</span> = {
     <span class="string">'S'</span>: [(<span class="string">'A'</span>, <span class="number">3</span>), (<span class="string">'B'</span>, <span class="number">2</span>)],
@@ -261,7 +280,7 @@ Cost: 6</code></pre>
             <div class="question-block">
                 <h2 class="text-2xl font-bold text-gray-100 mb-4">Mission 2: Skyscraper Ascent</h2>
                 <p class="text-gray-300">
-                    Spider-Man is perched on a skyscraper and needs to find the highest nearby peak to get the best view of the city. The array represents the heights of adjacent rooftops. Using the Simple Hill Climbing algorithm, help Spidey find the nearest local maximum height to survey for trouble. He can only jump to an immediately adjacent (left or right) rooftop.
+                    Spider-Man is perched on a skyscraper and needs to find the highest nearby peak to get the best view of the city. The array represents the heights of adjacent rooftops. Using the <strong>Simple Hill Climbing algorithm</strong>, help Spidey find the nearest local maximum height to survey for trouble. He can only jump to an immediately adjacent (left or right) rooftop.
                 </p>
                 <div class="graph-container">
                     <svg viewBox="0 0 500 150" xmlns="http://www.w3.org/2000/svg">
@@ -296,6 +315,7 @@ Cost: 6</code></pre>
 
                 <h3 class="font-semibold text-lg mt-6 mb-2">Sample Input</h3>
                 <div class="code-block">
+                    <button class="btn-copy" onclick="copyCode(this)">Copy</button>
                     <pre><code><span class="variable">rooftops</span> = [<span class="number">2</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">12</span>, <span class="number">11</span>, <span class="number">9</span>, <span class="number">15</span>, <span class="number">14</span>, <span class="number">10</span>]
 <span class="variable">start_pos_1</span> = <span class="number">0</span>  <span class="comment"># Starting on rooftop of height 2</span>
 <span class="variable">start_pos_2</span> = <span class="number">8</span>  <span class="comment"># Starting on rooftop of height 10</span>
@@ -355,6 +375,27 @@ From start 8: Vantage point found at index 6 with height 15
             } else {
                 element.style.display = "none";
             }
+        }
+
+        function copyCode(buttonElement) {
+            const codeBlock = buttonElement.parentElement;
+            const preElement = codeBlock.querySelector('pre');
+            const codeText = preElement.innerText;
+
+            const textArea = document.createElement('textarea');
+            textArea.value = codeText;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                buttonElement.innerText = 'Copied!';
+                setTimeout(() => {
+                    buttonElement.innerText = 'Copy';
+                }, 2000);
+            } catch (err) {
+                console.error('Oops, unable to copy', err);
+            }
+            document.body.removeChild(textArea);
         }
     </script>
 </body>
