@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Lab 8 Solutions: Spider-Sense Algorithms</title>
+    <!-- Icon with a Spider Symbol -->
+    <link rel="icon" type="image/png" href="favicon-16x16.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: #00123e;
+            background-image:
+                radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(135deg, #d10023 0%, #005eff 100%);
+            background-size: 20px 20px, 100% 100%;
+            color: #e0e0e0;
+            letter-spacing: 0.025em;
+        }
+        .main-container {
+            max-width: 64rem;
+            margin-left: auto;
+            margin-right: auto;
+            background: rgba(10, 20, 40, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(209, 0, 35, 0.3);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.2), 0 8px 10px -6px rgb(0 0 0 / 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .main-container::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50%;
+            height: 50%;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3e%3cpath fill='rgba(0, 94, 255, 1)' d='M64.9,56.5l8.6-8.6c1.6-1.6,1.6-4.1,0-5.7l-4.8-4.8c-1.6-1.6-4.1-1.6-5.7,0l-8.6,8.6c-0.6,0.6-1.5,0.6-2.1,0L43.8,37.3 c-1.6-1.6-4.1-1.6-5.7,0l-4.8,4.8c-1.6-1.6,1.6-4.1,0,5.7l8.6,8.6c0.6,0.6,0.6,1.5,0,2.1L33.4,67c-1.6,1.6-1.6,4.1,0,5.7l4.8,4.8 c1.6,1.6,4.1,1.6,5.7,0l8.6-8.6c0.6-0.6,1.5-0.6,2.1,0l8.6,8.6c1.6,1.6,4.1,1.6,5.7,0l4.8-4.8c-1.6-1.6,1.6-4.1,0-5.7l-8.6-8.6 C65.5,58,65.5,57.1,64.9,56.5z M50,58.8c-4.9,0-8.8-4-8.8-8.8s4-8.8,8.8-8.8s8.8,4,8.8,8.8S54.9,58.8,50,58.8z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        .header-title {
+            font-weight: 700;
+            color: #FFFFFF;
+            text-shadow: 0 0 8px #d10023, 0 0 12px #005eff;
+        }
+        .solution-block {
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+            background-color: rgba(0, 30, 80, 0.3);
+            border-radius: 1rem;
+            border-left: 4px solid #005eff;
+        }
+        .code-block {
+            background-color: #0d1117;
+            color: #c9d1d9;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            border: 1px solid rgba(0, 94, 255, 0.3);
+            margin-top: 1rem;
+        }
+        .code-block .comment { color: #8b949e; }
+        .code-block .keyword { color: #ff7b72; }
+        .code-block .function { color: #d2a8ff; }
+        .code-block .string { color: #a5d6ff; }
+        .code-block .number { color: #79c0ff; }
+        .code-block .variable { color: #ffa657; }
+        .btn {
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            border: 1px solid transparent;
+            text-decoration: none;
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .btn-hub { background: linear-gradient(to right, #d10023, #a1001a); color: white; }
+        .btn-hub:hover { opacity: 0.9; }
+        .btn-questions { background: linear-gradient(to right, #005eff, #003a9e); color: white; }
+        .btn-questions:hover { opacity: 0.9; }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <div class="main-container w-full p-6 md:p-10">
+        <header class="text-center mb-8">
+            <h1 class="header-title text-4xl md:text-5xl">AI Lab 8 Solutions</h1>
+            <p class="text-lg text-gray-400 mt-2 mb-4">The code behind Spidey's success.</p>
+        </header>
+
+        <main>
+            <!-- Solution 1: A* Algorithm -->
+            <div class="solution-block">
+                <h2 class="text-2xl font-bold text-gray-100 mb-4">Mission 1 Solution: A* Search</h2>
+                <div class="code-block">
+<pre><code><span class="keyword">import</span> heapq
+
+<span class="keyword">def</span> <span class="function">a_star_search</span>(<span class="variable">graph, heuristic, start, goal</span>):
+    <span class="comment"># Priority queue stores tuples of (f_cost, node, path, g_cost).
+    # f_cost = g_cost (actual cost) + h_cost (estimated cost).
+    # We use a priority queue to always explore the node with the lowest f_cost first.</span>
+    <span class="variable">open_list</span> = [(heuristic[start], start, [start], <span class="number">0</span>)]
+    
+    <span class="comment"># A set to keep track of nodes we've already visited to prevent cycles.</span>
+    <span class="variable">visited</span> = set()
+
+    <span class="comment"># Loop as long as there are nodes to explore.</span>
+    <span class="keyword">while</span> open_list:
+        <span class="comment"># Get the node with the lowest f_cost from the priority queue.</span>
+        <span class="variable">f_cost, current_node, path, g_cost</span> = heapq.heappop(open_list)
+
+        <span class="comment"># If we've already processed this node, skip it.</span>
+        <span class="keyword">if</span> current_node <span class="keyword">in</span> visited:
+            <span class="keyword">continue</span>
+        
+        <span class="comment"># Mark the current node as visited.</span>
+        visited.add(current_node)
+
+        <span class="comment"># If we've reached the goal, we're done! Return the path and total cost.</span>
+        <span class="keyword">if</span> current_node == goal:
+            <span class="keyword">return</span> path, g_cost
+        
+        <span class="comment"># Explore the neighbors of the current node.</span>
+        <span class="keyword">for</span> neighbor, cost <span class="keyword">in</span> graph.get(current_node, []):
+            <span class="keyword">if</span> neighbor <span class="keyword">not in</span> visited:
+                <span class="comment"># Calculate the new costs for the path through the current node to the neighbor.</span>
+                <span class="variable">new_g_cost</span> = g_cost + cost
+                <span class="variable">new_f_cost</span> = new_g_cost + heuristic[neighbor]
+                
+                <span class="comment"># Add the neighbor to the priority queue to be explored later.</span>
+                heapq.heappush(open_list, (new_f_cost, neighbor, path + [neighbor], new_g_cost))
+
+    <span class="comment"># If the loop finishes and we haven't found the goal, no path exists.</span>
+    <span class="keyword">return</span> <span class="keyword">None</span>, <span class="keyword">None</span>
+
+<span class="comment"># --- Mission 1 Data ---</span>
+<span class="variable">graph</span> = {<span class="string">'S'</span>:[(<span class="string">'A'</span>,<span class="number">3</span>),(<span class="string">'B'</span>,<span class="number">2</span>)],<span class="string">'A'</span>:[(<span class="string">'C'</span>,<span class="number">4</span>),(<span class="string">'D'</span>,<span class="number">1</span>)],<span class="string">'B'</span>:[(<span class="string">'E'</span>,<span class="number">3</span>),(<span class="string">'F'</span>,<span class="number">1</span>)],<span class="string">'C'</span>:[],<span class="string">'D'</span>:[(<span class="string">'G'</span>,<span class="number">5</span>)],<span class="string">'E'</span>:[(<span class="string">'H'</span>,<span class="number">5</span>)],<span class="string">'F'</span>:[(<span class="string">'I'</span>,<span class="number">2</span>),(<span class="string">'G'</span>,<span class="number">3</span>)],<span class="string">'G'</span>:[],<span class="string">'H'</span>:[],<span class="string">'I'</span>:[]}
+<span class="variable">heuristic</span> = {<span class="string">'S'</span>:<span class="number">5</span>,<span class="string">'A'</span>:<span class="number">7</span>,<span class="string">'B'</span>:<span class="number">4</span>,<span class="string">'C'</span>:<span class="number">99</span>,<span class="string">'D'</span>:<span class="number">4</span>,<span class="string">'E'</span>:<span class="number">6</span>,<span class="string">'F'</span>:<span class="number">2</span>,<span class="string">'G'</span>:<span class="number">0</span>,<span class="string">'H'</span>:<span class="number">99</span>,<span class="string">'I'</span>:<span class="number">99</span>}
+<span class="variable">start_node</span> = <span class="string">'S'</span>
+<span class="variable">goal_node</span> = <span class="string">'G'</span>
+
+<span class="comment"># --- Execute and Print Solution ---</span>
+<span class="variable">path, cost</span> = a_star_search(graph, heuristic, start_node, goal_node)
+<span class="keyword">print</span>(<span class="string">"--- A* Search Solution ---"</span>)
+<span class="keyword">if</span> path:
+    <span class="keyword">print</span>(<span class="string">f"Path found: {path}"</span>)
+    <span class="keyword">print</span>(<span class="string">f"Total cost: {cost}"</span>)
+<span class="keyword">else</span>:
+    <span class="keyword">print</span>(<span class="string">"No path found."</span>)
+</code></pre>
+                </div>
+            </div>
+            
+            <!-- Solution 2: Hill Climbing -->
+            <div class="solution-block">
+                <h2 class="text-2xl font-bold text-gray-100 mb-4">Mission 2 Solution: Hill Climbing</h2>
+                <div class="code-block">
+<pre><code><span class="keyword">def</span> <span class="function">hill_climbing</span>(<span class="variable">landscape, start_index</span>):
+    <span class="variable">current_index</span> = start_index
+    <span class="variable">max_index</span> = len(landscape) - <span class="number">1</span>
+
+    <span class="comment"># Loop until we reach a peak (a point where no neighbor is higher).</span>
+    <span class="keyword">while</span> <span class="keyword">True</span>:
+        <span class="variable">current_value</span> = landscape[current_index]
+        <span class="variable">best_neighbor_index</span> = current_index
+        <span class="variable">best_neighbor_value</span> = current_value
+
+        <span class="comment"># Check the neighbor to the right.</span>
+        <span class="variable">right_index</span> = current_index + <span class="number">1</span>
+        <span class="keyword">if</span> right_index &lt;= max_index <span class="keyword">and</span> landscape[right_index] > best_neighbor_value:
+            best_neighbor_value = landscape[right_index]
+            best_neighbor_index = right_index
+
+        <span class="comment"># Check the neighbor to the left.</span>
+        <span class="variable">left_index</span> = current_index - <span class="number">1</span>
+        <span class="keyword">if</span> left_index >= <span class="number">0</span> <span class="keyword">and</span> landscape[left_index] > best_neighbor_value:
+            best_neighbor_value = landscape[left_index]
+            best_neighbor_index = left_index
+        
+        <span class="comment"># If the best neighbor is no better than the current position, we've found a peak.</span>
+        <span class="keyword">if</span> best_neighbor_index == current_index:
+            <span class="keyword">return</span> current_index, current_value
+        
+        <span class="comment"># Otherwise, move to the better neighbor and continue climbing.</span>
+        current_index = best_neighbor_index
+
+<span class="comment"># --- Mission 2 Data ---</span>
+<span class="variable">rooftops</span> = [<span class="number">2</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">12</span>, <span class="number">11</span>, <span class="number">9</span>, <span class="number">15</span>, <span class="number">14</span>, <span class="number">10</span>]
+<span class="variable">start_pos_1</span> = <span class="number">0</span>
+<span class="variable">start_pos_2</span> = <span class="number">8</span>
+
+<span class="comment"># --- Execute and Print Solutions ---</span>
+<span class="keyword">print</span>(<span class="string">"\n--- Hill Climbing Solutions ---"</span>)
+<span class="variable">index1, value1</span> = hill_climbing(rooftops, start_pos_1)
+<span class="keyword">print</span>(<span class="string">f"From start {start_pos_1}: Vantage point found at index {index1} with height {value1}"</span>)
+
+<span class="variable">index2, value2</span> = hill_climbing(rooftops, start_pos_2)
+<span class="keyword">print</span>(<span class="string">f"From start {start_pos_2}: Vantage point found at index {index2} with height {value2}"</span>)
+</code></pre>
+                </div>
+            </div>
+        </main>
+
+        <footer class="mt-8 text-center space-x-4">
+             <a href="questions.html" class="btn btn-questions">Back to Questions</a>
+             <a href="index.html" class="btn btn-hub">Back to Main Hub</a>
+        </footer>
+    </div>
+</body>
+</html>
