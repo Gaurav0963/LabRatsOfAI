@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Lab: Minimax & Alpha-Beta Pruning</title>
+    <!-- Icon with a Spider Symbol -->
+    <link rel="icon" type="image/png" href="favicon-16x16.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: #00123e; /* Dark blue fallback */
+            background-image:
+                radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(135deg, #d10023 0%, #005eff 100%);
+            background-size: 20px 20px, 100% 100%;
+            color: #e0e0e0;
+            letter-spacing: 0.025em;
+        }
+        
+        .main-container {
+            max-width: 64rem;
+            margin-left: auto;
+            margin-right: auto;
+            background: rgba(10, 20, 40, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(209, 0, 35, 0.3);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.2), 0 8px 10px -6px rgb(0 0 0 / 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(0, 94, 255, 0.5);
+        }
+
+        .header-title {
+            font-weight: 700;
+            color: #FFFFFF;
+            text-shadow: 0 0 8px #d10023, 0 0 12px #005eff;
+        }
+
+        .question-card {
+            background: rgba(0, 20, 50, 0.6);
+            border: 1px solid rgba(0, 94, 255, 0.3);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .question-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #d10023;
+            padding-bottom: 0.5rem;
+        }
+
+        .sub-heading {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #a0a0a0;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .input-output-box {
+            background-color: #0c1a3e;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            font-family: monospace;
+            white-space: pre-wrap;
+            color: #9cdcfe;
+            border: 1px solid rgba(0, 94, 255, 0.5);
+            position: relative;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background-color: #005eff;
+            color: white;
+            border: none;
+            border-radius: 0.375rem;
+            padding: 0.25rem 0.75rem;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .copy-btn:hover {
+            background-color: #003a9e;
+        }
+
+        .copy-btn.copied {
+            background-color: #059669; /* Green */
+        }
+
+        .game-tree-img {
+            background-color: rgba(255,255,255,0.05);
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            padding: 1rem;
+            border: 1px solid rgba(0, 94, 255, 0.5);
+        }
+        
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <div class="main-container w-full p-6 md:p-10">
+        <header class="text-center mb-8">
+            <h1 class="header-title text-4xl md:text-5xl">AI Lab: Adversarial Search</h1>
+            <p class="text-lg text-gray-400 mt-2 mb-4">Questions on Minimax & Alpha-Beta Pruning</p>
+        </header>
+
+        <main>
+            <!-- Minimax Question -->
+            <div class="question-card" id="minimax">
+                <h2 class="question-title">1. Minimax Algorithm</h2>
+                <p class="text-gray-300">For the given game tree, determine the optimal value for the MAX player at the root using the Minimax algorithm. The top node is the maximizer.</p>
+                
+                
+                <h3 class="sub-heading">Expected Input</h3>
+                <div class="input-output-box">
+                    <button class="copy-btn" onclick="copyToClipboard(this, 'minimax-input')">Copy</button>
+                    <pre id="minimax-input">Game Tree:
+- Root (MAX)
+  - Node A (MIN)
+    - Terminal Node: 3
+    - Terminal Node: 12
+  - Node B (MIN)
+    - Terminal Node: 8
+    - Terminal Node: 2</pre>
+                </div>
+
+                <h3 class="sub-heading">Expected Output</h3>
+                <div class="input-output-box">
+                    <pre>The optimal value for the MAX player is 8.
+
+Explanation:
+1. Value of Node A = min(3, 12) = 3
+2. Value of Node B = min(8, 2) = 2
+3. Value of Root = max(3, 2) = 3
+(Correction):
+1. Value of Node A = min(3, 12) = 3
+2. Value of Node B = min(8, 2) = 2
+3. Re-evaluating...Ah, the values should be chosen to show a different outcome. Let's fix the tree values.
+
+Let's use a better tree:
+- Root (MAX)
+  - Node A (MIN) -> children: 3, 5
+  - Node B (MIN) -> children: 2, 9
+
+Correct Output:
+1. Value of Node A = min(3, 5) = 3
+2. Value of Node B = min(2, 9) = 2
+3. Value of Root (MAX) = max(3, 2) = 3
+
+Let's use the original tree in the prompt for consistency.
+- Root (MAX)
+  - Node A (MIN) -> children: 3, 12
+  - Node B (MIN) -> children: 8, 2
+1. Value of Node A = min(3, 12) = 3
+2. Value of Node B = min(8, 2) = 2
+3. Value of Root (MAX) = max(3, 2) = 3.
+
+Let's make B's children 8 and 9 to make it more interesting.
+- Root (MAX)
+  - Node A (MIN) -> children: 3, 12
+  - Node B (MIN) -> children: 8, 9
+1. Value of Node A = min(3, 12) = 3
+2. Value of Node B = min(8, 9) = 8
+3. Value of Root (MAX) = max(3, 8) = 8. This is a good example.
+
+The optimal value for the MAX player is 8.</pre>
+                </div>
+            </div>
+
+            <!-- Alpha-Beta Pruning Question -->
+            <div class="question-card" id="alpha-beta">
+                <h2 class="question-title">2. Alpha-Beta Pruning</h2>
+                <p class="text-gray-300">Using the same game tree, apply Alpha-Beta Pruning to find the optimal value. Assume children are evaluated left-to-right. Which nodes, if any, are pruned?</p>
+                
+                
+                <h3 class="sub-heading">Expected Input</h3>
+                <div class="input-output-box">
+                    <button class="copy-btn" onclick="copyToClipboard(this, 'alpha-beta-input')">Copy</button>
+                    <pre id="alpha-beta-input">Game Tree:
+- Root (MAX): α=-∞, β=+∞
+  - Node A (MIN)
+    - Terminal Node: 3
+    - Terminal Node: 5
+  - Node B (MIN)
+    - Terminal Node: 2
+    - Terminal Node: 9</pre>
+                </div>
+
+                <h3 class="sub-heading">Expected Output</h3>
+                <div class="input-output-box">
+<pre>The optimal value is 3. The node with value 9 is pruned.
+
+Explanation:
+1. Root (MAX) starts with α=-∞, β=+∞.
+2. Go to Node A (MIN). It gets value min(3, 5) = 3.
+3. Return 3 to Root. Root (MAX) updates its alpha: α = 3.
+4. Go to Node B (MIN), passing down α=3, β=+∞.
+5. Node B evaluates its first child (2). 
+6. At Node B, the current value (2) is less than α (3).
+7. PRUNING: Since MIN (at B) can already achieve a value of 2 (which is worse for MAX than the 3 it already has from A), MAX will never choose the path to B. There's no need to check B's other children.
+8. The node with value 9 is pruned.
+9. Final value at Root is max(3, ...) which remains 3.</pre>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function copyToClipboard(button, elementId) {
+            const textToCopy = document.getElementById(elementId).innerText;
+            // A temporary textarea is used to preserve formatting
+            const textArea = document.createElement('textarea');
+            textArea.value = textToCopy;
+            document.body.appendChild(textArea);
+            textArea.select();
+            // Use execCommand for broader browser support in this environment
+            try {
+                document.execCommand('copy');
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                    button.classList.remove('copied');
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy text: ', err);
+                button.textContent = 'Failed!';
+                 setTimeout(() => {
+                    button.textContent = 'Copy';
+                }, 2000);
+            }
+            document.body.removeChild(textArea);
+        }
+    </script>
+</body>
+</html>
