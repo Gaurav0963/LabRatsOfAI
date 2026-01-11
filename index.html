@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IIIT Bhagalpur AI Lab Portal</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Babel for JSX transformation -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Custom Font (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-950 text-white">
+    <div id="root"></div>
+
+    <!-- Main Application Script -->
+    <script type="text/babel" data-type="module">
+        import React, { useState } from 'https://esm.sh/react@18.2.0';
+        import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
+        import { 
+            Search, BookOpen, Code, Cpu, Calendar, ChevronRight, Menu, X, 
+            FileText, Database, Terminal, Lock, Unlock, Clock, CheckCircle, 
+            ArrowLeft, List, AlertCircle, Download, ExternalLink 
+        } from 'https://esm.sh/lucide-react@0.263.1';
+
+        // --- Mock Data ---
+
+        const NOTICES = [
+            { id: 1, text: "Lab Session 1 is LIVE. Click 'View in Portal' or download the PDF.", date: "Just now" },
+            { id: 2, text: "Lab Session 1 starts TOMORROW (Jan 12th). Please install Python 3.9+", date: "Today" },
+        ];
+
+        const RESOURCES = [
+            { title: "PyTorch Documentation", category: "Framework", link: "https://docs.pytorch.org/docs/stable/index.html", icon: <Code size={20} /> },
+            { title: "UCI Machine Learning Repo", category: "Datasets", link: "https://archive.ics.uci.edu/", icon: <Database size={20} /> },
+            { title: "CS229 Lecture Notes (Stanford)", category: "Theory", link: "https://cs229.stanford.edu/main_notes.pdf", icon: <BookOpen size={20} /> },
+            { title: "Google Colab Templates", category: "Tools", link: "https://docs.cloud.google.com/colab/docs/runtimes", icon: <Terminal size={20} /> },
+        ];
+
+        const WEEKLY_LABS = [
+            { 
+                id: 1, 
+                week: "Week 1", 
+                title: "Intro to Python for AI", 
+                date: "Jan 12, 2026", 
+                status: "Active",
+                pdfUrl: "lab1.pdf", 
+                htmlUrl: "lab1.html", 
+            },
+            // { 
+            //     id: 2, 
+            //     week: "Week 2", 
+            //     title: "Data Manipulation with Pandas", 
+            //     date: "Jan 19, 2026", 
+            //     status: "Active",
+            //     pdfUrl: "/assets/labs/week2_pandas.pdf",
+            //     htmlUrl: "/assets/labs/week2_pandas.html", 
+            //     content: null 
+            // },
+            // { id: 3, week: "Week 3", title: "Data Visualization & EDA", date: "Jan 26, 2026", status: "Upcoming", content: null },
+            // { id: 4, week: "Week 4", title: "Linear Regression from Scratch", date: "Feb 02, 2026", status: "Upcoming", content: null },
+            // { id: 5, week: "Week 5", title: "Logistic Regression & Metrics", date: "Feb 09, 2026", status: "Upcoming", content: null },
+        ];
+
+        const LAB_SOLUTIONS = [
+            { id: 1, week: "Week 1", title: "Solution: Python for AI", status: "Coming Soon", date: "Avail: Jan 18" },
+            { id: 2, week: "Week 2", title: "Solution: Pandas Usage", status: "Locked", date: "Avail: Jan 25" },
+            { id: 3, week: "Week 3", title: "Solution: EDA Visuals", status: "Locked", date: "Avail: Feb 01" },
+        ];
+
+        // --- Components ---
+
+        const Navbar = ({ activeTab, setActiveTab, mobileMenuOpen, setMobileMenuOpen }) => (
+            <nav className="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="flex items-center justify-between h-16">
+                        {/* Logo */}
+                        <div className="flex items-center gap-3 cursor-pointer" onClick={() => setActiveTab('Home')}>
+                            <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
+                                <Cpu className="text-white" size={20} />
+                            </div>
+                            <div>
+                                <span className="block text-white font-bold text-lg tracking-tight">AI Lab Portal</span>
+                                <span className="block text-slate-400 text-xs font-medium">IIIT Bhagalpur</span>
+                            </div>
+                        </div>
+
+                        {/* Desktop Nav */}
+                        <div className="hidden md:block">
+                            <div className="ml-10 flex items-baseline space-x-4">
+                                {['Home', 'Lab Questions', 'Solutions', 'Resources'].map((item) => (
+                                    <button
+                                        key={item}
+                                        onClick={() => setActiveTab(item)}
+                                        className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                                            activeTab === item
+                                                ? 'bg-indigo-600 text-white'
+                                                : 'text-slate-300 hover:text-white hover:bg-slate-800'
+                                        }`}
+                                    >
+                                        {item}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Mobile menu button */}
+                        <div className="-mr-2 flex md:hidden">
+                            <button
+                                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                                className="inline-flex items-center justify-center p-2 rounded-md text-slate-400 hover:text-white hover:bg-slate-800 focus:outline-none"
+                            >
+                                {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Mobile Nav */}
+                {mobileMenuOpen && (
+                    <div className="md:hidden bg-slate-900 border-b border-slate-800">
+                        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                            {['Home', 'Lab Questions', 'Solutions', 'Resources'].map((item) => (
+                                <button
+                                    key={item}
+                                    onClick={() => {
+                                        setActiveTab(item);
+                                        setMobileMenuOpen(false);
+                                    }}
+                                    className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium ${
+                                        activeTab === item
+                                            ? 'bg-indigo-600 text-white'
+                                            : 'text-slate-300 hover:text-white hover:bg-slate-800'
+                                    }`}
+                                >
+                                    {item}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                )}
+            </nav>
+        );
+
+        const Hero = ({ setActiveTab }) => (
+            <div className="relative overflow-hidden bg-slate-900 py-16 sm:py-24">
+                <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 opacity-20 pointer-events-none">
+                    <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-600 rounded-full blur-[120px]" />
+                    <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-600 rounded-full blur-[120px]" />
+                </div>
+                
+                <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h1 className="text-4xl sm:text-6xl font-extrabold text-white tracking-tight mb-6">
+                        AI & Machine Learning Lab <br className="hidden sm:block" />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">
+                            Semester IV
+                        </span>
+                    </h1>
+                    <p className="mt-4 max-w-2xl mx-auto text-xl text-slate-400 mb-8">
+                        Your central repository for weekly lab sheets, datasets, solution sets, and submission guidelines.
+                    </p>
+                    <div className="flex justify-center gap-4">
+                        <button 
+                            onClick={() => setActiveTab('Lab Questions')}
+                            className="px-8 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-all flex items-center gap-2 shadow-lg shadow-indigo-500/20"
+                        >
+                            <BookOpen size={18} />
+                            View Latest Lab
+                        </button>
+                        <button 
+                            onClick={() => setActiveTab('Solutions')}
+                            className="px-8 py-3 bg-slate-800 text-white font-medium rounded-lg hover:bg-slate-700 transition-all border border-slate-700 flex items-center gap-2"
+                        >
+                            <CheckCircle size={18} />
+                            View Solutions
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+
+        // --- Lab Viewer Component ---
+        const LabSheetView = ({ lab, onBack }) => {
+            if (!lab.content) {
+                return (
+                    <div className="max-w-4xl mx-auto px-4 py-8 text-center">
+                        <button onClick={onBack} className="mb-6 flex items-center gap-2 text-indigo-400 hover:text-indigo-300">
+                            <ArrowLeft size={20} /> Back to List
+                        </button>
+                        <div className="bg-slate-800 p-12 rounded-xl border border-slate-700">
+                            <Clock size={48} className="mx-auto text-slate-500 mb-4" />
+                            <h2 className="text-xl font-bold text-white mb-2">Internal View Not Available</h2>
+                            <p className="text-slate-400 mb-6">This lab sheet is available as an external file only.</p>
+                            <div className="flex justify-center gap-4">
+                                {lab.htmlUrl && (
+                                    <a href={lab.htmlUrl} target="_blank" rel="noopener noreferrer" className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors flex items-center gap-2">
+                                        <ExternalLink size={16} /> Open HTML Sheet
+                                    </a>
+                                )}
+                                {lab.pdfUrl && (
+                                    <a href={lab.pdfUrl} download className="px-6 py-2 bg-slate-700 text-white rounded-lg hover:bg-slate-600 transition-colors flex items-center gap-2">
+                                        <Download size={16} /> Download PDF
+                                    </a>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+
+            return (
+                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                    {/* Header Navigation */}
+                    <div className="flex justify-between items-center mb-6">
+                        <button 
+                            onClick={onBack} 
+                            className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors group"
+                        >
+                            <div className="p-2 rounded-full bg-slate-800 group-hover:bg-slate-700">
+                                <ArrowLeft size={20} />
+                            </div>
+                            <span className="font-medium">Back to Lab List</span>
+                        </button>
+                        
+                        {lab.pdfUrl && (
+                            <a 
+                                href={lab.pdfUrl} 
+                                download
+                                className="flex items-center gap-2 bg-slate-800 text-indigo-400 px-4 py-2 rounded-lg hover:bg-slate-700 hover:text-white transition-all border border-slate-700"
+                            >
+                                <Download size={16} /> Download PDF
+                            </a>
+                        )}
+                    </div>
+
+                    {/* Document Container */}
+                    <div className="bg-white text-slate-900 rounded-xl shadow-2xl overflow-hidden min-h-[800px]">
+                        {/* Document Header */}
+                        <div className="bg-slate-50 border-b border-slate-200 px-8 py-6">
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <span className="inline-block px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs font-bold uppercase tracking-wide mb-2">
+                                        {lab.week}
+                                    </span>
+                                    <h1 className="text-3xl font-bold text-slate-900 mb-2">{lab.title}</h1>
+                                    <div className="flex items-center gap-4 text-sm text-slate-500">
+                                        <span className="flex items-center gap-1"><Calendar size={14} /> Date: {lab.date}</span>
+                                        <span className="flex items-center gap-1"><Code size={14} /> Subject: AI Lab (CS-205)</span>
+                                    </div>
+                                </div>
+                                <div className="text-right hidden sm:block">
+                                    <div className="text-2xl font-bold text-indigo-600">IIIT Bhagalpur</div>
+                                    <div className="text-sm text-slate-500">Dept. of Computer Science</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Document Content */}
+                        <div className="px-8 py-8">
+                            {/* Objectives */}
+                            <div className="mb-8">
+                                <h3 className="text-lg font-bold text-slate-900 border-b-2 border-indigo-500 inline-block mb-4 pb-1">
+                                    Lab Objectives
+                                </h3>
+                                <ul className="list-disc list-inside space-y-1 text-slate-700">
+                                    {lab.content.objectives.map((obj, i) => (
+                                        <li key={i}>{obj}</li>
+                                    ))}
+                                </ul>
+                            </div>
+
+                            {/* Instructions */}
+                            <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-8 flex gap-3">
+                                <AlertCircle className="text-amber-600 flex-shrink-0" size={20} />
+                                <div className="text-sm text-amber-900">
+                                    <strong>Submission Instructions:</strong> Create a single Jupyter Notebook (.ipynb) containing solutions for all questions. 
+                                    Name the file <code>RollNo_Week1.ipynb</code> and upload it to Moodle before the next lab session.
+                                </div>
+                            </div>
+
+                            {/* Questions */}
+                            <div className="space-y-8">
+                                <h3 className="text-lg font-bold text-slate-900 border-b-2 border-indigo-500 inline-block mb-4 pb-1">
+                                    Problem Set
+                                </h3>
+                                
+                                {lab.content.questions.map((q) => (
+                                    <div key={q.q_id} className="bg-slate-50 rounded-lg border border-slate-200 p-6">
+                                        <div className="flex items-center gap-3 mb-3">
+                                            <span className="bg-indigo-600 text-white font-bold px-3 py-1 rounded text-sm">
+                                                {q.q_id}
+                                            </span>
+                                            <h4 className="text-lg font-bold text-slate-800">{q.title}</h4>
+                                        </div>
+                                        <p className="text-slate-700 leading-relaxed pl-1">
+                                            {q.desc}
+                                        </p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        
+                        {/* Document Footer */}
+                        <div className="bg-slate-50 border-t border-slate-200 px-8 py-4 text-center text-slate-400 text-sm">
+                            -- End of Lab Sheet --
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const LabQuestions = () => {
+            const [searchTerm, setSearchTerm] = useState('');
+            const [activeLabId, setActiveLabId] = useState(null);
+
+            const filteredLabs = WEEKLY_LABS.filter(lab => 
+                lab.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                lab.week.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+
+            const activeLab = WEEKLY_LABS.find(l => l.id === activeLabId);
+
+            if (activeLabId) {
+                return <LabSheetView lab={activeLab} onBack={() => setActiveLabId(null)} />;
+            }
+
+            return (
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+                        <div>
+                            <h2 className="text-2xl font-bold text-white">Weekly Lab Assignments</h2>
+                            <p className="text-slate-400">Select a week to view the problem sheet.</p>
+                        </div>
+                        
+                        <div className="flex flex-col sm:flex-row gap-3">
+                            <div className="relative">
+                                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-500" size={18} />
+                                <input 
+                                    type="text" 
+                                    placeholder="Search labs..." 
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    className="pl-10 pr-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 w-full sm:w-64"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="space-y-4">
+                        {filteredLabs.map((lab) => (
+                            <div key={lab.id} className="bg-slate-800/50 rounded-xl border border-slate-700 p-6 hover:border-indigo-500/50 transition-all">
+                                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                    <div className="flex items-start gap-4">
+                                        <div className={`w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                                            lab.status === 'Active' ? 'bg-indigo-600/20 text-indigo-400' : 'bg-slate-700/50 text-slate-500'
+                                        }`}>
+                                            <FileText size={24} />
+                                        </div>
+                                        <div>
+                                            <div className="flex items-center gap-2 mb-1">
+                                                <span className="text-sm font-mono text-indigo-400 font-bold">{lab.week}</span>
+                                                <span className={`text-xs px-2 py-0.5 rounded-full border ${
+                                                    lab.status === 'Active' 
+                                                        ? 'bg-emerald-900/30 text-emerald-400 border-emerald-800' 
+                                                        : 'bg-slate-700/30 text-slate-400 border-slate-700'
+                                                }`}>
+                                                    {lab.status}
+                                                </span>
+                                            </div>
+                                            <h3 className="text-lg font-bold text-white">{lab.title}</h3>
+                                            <div className="flex items-center gap-4 mt-2 text-sm text-slate-400">
+                                                <span className="flex items-center gap-1"><Calendar size={14} /> {lab.date}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-center gap-3">
+                                        {lab.status === 'Active' ? (
+                                            <div className="flex gap-2 w-full md:w-auto">
+                                                {/* Primary View Action */}
+                                                {lab.content ? (
+                                                    <button 
+                                                        onClick={() => setActiveLabId(lab.id)}
+                                                        className="flex-1 md:flex-none bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2 shadow-lg"
+                                                    >
+                                                        <BookOpen size={16} /> View in Portal
+                                                    </button>
+                                                ) : lab.htmlUrl ? (
+                                                    <a 
+                                                        href={lab.htmlUrl} 
+                                                        target="_blank" 
+                                                        rel="noopener noreferrer"
+                                                        className="flex-1 md:flex-none bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2 shadow-lg"
+                                                    >
+                                                        <ExternalLink size={16} /> Open HTML
+                                                    </a>
+                                                ) : null}
+
+                                                {/* Secondary PDF Action */}
+                                                {lab.pdfUrl && (
+                                                    <a 
+                                                        href={lab.pdfUrl} 
+                                                        download
+                                                        className="flex-1 md:flex-none bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2"
+                                                    >
+                                                        <Download size={16} /> PDF
+                                                    </a>
+                                                )}
+                                            </div>
+                                        ) : (
+                                            <button disabled className="flex-1 md:flex-none bg-slate-800 text-slate-500 px-4 py-2 rounded-lg text-sm font-medium cursor-not-allowed flex items-center justify-center gap-2 border border-slate-700">
+                                                <Clock size={16} /> Opens {lab.date}
+                                            </button>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+
+        const Solutions = () => (
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div className="mb-8">
+                    <h2 className="text-2xl font-bold text-white">Lab Solutions</h2>
+                    <p className="text-slate-400">Reference code and answers. Released one week after lab session.</p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {LAB_SOLUTIONS.map((sol) => (
+                        <div key={sol.id} className="bg-slate-800 rounded-xl border border-slate-700 p-6 flex flex-col relative overflow-hidden">
+                            {sol.status === 'Locked' && (
+                                <div className="absolute inset-0 bg-slate-900/50 backdrop-blur-[1px] flex items-center justify-center z-10">
+                                    <div className="bg-slate-900 border border-slate-700 px-4 py-2 rounded-lg flex items-center gap-2 text-slate-400 shadow-xl">
+                                        <Lock size={16} /> Locked until {sol.date.split(':')[1]}
+                                    </div>
+                                </div>
+                            )}
+                            
+                            <div className="flex justify-between items-start mb-4">
+                                <div className="bg-slate-700/50 p-3 rounded-lg text-slate-300">
+                                    <Code size={24} />
+                                </div>
+                                <span className="text-xs font-mono text-slate-500">{sol.week}</span>
+                            </div>
+                            
+                            <h3 className="text-lg font-bold text-white mb-2">{sol.title}</h3>
+                            <p className="text-slate-400 text-sm mb-6">{sol.date}</p>
+                            
+                            <button 
+                                disabled={sol.status !== 'Available'}
+                                className={`mt-auto w-full py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-colors
+                                    ${sol.status === 'Available' 
+                                        ? 'bg-emerald-600 hover:bg-emerald-700 text-white' 
+                                        : 'bg-slate-700 text-slate-400 cursor-not-allowed'
+                                    }`}
+                            >
+                                {sol.status === 'Available' ? <><Unlock size={16} /> Access Code</> : <><Clock size={16} /> {sol.status}</>}
+                            </button>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+
+        const ResourceHub = () => (
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div className="mb-8">
+                    <h2 className="text-2xl font-bold text-white">Student Resources</h2>
+                    <p className="text-slate-400">Curated tools and libraries for AI Lab experiments.</p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {RESOURCES.map((res, idx) => (
+                        <div key={idx} className="bg-slate-800 p-6 rounded-xl border border-slate-700 hover:border-indigo-500 hover:shadow-lg hover:shadow-indigo-500/10 transition-all cursor-pointer group">
+                            <div className="w-12 h-12 bg-slate-900 rounded-lg flex items-center justify-center mb-4 group-hover:bg-indigo-600 transition-colors">
+                                <div className="text-indigo-400 group-hover:text-white transition-colors">
+                                    {res.icon}
+                                </div>
+                            </div>
+                            <div className="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-1">{res.category}</div>
+                            <h3 className="text-lg font-bold text-white mb-2">{res.title}</h3>
+                            <div className="flex items-center text-slate-400 text-sm group-hover:text-indigo-300">
+                                Access Resource <ChevronRight size={16} className="ml-1" />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+
+        const Footer = () => (
+            <footer className="bg-slate-900 border-t border-slate-800 py-12 mt-auto">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div className="col-span-1 md:col-span-2">
+                            <div className="flex items-center gap-2 mb-4">
+                                <Cpu className="text-indigo-500" size={24} />
+                                <span className="text-white font-bold text-xl">AI Lab</span>
+                            </div>
+                            <p className="text-slate-400 text-sm max-w-sm">
+                                Department of Computer Science & Engineering,<br/>
+                                Indian Institute of Information Technology, Bhagalpur.
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <h4 className="text-white font-bold mb-4">Contact TA</h4>
+                            <ul className="space-y-2 text-sm text-slate-400">
+                                <li>Sabour, Bhagalpur - 813210</li>
+                                <li>ailab@iiitbh.ac.in</li>
+                                <li>Office Hours: Wed 4-5 PM</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div className="border-t border-slate-800 mt-12 pt-8 text-center text-slate-500 text-sm">
+                        &copy; {new Date().getFullYear()} IIIT Bhagalpur AI Lab.
+                    </div>
+                </div>
+            </footer>
+        );
+
+        const App = () => {
+            const [activeTab, setActiveTab] = useState('Home');
+            const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+            return (
+                <div className="min-h-screen bg-slate-950 flex flex-col font-sans selection:bg-indigo-500 selection:text-white">
+                    <Navbar 
+                        activeTab={activeTab} 
+                        setActiveTab={setActiveTab} 
+                        mobileMenuOpen={mobileMenuOpen}
+                        setMobileMenuOpen={setMobileMenuOpen}
+                    />
+                    
+                    <main className="flex-grow">
+                        {activeTab === 'Home' && (
+                            <>
+                                <Hero setActiveTab={setActiveTab} />
+                                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                                    {/* Notice Board */}
+                                    <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 mb-12">
+                                        <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                                            <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
+                                            Latest Notices
+                                        </h3>
+                                        <div className="space-y-4">
+                                            {NOTICES.map(notice => (
+                                                <div key={notice.id} className="flex items-start gap-4 p-3 hover:bg-slate-800 rounded-lg transition-colors border-l-2 border-indigo-500/0 hover:border-indigo-500">
+                                                    <FileText className="text-slate-500 mt-1 flex-shrink-0" size={16} />
+                                                    <div>
+                                                        <p className="text-slate-300 text-sm font-medium">{notice.text}</p>
+                                                        <p className="text-slate-500 text-xs mt-1">{notice.date}</p>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            </>
+                        )}
+                        
+                        {activeTab === 'Lab Questions' && <LabQuestions />}
+                        {activeTab === 'Solutions' && <Solutions />}
+                        {activeTab === 'Resources' && <ResourceHub />}
+                    </main>
+
+                    <Footer />
+                </div>
+            );
+        };
+
+        const root = createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
