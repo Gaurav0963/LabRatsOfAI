@@ -1,6 +1,6 @@
 # 🤖 LabRatsOfAI ⚡  
 
-Welcome, future AI architects and data wizards! You've jacked into the central hub for all **AI Laboratory assignments** for **B.Tech Third Year students**.  
+Welcome, future AI architects and data wizards! You've jacked into the central hub for all **AI Laboratory assignments** for **B.Tech Second Year students**.  
 This is your training ground, your sandbox, and your guide to mastering the digital frontier of Artificial Intelligence.  
 
 ---
