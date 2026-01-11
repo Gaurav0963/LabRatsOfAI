@@ -5,145 +5,229 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Lab 1</title>
     <link rel="icon" type="image/png" href="favicon-16x16.png">
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-    <!-- 
-        Chosen Palette: Warm Neutral (Stone, Amber)
-        Application Structure Plan: A two-panel, single-page application. The left panel serves as a navigation menu, listing all questions. Clicking a question dynamically updates the right content panel with the question's details. This version is simplified to only show questions.
-        Visualization & Content Choices: The core content (questions) is presented in a structured text format. The primary interaction is navigation clicks. This design provides a clean, focused view of the problems to be solved.
-        CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
-    -->
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Custom Font (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .fira-code {
-            font-family: 'Fira Code', monospace;
-        }
-        .nav-button[aria-current="true"] {
-            background-color: #f59e0b; /* amber-500 */
-            color: white;
-            font-weight: 600;
-        }
-        .nav-button:not([aria-current="true"]):hover {
-            background-color: #fde68a; /* amber-200 */
-        }
+        body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
-<body class="bg-stone-50 text-stone-800">
+<body class="bg-slate-950 text-slate-900 py-8 min-h-screen">
 
-    <div class="min-h-screen flex flex-row">
-        <!-- Left Navigation Panel -->
-        <aside id="navigation-panel" class="w-1/3 max-w-md bg-white border-r border-stone-200 p-4 lg:p-6 flex flex-col">
-            <header class="mb-6">
-                <h1 class="text-2xl font-bold text-stone-900">Experiment 1</h1>
-                <p class="text-sm text-stone-600 mt-1">Select a question to view its details.</p>
-            </header>
-            <nav id="question-nav" class="flex-grow space-y-2 overflow-y-auto">
-                <!-- Navigation buttons will be injected here by JS -->
-            </nav>
-        </aside>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Back Button: Links to index.html -->
+        <a href="index.html" class="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-6 group">
+            <div class="p-2 rounded-full bg-slate-800 group-hover:bg-slate-700">
+                <i data-lucide="arrow-left" class="w-5 h-5"></i>
+            </div>
+            <span class="font-medium">Back to Portal</span>
+        </a>
 
-        <!-- Right Content Panel -->
-        <main id="content-panel" class="w-2/3 p-4 md:p-8 lg:p-12 overflow-y-auto">
-            <div id="welcome-message" class="flex flex-col items-center justify-center h-full text-center">
-                 <div class="bg-amber-100 text-amber-800 p-8 rounded-2xl max-w-lg">
-                    <h2 class="text-3xl font-bold mb-2">Welcome!</h2>
-                    <p class="text-lg">Select a question from the list on the left to get started.</p>
+        <!-- Document Container -->
+        <div class="bg-white rounded-xl shadow-2xl overflow-hidden min-h-[800px]">
+            
+            <!-- Document Header -->
+            <div class="bg-slate-50 border-b border-slate-200 px-8 py-6">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <span class="inline-block px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs font-bold uppercase tracking-wide mb-2">
+                            Week 1
+                        </span>
+                        <h1 class="text-3xl font-bold text-slate-900 mb-2">Python Fundamentals & Logic</h1>
+                        <div class="flex items-center gap-4 text-sm text-slate-500">
+                            <span class="flex items-center gap-1"><i data-lucide="calendar" class="w-4 h-4"></i> Date: Jan 12, 2026</span>
+                            <span class="flex items-center gap-1"><i data-lucide="code" class="w-4 h-4"></i> Subject: AI Lab (CS-205)</span>
+                        </div>
+                    </div>
+                    <div class="text-right hidden sm:block">
+                        <div class="text-2xl font-bold text-indigo-600">IIIT Bhagalpur</div>
+                        <div class="text-sm text-slate-500">Dept. of Computer Science</div>
+                    </div>
                 </div>
             </div>
-            <div id="question-content" class="hidden">
-                <h2 id="question-title" class="text-3xl font-bold text-stone-900 mb-4"></h2>
-                <div id="question-body" class="prose prose-lg max-w-none text-stone-700 mb-8"></div>
+
+            <!-- Document Content -->
+            <div class="px-8 py-8">
+                
+                <!-- Objectives -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-bold text-slate-900 border-b-2 border-indigo-500 inline-block mb-4 pb-1">
+                        Lab Objectives
+                    </h3>
+                    <ul class="list-disc list-inside space-y-1 text-slate-700">
+                        <li>Master Python's built-in modules (calendar, datetime).</li>
+                        <li>Implement conditional logic and control flow.</li>
+                        <li>Manipulate strings and iterate using loops.</li>
+                        <li>Develop modular code using functions and lists.</li>
+                    </ul>
+                </div>
+
+                <!-- Instructions -->
+                <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-8 flex gap-3">
+                    <i data-lucide="alert-circle" class="w-5 h-5 text-amber-600 flex-shrink-0"></i>
+                    <div class="text-sm text-amber-900">
+                        <strong>Submission Instructions:</strong> Create a single Jupyter Notebook (.ipynb) containing solutions for all parts. 
+                        Use Markdown headers to separate sections (Part 1, Part 2, etc.). Name the file <code>RollNo_Lab01.ipynb</code>.
+                    </div>
+                </div>
+
+                <!-- PART 1 -->
+                <div class="mb-10">
+                    <h3 class="text-xl font-bold text-indigo-700 mb-4">Part 1: Calendar & Datetime (Experiment 01)</h3>
+                    <div class="space-y-4">
+                        <!-- Q1 -->
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-indigo-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q1.1</span>
+                                <h4 class="font-bold text-slate-800">Display a Specific Month</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Write a Python program that asks the user for a specific year and month, then displays the calendar for that month using the <code>calendar</code> module.</p>
+                        </div>
+                        <!-- Q2 -->
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-indigo-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q1.2</span>
+                                <h4 class="font-bold text-slate-800">Display All Months</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Write a program to print the calendar for every month of a given year.</p>
+                        </div>
+                        <!-- Q3 -->
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-indigo-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q1.3</span>
+                                <h4 class="font-bold text-slate-800">Current Date & Time</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Write a script to display today's date and the current date and time using the <code>datetime</code> module.</p>
+                        </div>
+                        <!-- Q4 -->
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-indigo-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q1.4</span>
+                                <h4 class="font-bold text-slate-800">Date Arithmetic</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Write a program to take the present date, add a specific number of days to it (e.g., 5 days), and print the resulting future date.</p>
+                        </div>
+                        <!-- Q5 -->
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-indigo-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q1.5</span>
+                                <h4 class="font-bold text-slate-800">Leap Year Check</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Write a program that inputs a year and determines if it is a leap year. (Try doing this both with the <code>calendar</code> module and with simple if-else logic).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PART 2 -->
+                <div class="mb-10">
+                    <h3 class="text-xl font-bold text-indigo-700 mb-4">Part 2: Conditional Logic (Experiment 02)</h3>
+                    <div class="space-y-4">
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-indigo-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q2.1</span>
+                                <h4 class="font-bold text-slate-800">Positive, Negative, or Zero</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Write a program to read a number from the user and determine if it is positive, negative, or zero.</p>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-indigo-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q2.2</span>
+                                <h4 class="font-bold text-slate-800">Largest of Three</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Write a program that takes three numbers as input and prints the largest one.</p>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-indigo-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q2.3</span>
+                                <h4 class="font-bold text-slate-800">Day of the Week</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Write a program that takes a number (1-7) and displays the corresponding day of the week (e.g., 1 = Monday). Handle invalid inputs gracefully.</p>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-indigo-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q2.4</span>
+                                <h4 class="font-bold text-slate-800">Simple Calculator</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Create a program that takes two numbers and an operator (+, -, *, /) and performs the corresponding calculation.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PART 3 -->
+                <div class="mb-10">
+                    <h3 class="text-xl font-bold text-indigo-700 mb-4">Part 3: Strings & Loops</h3>
+                    <div class="space-y-4">
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-indigo-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q3.1</span>
+                                <h4 class="font-bold text-slate-800">Palindrome Check</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Write a program to check if a given string is a palindrome (reads the same forwards and backwards).</p>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-indigo-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q3.2</span>
+                                <h4 class="font-bold text-slate-800">Fibonacci Series</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Write a program to print the first <code>n</code> terms of the Fibonacci sequence using a loop.</p>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-indigo-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q3.3</span>
+                                <h4 class="font-bold text-slate-800">Multiplication Table</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Write a program to print the multiplication table of a given number (e.g., if input is 5, print 5x1=5, 5x2=10... up to 10).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PART 4 -->
+                <div class="mb-10">
+                    <h3 class="text-xl font-bold text-indigo-700 mb-4">Part 4: Functions & Lists</h3>
+                    <div class="space-y-4">
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-indigo-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q4.1</span>
+                                <h4 class="font-bold text-slate-800">Factorial Function</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Write a function that calculates the factorial of a given number. Handle the case for negative numbers (where factorial is undefined).</p>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-indigo-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q4.2</span>
+                                <h4 class="font-bold text-slate-800">Compare Lists</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Write a function that accepts two lists and returns True if they are equal (contain the same elements in the same order), and False otherwise.</p>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-indigo-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q4.3</span>
+                                <h4 class="font-bold text-slate-800">List Statistics</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Write a program that accepts a list of numbers from the user and calculates the sum, average, and maximum value in that list without using built-in <code>max()</code> or <code>sum()</code> functions.</p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-        </main>
+            
+            <!-- Document Footer -->
+            <div class="bg-slate-50 border-t border-slate-200 px-8 py-4 text-center text-slate-400 text-sm">
+                -- End of Lab Sheet --
+            </div>
+        </div>
     </div>
 
+    <!-- Initialize Icons -->
     <script>
-        if (typeof window.questionsAppInitialized === 'undefined') {
-            window.questionsAppInitialized = true;
-
-            const questionsData = [
-                {
-                    title: "Leap Year Check 📅",
-                    question: "How would you write a Python function `is_leap(year)` that returns `True` if a year is a leap year, using the `calendar` module?",
-                },
-                {
-                    title: "Date Formatting ✍️",
-                    question: "Write a Python script that gets the current date and displays it in the format **\"Day-Month-Year\"** (e.g., 27-Jul-2025).",
-                },
-                {
-                    title: "Days Between Dates ⏳",
-                    question: "Write a program to calculate the number of days between two specific dates: `2026-01-01` and `2025-07-27`.",
-                },
-                {
-                    title: "Find the Day of the Week �",
-                    question: "Write a program that takes a date string like `\"2025-12-25\"` and prints what day of the week it is.",
-                },
-                {
-                    title: "Age Calculation 🎂",
-                    question: "Write a program that calculates the age in years from a given birthdate string, like `\"1995-05-20\"`.",
-                },
-                {
-                    title: "Convert Temperatures with `map` 🌡️",
-                    question: "Given a list of temperatures in Celsius, use **`map`** and a **`lambda`** function to create a new list of temperatures converted to Fahrenheit. The formula is F = (C &times; 9/5) + 32.",
-                },
-                {
-                    title: "Filter Even Numbers with `filter` 🔢",
-                    question: "From a list of numbers, use **`filter`** and a **`lambda`** function to create a new list containing only the even numbers.",
-                },
-                {
-                    title: "Filter and Map Combined ⚙️",
-                    question: "Given a list of numbers, create a new list that contains the **squares of only the odd numbers**. Use both `filter` and `map`.",
-                },
-                {
-                    title: "Filter Names by Length 🗣️",
-                    question: "You have a list of names. Use **`filter`** and a **`lambda`** to create a new list that includes only the names with **more than 5 characters**.",
-                },
-                {
-                    title: "Combine Two Lists with `map` ✨",
-                    question: "Given two lists of numbers, use **`map`** and a **`lambda`** to create a new list where each element is the **sum** of the elements at the same position in the original lists.",
-                }
-            ];
-
-            const navContainer = document.getElementById('question-nav');
-            const welcomeMessage = document.getElementById('welcome-message');
-            const questionContent = document.getElementById('question-content');
-            const questionTitle = document.getElementById('question-title');
-            const questionBody = document.getElementById('question-body');
-
-            let currentQuestionIndex = -1;
-
-            function displayQuestion(index) {
-                if (index < 0 || index >= questionsData.length) return;
-
-                currentQuestionIndex = index;
-                const question = questionsData[index];
-
-                welcomeMessage.classList.add('hidden');
-                questionContent.classList.remove('hidden');
-
-                questionTitle.textContent = question.title;
-                questionBody.innerHTML = question.question.replace(/`([^`]+)`/g, '<code class="fira-code bg-amber-100 text-amber-800 rounded px-1 py-0.5">\$1</code>').replace(/\*\*(.+?)\*\*/g, '<strong>\$1</strong>');
-                
-                document.querySelectorAll('.nav-button').forEach((btn, i) => {
-                    btn.setAttribute('aria-current', i === index);
-                });
-            }
-
-            questionsData.forEach((question, index) => {
-                const button = document.createElement('button');
-                button.className = 'nav-button w-full text-left p-3 rounded-md transition-colors duration-200';
-                button.textContent = `${index + 1}. ${question.title}`;
-                button.setAttribute('aria-current', 'false');
-                button.addEventListener('click', () => displayQuestion(index));
-                navContainer.appendChild(button);
-            });
-        }
+        lucide.createIcons();
     </script>
 </body>
-
 </html>
-
