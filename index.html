@@ -482,7 +482,13 @@
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {RESOURCES.map((res, idx) => (
-                        <div key={idx} className="bg-slate-800 p-6 rounded-xl border border-slate-700 hover:border-indigo-500 hover:shadow-lg hover:shadow-indigo-500/10 transition-all cursor-pointer group">
+                        <a 
+                            key={idx} 
+                            href={res.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block bg-slate-800 p-6 rounded-xl border border-slate-700 hover:border-indigo-500 hover:shadow-lg hover:shadow-indigo-500/10 transition-all cursor-pointer group"
+                        >
                             <div className="w-12 h-12 bg-slate-900 rounded-lg flex items-center justify-center mb-4 group-hover:bg-indigo-600 transition-colors">
                                 <div className="text-indigo-400 group-hover:text-white transition-colors">
                                     {res.icon}
@@ -493,7 +499,7 @@
                             <div className="flex items-center text-slate-400 text-sm group-hover:text-indigo-300">
                                 Access Resource <ChevronRight size={16} className="ml-1" />
                             </div>
-                        </div>
+                        </a>
                     ))}
                 </div>
             </div>
