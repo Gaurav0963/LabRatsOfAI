@@ -3,284 +3,330 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI lab 1 Solution</title>
+    <title>AI Lab 1 - Solutions</title>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-    <!-- 
-        Chosen Palette: Warm Neutral (Stone, Amber)
-        Application Structure Plan: A two-panel, single-page application. The left panel serves as a navigation menu, listing all questions. Clicking a question dynamically updates the right content panel with the question's details and a solution that can be revealed on demand. This structure was chosen to provide a focused, non-linear learning experience, allowing users to easily jump between topics and engage with problems one at a time, which is more effective for study than a long, scrollable document.
-        Visualization & Content Choices: The core content (questions/solutions) is presented in a structured text format. The primary interactions are navigation clicks and show/hide toggles for solutions, implemented with vanilla JS. Code is displayed in a formatted <pre><code> block for readability. A "Copy Code" button enhances usability. This design transforms a static report into an interactive study tool without needing charts or complex visualizations.
-        CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
-    -->
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Custom Font (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .fira-code {
-            font-family: 'Fira Code', monospace;
-        }
-        .nav-button[aria-current="true"] {
-            background-color: #f59e0b; /* amber-500 */
-            color: white;
-            font-weight: 600;
-        }
-        .nav-button:not([aria-current="true"]):hover {
-            background-color: #fde68a; /* amber-200 */
-        }
+        body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
-<body class="bg-stone-50 text-stone-800">
+<body class="bg-slate-950 text-slate-900 py-8 min-h-screen">
 
-    <div class="min-h-screen flex flex-col lg:flex-row">
-        <!-- Left Navigation Panel -->
-        <aside id="navigation-panel" class="w-full lg:w-1/3 lg:max-w-sm xl:max-w-md bg-white border-r border-stone-200 p-4 lg:p-6 flex flex-col">
-            <header class="mb-6">
-                <h1 class="text-2xl font-bold text-stone-900">Experiment 1 SOLUTIONS</h1>
-                <p class="text-sm text-stone-600 mt-1">Select a question to view its details and solution.</p>
-            </header>
-            <nav id="question-nav" class="flex-grow space-y-2 overflow-y-auto">
-                <!-- Navigation buttons will be injected here by JS -->
-            </nav>
-        </aside>
-
-        <!-- Right Content Panel -->
-        <main id="content-panel" class="w-full lg:w-2/3 p-4 md:p-8 lg:p-12 overflow-y-auto">
-            <div id="welcome-message" class="flex flex-col items-center justify-center h-full text-center">
-                 <div class="bg-amber-100 text-amber-800 p-8 rounded-2xl max-w-lg">
-                    <h2 class="text-3xl font-bold mb-2">Welcome!</h2>
-                    <p class="text-lg">Select a question from the list on the left to get started. Each question comes with a solution you can reveal when you're ready.</p>
-                </div>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Back Button: Links to index.html -->
+        <a href="index.html" class="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-6 group">
+            <div class="p-2 rounded-full bg-slate-800 group-hover:bg-slate-700">
+                <i data-lucide="arrow-left" class="w-5 h-5"></i>
             </div>
-            <div id="question-content" class="hidden">
-                <h2 id="question-title" class="text-3xl font-bold text-stone-900 mb-4"></h2>
-                <div id="question-body" class="prose prose-lg max-w-none text-stone-700 mb-8"></div>
-                
-                <div class="border-t border-stone-200 pt-6">
-                     <button id="toggle-solution-btn" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-amber-500 hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 transition-transform transform hover:scale-105">
-                        Show Solution
-                    </button>
-                    <div id="solution-container" class="mt-6 hidden">
-                        <div class="bg-stone-100 rounded-lg overflow-hidden">
-                            <div class="flex justify-between items-center p-3 bg-stone-200 border-b border-stone-300">
-                                <h3 class="font-semibold text-stone-700">Solution Code</h3>
-                                <button id="copy-code-btn" class="px-3 py-1 text-sm font-medium text-stone-600 bg-white rounded-md border border-stone-300 hover:bg-stone-50">
-                                    Copy Code
-                                </button>
-                            </div>
-                            <pre class="p-4 text-sm overflow-x-auto fira-code"><code id="solution-code"></code></pre>
+            <span class="font-medium">Back to Portal</span>
+        </a>
+
+        <!-- Document Container -->
+        <div class="bg-white rounded-xl shadow-2xl overflow-hidden min-h-[800px]">
+            
+            <div class="bg-emerald-50 border-b border-emerald-200 px-8 py-6">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <span class="inline-block px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs font-bold uppercase tracking-wide mb-2">
+                            Solution Set
+                        </span>
+                        <h1 class="text-3xl font-bold text-slate-900 mb-2">Lab 01 & 02 Solutions</h1>
+                        <div class="flex items-center gap-4 text-sm text-slate-500">
+                            <span class="flex items-center gap-1"><i data-lucide="calendar" class="w-4 h-4"></i> Released: Jan 18, 2026</span>
+                            <span class="flex items-center gap-1"><i data-lucide="check-circle" class="w-4 h-4"></i> Status: Verified</span>
                         </div>
                     </div>
                 </div>
             </div>
-        </main>
+
+            <div class="px-8 py-8 space-y-12">
+
+                <!-- Part 1 -->
+                <section>
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6 border-b pb-2">Part 1: Calendar & Datetime</h2>
+                    
+                    <div class="space-y-6">
+                        <!-- Q1.1 -->
+                        <div>
+                            <h3 class="font-bold text-lg text-slate-800 mb-2">Q1.1 Display Specific Month</h3>
+                            <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>import calendar
+
+yy = int(input("Enter year: "))
+mm = int(input("Enter month: "))
+
+# display the calendar
+print(calendar.month(yy, mm))</code></pre>
+                        </div>
+
+                        <!-- Q1.2 -->
+                        <div>
+                            <h3 class="font-bold text-lg text-slate-800 mb-2">Q1.2 Display All Months</h3>
+                            <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>import calendar
+
+year = int(input("Enter year: "))
+
+# display calendar for the whole year
+print(calendar.calendar(year))</code></pre>
+                        </div>
+
+                        <!-- Q1.3 -->
+                        <div>
+                            <h3 class="font-bold text-lg text-slate-800 mb-2">Q1.3 Current Date & Time</h3>
+                            <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>import datetime
+
+now = datetime.datetime.now()
+today = datetime.date.today()
+
+print("Today's Date:", today)
+print("Current Date and Time:", now)</code></pre>
+                        </div>
+
+                        <!-- Q1.4 -->
+                        <div>
+                            <h3 class="font-bold text-lg text-slate-800 mb-2">Q1.4 Date Arithmetic</h3>
+                            <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>from datetime import date, timedelta
+
+today = date.today()
+print("Today:", today)
+
+days_to_add = 5
+future_date = today + timedelta(days=days_to_add)
+
+print(f"Date after {days_to_add} days:", future_date)</code></pre>
+                        </div>
+
+                        <!-- Q1.5 -->
+                        <div>
+                            <h3 class="font-bold text-lg text-slate-800 mb-2">Q1.5 Leap Year Check</h3>
+                            <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>import calendar
+
+year = int(input("Enter year to check: "))
+
+# Method 1: Using Calendar Module
+if calendar.isleap(year):
+    print(f"{year} is a Leap Year (using module)")
+else:
+    print(f"{year} is NOT a Leap Year (using module)")
+
+# Method 2: Logic
+if (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0):
+    print(f"{year} is a Leap Year (using logic)")
+else:
+    print(f"{year} is NOT a Leap Year (using logic)")</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Part 2 -->
+                <section>
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6 border-b pb-2">Part 2: Conditional Logic</h2>
+                    
+                    <div class="space-y-6">
+                        <!-- Q2.1 -->
+                        <div>
+                            <h3 class="font-bold text-lg text-slate-800 mb-2">Q2.1 Positive, Negative, or Zero</h3>
+                            <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>num = float(input("Enter a number: "))
+
+if num > 0:
+    print("Positive number")
+elif num == 0:
+    print("Zero")
+else:
+    print("Negative number")</code></pre>
+                        </div>
+
+                        <!-- Q2.2 -->
+                        <div>
+                            <h3 class="font-bold text-lg text-slate-800 mb-2">Q2.2 Largest of Three</h3>
+                            <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>num1 = float(input("Enter first number: "))
+num2 = float(input("Enter second number: "))
+num3 = float(input("Enter third number: "))
+
+if (num1 >= num2) and (num1 >= num3):
+    largest = num1
+elif (num2 >= num1) and (num2 >= num3):
+    largest = num2
+else:
+    largest = num3
+
+print("The largest number is", largest)</code></pre>
+                        </div>
+                        
+                        <!-- Q2.3 -->
+                        <div>
+                            <h3 class="font-bold text-lg text-slate-800 mb-2">Q2.3 Day of Week</h3>
+                            <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>day = int(input("Enter day number (1-7): "))
+
+days = {
+    1: "Monday", 2: "Tuesday", 3: "Wednesday", 
+    4: "Thursday", 5: "Friday", 6: "Saturday", 7: "Sunday"
+}
+
+print(days.get(day, "Invalid input! Please enter 1-7."))</code></pre>
+                        </div>
+
+                        <!-- Q2.4 -->
+                        <div>
+                            <h3 class="font-bold text-lg text-slate-800 mb-2">Q2.4 Simple Calculator</h3>
+                            <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>num1 = float(input("Enter first number: "))
+num2 = float(input("Enter second number: "))
+op = input("Enter operator (+, -, *, /): ")
+
+if op == '+':
+    print(f"Result: {num1 + num2}")
+elif op == '-':
+    print(f"Result: {num1 - num2}")
+elif op == '*':
+    print(f"Result: {num1 * num2}")
+elif op == '/':
+    if num2 != 0:
+        print(f"Result: {num1 / num2}")
+    else:
+        print("Error! Division by zero.")
+else:
+    print("Invalid operator")</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Part 3 -->
+                <section>
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6 border-b pb-2">Part 3: Strings & Loops</h2>
+                    
+                    <div class="space-y-6">
+                        <!-- Q3.1 -->
+                        <div>
+                            <h3 class="font-bold text-lg text-slate-800 mb-2">Q3.1 Palindrome Check</h3>
+                            <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>my_str = input("Enter a string: ")
+
+# Case-insensitive check
+my_str = my_str.casefold()
+
+# Check if string matches its reverse
+if list(my_str) == list(reversed(my_str)):
+    print("It is palindrome")
+else:
+    print("It is not palindrome")</code></pre>
+                        </div>
+
+                        <!-- Q3.2 -->
+                        <div>
+                            <h3 class="font-bold text-lg text-slate-800 mb-2">Q3.2 Fibonacci Series</h3>
+                            <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>n_terms = int(input("How many terms? "))
+
+n1, n2 = 0, 1
+count = 0
+
+if n_terms <= 0:
+    print("Please enter a positive integer")
+elif n_terms == 1:
+    print("Fibonacci sequence upto", n_terms, ":")
+    print(n1)
+else:
+    print("Fibonacci sequence:")
+    while count < n_terms:
+        print(n1)
+        nth = n1 + n2
+        # update values
+        n1 = n2
+        n2 = nth
+        count += 1</code></pre>
+                        </div>
+
+                        <!-- Q3.3 -->
+                        <div>
+                            <h3 class="font-bold text-lg text-slate-800 mb-2">Q3.3 Multiplication Table</h3>
+                            <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>num = int(input("Display multiplication table of? "))
+
+for i in range(1, 11):
+    print(f"{num} x {i} = {num*i}")</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Part 4 -->
+                <section>
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6 border-b pb-2">Part 4: Functions & Lists</h2>
+                    
+                    <div class="space-y-6">
+                        <!-- Q4.1 -->
+                        <div>
+                            <h3 class="font-bold text-lg text-slate-800 mb-2">Q4.1 Factorial Function</h3>
+                            <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>def factorial(n):
+    if n < 0:
+        return "Undefined for negative numbers"
+    elif n == 0 or n == 1:
+        return 1
+    else:
+        return n * factorial(n-1)
+
+num = int(input("Enter a number: "))
+print(f"Factorial of {num} is {factorial(num)}")</code></pre>
+                        </div>
+
+                        <!-- Q4.2 -->
+                        <div>
+                            <h3 class="font-bold text-lg text-slate-800 mb-2">Q4.2 Compare Lists</h3>
+                            <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>def compare_lists(l1, l2):
+    # Python lists compare element-by-element by default
+    if l1 == l2:
+        return True
+    else:
+        return False
+
+list1 = [1, 2, 3]
+list2 = [1, 2, 3]
+list3 = [3, 2, 1]
+
+print(f"List 1 vs List 2: {compare_lists(list1, list2)}") # True
+print(f"List 1 vs List 3: {compare_lists(list1, list3)}") # False</code></pre>
+                        </div>
+
+                        <!-- Q4.3 -->
+                        <div>
+                            <h3 class="font-bold text-lg text-slate-800 mb-2">Q4.3 List Statistics (No Built-ins)</h3>
+                            <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code># Input list
+user_input = input("Enter numbers separated by space: ")
+numbers = [int(x) for x in user_input.split()]
+
+sum_val = 0
+count = 0
+max_val = numbers[0]
+
+for num in numbers:
+    sum_val += num
+    count += 1
+    if num > max_val:
+        max_val = num
+
+average = sum_val / count
+
+print(f"Sum: {sum_val}")
+print(f"Average: {average}")
+print(f"Maximum: {max_val}")</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+            
+            <div class="bg-emerald-50 border-t border-emerald-200 px-8 py-4 text-center text-emerald-800 text-sm">
+                -- End of Solutions --
+            </div>
+        </div>
     </div>
 
+    <!-- Initialize Icons -->
     <script>
-        const questionsData = [
-            {
-                title: "Leap Year Check 📅",
-                question: "How would you write a Python function `is_leap(year)` that returns `True` if a year is a leap year, using the `calendar` module?",
-                solution: `import calendar
-
-def is_leap(year):
-  """Checks if a year is a leap year."""
-  return calendar.isleap(year)
-
-# --- Example ---
-print(f"Is 2024 a leap year? {is_leap(2024)}")
-print(f"Is 2025 a leap year? {is_leap(2025)}")`
-            },
-            {
-                title: "Date Formatting ✍️",
-                question: "Write a Python script that gets the current date and displays it in the format **\"Day-Month-Year\"** (e.g., 27-Jul-2025).",
-                solution: `from datetime import datetime
-
-# Get current date and time
-now = datetime.now()
-
-# Format the date using strftime
-# %d = Day, %b = Abbreviated month, %Y = Full year
-formatted_date = now.strftime("%d-%b-%Y")
-
-print(f"Formatted Date: {formatted_date}")`
-            },
-            {
-                title: "Days Between Dates ⏳",
-                question: "Write a program to calculate the number of days between two specific dates: `2026-01-01` and `2025-07-27`.",
-                solution: `from datetime import date
-
-date1 = date(2025, 7, 27)
-date2 = date(2026, 1, 1)
-
-# The result of subtracting dates is a 'timedelta' object
-time_difference = date2 - date1
-
-print(f"Number of days between the two dates: {time_difference.days}")`
-            },
-            {
-                title: "Find the Day of the Week 🤔",
-                question: "Write a program that takes a date string like `\"2025-12-25\"` and prints what day of the week it is.",
-                solution: `from datetime import datetime
-
-date_string = "2025-12-25"
-
-# Parse the string into a datetime object using strptime
-date_object = datetime.strptime(date_string, "%Y-%m-%d")
-
-# Get the full weekday name using strftime's %A
-weekday_name = date_object.strftime("%A")
-
-print(f"The day for {date_string} is {weekday_name}.")`
-            },
-            {
-                title: "Age Calculation 🎂",
-                question: "Write a program that calculates the age in years from a given birthdate string, like `\"1995-05-20\"`.",
-                solution: `from datetime import datetime
-
-def calculate_age(birthdate_str):
-    """Calculates age in whole years."""
-    birthdate = datetime.strptime(birthdate_str, "%Y-%m-%d")
-    today = datetime.today()
-    # Subtract years and adjust for whether the birthday has passed this year
-    age = today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
-    return age
-
-# --- Example ---
-age = calculate_age("1995-05-20")
-print(f"Age is: {age} years")`
-            },
-            {
-                title: "Convert Temperatures with `map` 🌡️",
-                question: "Given a list of temperatures in Celsius, use **`map`** and a **`lambda`** function to create a new list of temperatures converted to Fahrenheit. The formula is F = (C &times; 9/5) + 32.",
-                solution: `celsius_temps = [0, 10, 25, 37.5, 100]
-
-# Use map with a lambda function for the conversion formula
-fahrenheit_temps = list(map(lambda c: (c * 9/5) + 32, celsius_temps))
-
-print(f"Celsius: {celsius_temps}")
-print(f"Fahrenheit: {fahrenheit_temps}")`
-            },
-            {
-                title: "Filter Even Numbers with `filter` 🔢",
-                question: "From a list of numbers, use **`filter`** and a **`lambda`** function to create a new list containing only the even numbers.",
-                solution: `numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-
-# Use filter with a lambda to keep only items where the condition is True
-even_numbers = list(filter(lambda x: x % 2 == 0, numbers))
-
-print(f"Original list: {numbers}")
-print(f"Even numbers only: {even_numbers}")`
-            },
-            {
-                title: "Filter and Map Combined ⚙️",
-                question: "Given a list of numbers, create a new list that contains the **squares of only the odd numbers**. Use both `filter` and `map`.",
-                solution: `numbers = [1, 2, 3, 4, 5, 6, 7]
-
-# First, filter out the odd numbers
-odd_numbers = filter(lambda x: x % 2 != 0, numbers)
-
-# Next, map the square function onto the filtered result
-squared_odds = list(map(lambda x: x**2, odd_numbers))
-
-print(f"Original list: {numbers}")
-print(f"Squares of odd numbers: {squared_odds}")`
-            },
-            {
-                title: "Filter Names by Length 🗣️",
-                question: "You have a list of names. Use **`filter`** and a **`lambda`** to create a new list that includes only the names with **more than 5 characters**.",
-                solution: `names = ["Alice", "Bob", "Charlie", "David", "Eve", "Frank"]
-
-# Filter names based on the length of the string
-long_names = list(filter(lambda name: len(name) > 5, names))
-
-print(f"Original names: {names}")
-print(f"Long names (more than 5 letters): {long_names}")`
-            },
-            {
-                title: "Combine Two Lists with `map` ✨",
-                question: "Given two lists of numbers, use **`map`** and a **`lambda`** to create a new list where each element is the **sum** of the elements at the same position in the original lists.",
-                solution: `list1 = [1, 2, 3, 4]
-list2 = [10, 20, 30, 40]
-
-# The lambda function takes two arguments, x and y, from the two lists
-sums = list(map(lambda x, y: x + y, list1, list2))
-
-print(f"List 1: {list1}")
-print(f"List 2: {list2}")
-print(f"Sum of lists: {sums}")`
-            }
-        ];
-
-        const navContainer = document.getElementById('question-nav');
-        const welcomeMessage = document.getElementById('welcome-message');
-        const questionContent = document.getElementById('question-content');
-        const questionTitle = document.getElementById('question-title');
-        const questionBody = document.getElementById('question-body');
-        const toggleSolutionBtn = document.getElementById('toggle-solution-btn');
-        const solutionContainer = document.getElementById('solution-container');
-        const solutionCode = document.getElementById('solution-code');
-        const copyCodeBtn = document.getElementById('copy-code-btn');
-
-        let currentQuestionIndex = -1;
-
-        function displayQuestion(index) {
-            if (index < 0 || index >= questionsData.length) return;
-
-            currentQuestionIndex = index;
-            const question = questionsData[index];
-
-            welcomeMessage.classList.add('hidden');
-            questionContent.classList.remove('hidden');
-
-            questionTitle.textContent = question.title;
-            questionBody.innerHTML = question.question.replace(/`([^`]+)`/g, '<code class="fira-code bg-amber-100 text-amber-800 rounded px-1 py-0.5">\$1</code>').replace(/\*\*(.+?)\*\*/g, '<strong>\$1</strong>');
-            solutionCode.textContent = question.solution;
-            
-            // Reset solution visibility
-            solutionContainer.classList.add('hidden');
-            toggleSolutionBtn.textContent = 'Show Solution';
-
-            // Update active state in navigation
-            document.querySelectorAll('.nav-button').forEach((btn, i) => {
-                btn.setAttribute('aria-current', i === index);
-            });
-        }
-
-        toggleSolutionBtn.addEventListener('click', () => {
-            const isHidden = solutionContainer.classList.toggle('hidden');
-            toggleSolutionBtn.textContent = isHidden ? 'Show Solution' : 'Hide Solution';
-        });
-
-        copyCodeBtn.addEventListener('click', () => {
-            const codeToCopy = solutionCode.textContent;
-            const tempTextArea = document.createElement('textarea');
-            tempTextArea.value = codeToCopy;
-            document.body.appendChild(tempTextArea);
-            tempTextArea.select();
-            try {
-                document.execCommand('copy');
-                copyCodeBtn.textContent = 'Copied!';
-                setTimeout(() => { copyCodeBtn.textContent = 'Copy Code'; }, 2000);
-            } catch (err) {
-                console.error('Failed to copy text: ', err);
-                copyCodeBtn.textContent = 'Failed!';
-            }
-            document.body.removeChild(tempTextArea);
-        });
-
-        // Populate navigation
-        questionsData.forEach((question, index) => {
-            const button = document.createElement('button');
-            button.className = 'nav-button w-full text-left p-3 rounded-md transition-colors duration-200';
-            button.textContent = `${index + 1}. ${question.title}`;
-            button.setAttribute('aria-current', 'false');
-            button.addEventListener('click', () => displayQuestion(index));
-            navContainer.appendChild(button);
-        });
-
+        lucide.createIcons();
     </script>
 </body>
 </html>
-
