@@ -3,300 +3,286 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Lab 2 Solutions</title>
+    <title>AI Lab - NumPy Solutions</title>
+    <link rel="icon" type="image/png" href="favicon-16x16.png">
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Custom Font (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
         body { font-family: 'Inter', sans-serif; }
-        pre {
-            font-family: 'Fira Code', monospace;
-            background-color: #2d3748;
-            color: #e2e8f0;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            overflow-x: auto;
-            position: relative;
-        }
-        .code-copy-btn {
-            position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            background-color: #4a5568;
-            color: #e2e8f0;
-            border: none;
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.25rem;
-            cursor: pointer;
-            font-size: 0.75rem;
-            opacity: 0.7;
-            transition: opacity 0.2s;
-        }
-        pre:hover .code-copy-btn {
-            opacity: 1;
-        }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="bg-slate-950 text-slate-900 py-8 min-h-screen">
 
-    <header class="bg-white shadow-md">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-sky-700">Python Lab</h1>
-            <nav class="space-x-4">
-                <a href="index.html" class="text-gray-600 font-semibold hover:underline">Home</a>
-                <a href="questions.html" class="text-gray-600 font-semibold hover:underline">Questions</a>
-                <a href="solutions.html" class="text-sky-700 font-semibold hover:underline">Solutions</a>
-            </nav>
-        </div>
-    </header>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Back Button -->
+        <a href="index.html" class="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-6 group">
+            <div class="p-2 rounded-full bg-slate-800 group-hover:bg-slate-700">
+                <i data-lucide="arrow-left" class="w-5 h-5"></i>
+            </div>
+            <span class="font-medium">Back to Portal</span>
+        </a>
 
-    <main class="container mx-auto px-6 py-12 max-w-3xl">
-        <div class="bg-white p-8 rounded-lg shadow-lg">
-            <h2 class="text-3xl font-bold text-center mb-6 text-sky-700">AI Lab 2: Python Solutions</h2>
-            <div id="solutions-container" class="space-y-4"></div>
-        </div>
-    </main>
-
-    <footer class="bg-gray-200 text-center py-4 mt-8 text-gray-600">
-        <p>&copy; 2023 Python Lab. All rights reserved.</p>
-    </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const solutions = [
-                {
-                    q: "Write a python program to display a particular month of a year using the `calendar` module.",
-                    a: `import calendar
-
-def display_month(year, month):
-    try:
-        print(f"Displaying the calendar for {calendar.month_name[month]} {year}:")
-        print(calendar.month(year, month))
-    except IndexError:
-        print("Please enter a valid month (1-12) and year.")
-
-year_input = int(input("Enter the year: "))
-month_input = int(input("Enter the month (1-12): "))
-display_month(year_input, month_input)`
-                },
-                {
-                    q: "Write a python program to print all the months of a given year.",
-                    a: `import calendar
-
-def print_months_of_year(year):
-    print(f"Displaying all months of the year {year}:")
-    for month in range(1, 13):
-        print(calendar.month_name[month])
-
-year_input = int(input("Enter the year: "))
-print_months_of_year(year_input)`
-                },
-                {
-                    q: "Write a python program to print whether a number is positive, negative, or zero using if-elif-else.",
-                    a: `num = float(input("Enter a number: "))
-
-if num > 0:
-    print("The number is positive.")
-elif num < 0:
-    print("The number is negative.")
-else:
-    print("The number is zero.")`
-                },
-                {
-                    q: "Write a python program to find the largest number among three numbers.",
-                    a: `num1 = float(input("Enter the first number: "))
-num2 = float(input("Enter the second number: "))
-num3 = float(input("Enter the third number: "))
-
-if num1 >= num2 and num1 >= num3:
-    largest = num1
-elif num2 >= num1 and num2 >= num3:
-    largest = num2
-else:
-    largest = num3
-    
-print(f"The largest number among {num1}, {num2}, and {num3} is: {largest}")`
-                },
-                {
-                    q: "Write a python program to read a number (1-7) and display the corresponding day of the week.",
-                    a: `day_number = int(input("Enter a number (1-7) to represent the day: "))
-
-if day_number == 1:
-    day = "Monday"
-elif day_number == 2:
-    day = "Tuesday"
-elif day_number == 3:
-    day = "Wednesday"
-elif day_number == 4:
-    day = "Thursday"
-elif day_number == 5:
-    day = "Friday"
-elif day_number == 6:
-    day = "Saturday"
-elif day_number == 7:
-    day = "Sunday"
-else:
-    day = "Invalid input. Please enter a number between 1 and 7."
-
-print(f"The corresponding day for the number {day_number} is: {day}")`
-                },
-                {
-                    q: "Write a python program to check whether a given string is a palindrome or not.",
-                    a: `my_str = 'RaceCar'
-my_str = my_str.casefold()
-
-rev_str = reversed(my_str)
-
-if list(my_str) == list(rev_str):
-    print("The string is a palindrome.")
-else:
-    print("The string is not a palindrome.")`
-                },
-                {
-                    q: "Write a python program to find the factorial of a given number using a function.",
-                    a: `def factorial(n):
-    if n == 0:
-        return 1
-    else:
-        return n * factorial(n - 1)
-
-num = int(input("Enter a non-negative number: "))
-
-if num < 0:
-    print("Factorial is not defined for negative numbers.")
-else:
-    fact = factorial(num)
-    print(f"The factorial of {num} is: {fact}")`
-                },
-                {
-                    q: "Write a Python function that takes two lists and returns `True` if they are equal, otherwise `False`.",
-                    a: `def compare_lists(list1, list2):
-    return list1 == list2
-
-list_a = [1, 2, 3, 4, 5]
-list_b = [1, 2, 3, 4, 5]
-list_c = [5, 4, 3, 2, 1]
-
-print(f"Are list_a and list_b equal? {compare_lists(list_a, list_b)}")
-print(f"Are list_a and list_c equal? {compare_lists(list_a, list_c)}")`
-                },
-                {
-                    q: "Write a Python function to check if a given number is a prime number.",
-                    a: `def is_prime(n):
-    if n <= 1:
-        return False
-    for i in range(2, int(n**0.5) + 1):
-        if n % i == 0:
-            return False
-    return True
-
-num_to_check = int(input("Enter a number to check for primality: "))
-if is_prime(num_to_check):
-    print(f"{num_to_check} is a prime number.")
-else:
-    print(f"{num_to_check} is not a prime number.")`
-                },
-                {
-                    q: "Write a Python program to count the number of vowels in a given string.",
-                    a: `my_string = "Hello World"
-vowels = "aeiouAEIOU"
-vowel_count = 0
-for char in my_string:
-    if char in vowels:
-        vowel_count += 1
-print(f"The number of vowels in '{my_string}' is: {vowel_count}")`
-                },
-                {
-                    q: "Create a Python script that takes a list of numbers and returns a new list containing only the even numbers.",
-                    a: `numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-even_numbers = [num for num in numbers if num % 2 == 0]
-print(f"Original list: {numbers}")
-print(f"Even numbers: {even_numbers}")`
-                },
-                {
-                    q: "Write a function that accepts an arbitrary number of arguments and returns their sum.",
-                    a: `def sum_all(*args):
-    total = 0
-    for num in args:
-        total += num
-    return total
-
-print(f"The sum of 1, 2, 3 is: {sum_all(1, 2, 3)}")
-print(f"The sum of 10, 20, 30, 40 is: {sum_all(10, 20, 30, 40)}")`
-                },
-                {
-                    q: "Write a program that swaps the values of two variables without using a temporary variable.",
-                    a: `a = 5
-b = 10
-print(f"Before swapping: a = {a}, b = {b}")
-
-a, b = b, a
-
-print(f"After swapping: a = {a}, b = {b}")`
-                },
-                {
-                    q: "Write a program to merge two dictionaries.",
-                    a: `dict1 = {'a': 1, 'b': 2}
-dict2 = {'c': 3, 'd': 4}
-
-merged_dict = {**dict1, **dict2}
-
-print(f"Dictionary 1: {dict1}")
-print(f"Dictionary 2: {dict2}")
-print(f"Merged dictionary: {merged_dict}")`
-                },
-                {
-                    q: "Write a Python program to handle a `ValueError` when converting a non-integer string to an integer.",
-                    a: `try:
-    user_input = input("Enter a number: ")
-    number = int(user_input)
-    print(f"You entered the number: {number}")
-except ValueError:
-    print("Invalid input. Please enter a valid integer.")`
-                }
-            ];
-
-            const container = document.getElementById('solutions-container');
-
-            solutions.forEach((item, index) => {
-                const solutionHtml = `
-                    <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-200">
-                        <button class="w-full text-left p-5 md:p-6 flex justify-between items-center hover:bg-gray-50 transition-colors duration-200 focus:outline-none">
-                            <span class="font-semibold text-gray-800 text-base md:text-lg">
-                                ${index + 1}. ${item.q}
-                            </span>
-                            <span class="transform transition-transform duration-200 text-sky-500 text-xl">&#9662;</span>
-                        </button>
-                        <div class="p-5 md:p-6 border-t border-gray-200 hidden">
-                            <pre><code class="language-python">${item.a}</code><button class="code-copy-btn">Copy &#x2398;</button></pre>
+        <!-- Document Container -->
+        <div class="bg-white rounded-xl shadow-2xl overflow-hidden min-h-[800px]">
+            
+            <!-- Document Header -->
+            <div class="bg-emerald-50 border-b border-emerald-200 px-8 py-6">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <span class="inline-block px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs font-bold uppercase tracking-wide mb-2">
+                            Verified Solutions
+                        </span>
+                        <h1 class="text-3xl font-bold text-slate-900 mb-2">NumPy Mastery Solutions</h1>
+                        <div class="flex items-center gap-4 text-sm text-slate-500">
+                            <span class="flex items-center gap-1"><i data-lucide="check-circle" class="w-4 h-4"></i> Status: Checked</span>
                         </div>
                     </div>
-                `;
-                container.innerHTML += solutionHtml;
-            });
+                </div>
+            </div>
 
-            container.addEventListener('click', (e) => {
-                const button = e.target.closest('button');
-                if (!button) return;
-                
-                const answer = button.nextElementSibling;
-                const arrow = button.querySelector('span:last-child');
-                
-                answer.classList.toggle('hidden');
-                arrow.classList.toggle('rotate-180');
-            });
+            <div class="px-8 py-8 space-y-10">
+
+                <!-- Q1 -->
+                <div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Q1. Array Initialization</h3>
+                    <p class="text-xs text-slate-500 mb-2">Concepts: arange, ones, dtype</p>
+                    <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>import numpy as np
+
+# 1D array of integers from 0 to 9
+arr_1d = np.arange(10)
+print("1D Array:", arr_1d)
+
+# 3x3 matrix of True values
+# dtype=bool forces the 1s to be interpreted as True
+bool_matrix = np.ones((3, 3), dtype=bool)
+print("Boolean Matrix:\n", bool_matrix)</code></pre>
+                </div>
+
+                <!-- Q2 -->
+                <div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Q2. Sequence Generation</h3>
+                    <p class="text-xs text-slate-500 mb-2">Concepts: linspace vs arange</p>
+                    <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code># 10 points between 0 and 1 inclusive
+# linspace is better when you need a specific number of points
+lin_arr = np.linspace(0, 1, 10)
+print("Linspace:", lin_arr)
+
+# Comparison: arange takes a 'step' size, not 'count'
+# arange(0, 1.1, 0.1) might result in floating point errors
+print("Arange:", np.arange(0, 1.1, 0.1))</code></pre>
+                </div>
+
+                <!-- Q3 -->
+                <div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Q3. Array Attributes</h3>
+                    <p class="text-xs text-slate-500 mb-2">Concepts: shape, ndim, size</p>
+                    <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code># Random 3x4x2 array
+arr = np.random.random((3, 4, 2))
+
+print("Dimensions (ndim):", arr.ndim) # Output: 3
+print("Shape:", arr.shape)            # Output: (3, 4, 2)
+print("Size:", arr.size)              # Output: 24 (3*4*2)
+print("Data Type:", arr.dtype)        # Output: float64</code></pre>
+                </div>
+
+                <!-- Q4 -->
+                <div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Q4. Reshaping</h3>
+                    <p class="text-xs text-slate-500 mb-2">Concepts: reshape, flatten</p>
+                    <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>arr = np.arange(20)
+
+# Reshape to 4x5
+reshaped = arr.reshape((4, 5))
+print("Reshaped (4x5):\n", reshaped)
+
+# Flatten back to 1D
+flattened = reshaped.flatten()
+print("Flattened:", flattened)</code></pre>
+                </div>
+
+                <!-- Q5 -->
+                <div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Q5. Slicing Matrix</h3>
+                    <p class="text-xs text-slate-500 mb-2">Concepts: slicing [start:stop]</p>
+                    <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code># 5x5 Identity Matrix
+identity = np.eye(5)
+
+# Extract central 3x3 (rows 1-3, cols 1-3)
+# Remember: index 4 is exclusive
+sub_matrix = identity[1:4, 1:4]
+
+print("Original:\n", identity)
+print("Central 3x3:\n", sub_matrix)</code></pre>
+                </div>
+
+                <!-- Q6 -->
+                <div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Q6. Boolean Indexing</h3>
+                    <p class="text-xs text-slate-500 mb-2">Concepts: masking, replacement</p>
+                    <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>arr = np.random.randint(1, 51, 20)
+print("Original:", arr)
+
+# Replace odd numbers with -1
+# arr % 2 != 0 creates a boolean mask
+arr[arr % 2 != 0] = -1
+
+print("Modified:", arr)</code></pre>
+                </div>
+
+                <!-- Q7 -->
+                <div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Q7. Where Condition</h3>
+                    <p class="text-xs text-slate-500 mb-2">Concepts: np.where</p>
+                    <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>a = np.array([1, 2, 3, 4, 5])
+b = np.array([5, 4, 3, 2, 1])
+
+# Where a > b, take from a, else take from b
+result = np.where(a > b, a, b)
+
+print("A:", a)
+print("B:", b)
+print("Result (Max of element-wise):", result)</code></pre>
+                </div>
+
+                <!-- Q8 -->
+                <div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Q8. Axis Aggregations</h3>
+                    <p class="text-xs text-slate-500 mb-2">Concepts: sum(axis), max(axis)</p>
+                    <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>arr = np.random.randint(0, 10, (3, 4))
+print("Array:\n", arr)
+
+# Sum of columns (axis 0 - collapsing rows)
+col_sum = arr.sum(axis=0)
+print("Sum of columns:", col_sum)
+
+# Max of rows (axis 1 - collapsing columns)
+row_max = arr.max(axis=1)
+print("Max of rows:", row_max)</code></pre>
+                </div>
+
+                <!-- Q9 -->
+                <div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Q9. Broadcasting</h3>
+                    <p class="text-xs text-slate-500 mb-2">Concepts: keepdims, element-wise math</p>
+                    <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>arr = np.random.random((3, 4))
+
+# Calculate mean of each row
+# keepdims=True ensures result is (3,1) instead of (3,)
+# This allows it to broadcast against (3,4)
+means = arr.mean(axis=1, keepdims=True)
+
+normalized = arr - means
+print("Original Mean (approx):", arr.mean())
+print("New Row Means (should be 0):", normalized.mean(axis=1))</code></pre>
+                </div>
+
+                <!-- Q10 -->
+                <div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Q10. Standard Deviation</h3>
+                    <p class="text-xs text-slate-500 mb-2">Concepts: np.random.randn, mean, std</p>
+                    <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code># randn generates from "Standard Normal" (mean=0, std=1)
+data = np.random.randn(1000)
+
+print(f"Mean: {data.mean():.4f}") # Should be close to 0
+print(f"Std Dev: {data.std():.4f}") # Should be close to 1</code></pre>
+                </div>
+
+                <!-- Q11 -->
+                <div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Q11. Matrix Multiplication</h3>
+                    <p class="text-xs text-slate-500 mb-2">Concepts: dot, matmul (@)</p>
+                    <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>mat1 = np.random.random((5, 3))
+mat2 = np.random.random((3, 2))
+
+# Matrix Multiply
+result = np.dot(mat1, mat2)
+# Or use the @ operator: result = mat1 @ mat2
+
+print("Shape of Result:", result.shape) # Output: (5, 2)</code></pre>
+                </div>
+
+                <!-- Q12 -->
+                <div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Q12. Stacking Arrays</h3>
+                    <p class="text-xs text-slate-500 mb-2">Concepts: vstack, hstack</p>
+                    <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>a = np.array([1, 2, 3])
+b = np.array([4, 5, 6])
+
+# Vertical Stack (one on top of other)
+v_stack = np.vstack((a, b))
+print("Vertical Stack:\n", v_stack)
+# Shape: (2, 3)
+
+# Horizontal Stack (side by side)
+h_stack = np.hstack((a, b))
+print("Horizontal Stack:\n", h_stack)
+# Shape: (6,)</code></pre>
+                </div>
+
+                <!-- Q13 -->
+                <div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Q13. Unique Items</h3>
+                    <p class="text-xs text-slate-500 mb-2">Concepts: np.unique</p>
+                    <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>arr = np.random.randint(0, 11, 50)
+
+# return_counts=True gives frequency
+values, counts = np.unique(arr, return_counts=True)
+
+print("Unique Values:", values)
+print("Counts:       ", counts)</code></pre>
+                </div>
+
+                <!-- Q14 -->
+                <div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Q14. Linear Algebra (Inverse)</h3>
+                    <p class="text-xs text-slate-500 mb-2">Concepts: linalg.det, linalg.inv</p>
+                    <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>mat = np.random.randint(1, 10, (3, 3))
+print("Matrix:\n", mat)
+
+det = np.linalg.det(mat)
+print(f"Determinant: {det:.2f}")
+
+if det != 0:
+    inv = np.linalg.inv(mat)
+    print("Inverse:\n", inv)
+else:
+    print("Matrix is singular, no inverse.")</code></pre>
+                </div>
+
+                <!-- Q15 -->
+                <div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Q15. Set Operations</h3>
+                    <p class="text-xs text-slate-500 mb-2">Concepts: intersect1d</p>
+                    <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>a = np.array([1,2,3,2,3,4,3,4,5,6])
+b = np.array([7,2,10,2,7,4,9,4,9,8])
+
+# Find common elements
+common = np.intersect1d(a, b)
+
+print("Common elements:", common)
+# Output: [2 4]</code></pre>
+                </div>
+
+            </div>
             
-            document.querySelectorAll('.code-copy-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    const code = button.previousElementSibling.innerText;
-                    navigator.clipboard.writeText(code).then(() => {
-                        button.innerText = 'Copied!';
-                        setTimeout(() => { button.innerHTML = 'Copy &#x2398;'; }, 2000);
-                    });
-                });
-            });
-        });
+            <!-- Document Footer -->
+            <div class="bg-emerald-50 border-t border-emerald-200 px-8 py-4 text-center text-emerald-800 text-sm">
+                -- End of Solutions --
+            </div>
+        </div>
+    </div>
+
+    <!-- Initialize Icons -->
+    <script>
+        lucide.createIcons();
     </script>
 </body>
 </html>
