@@ -3,58 +3,241 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Lab 2</title>
+    <title>AI Lab - NumPy Deep Dive</title>
     <link rel="icon" type="image/png" href="favicon-16x16.png">
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Custom Font (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
         body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="bg-slate-950 text-slate-900 py-8 min-h-screen">
 
-    <header class="bg-white shadow-md">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-sky-700">Python Lab</h1>
-            <nav class="space-x-4">
-                <a href="index.html" class="text-gray-600 font-semibold hover:underline">Home</a>
-                <a href="questions.html" class="text-sky-700 font-semibold hover:underline">Questions</a>
-                <a href="solutions.html" class="text-gray-600 font-semibold hover:underline">Solutions</a>
-            </nav>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Back Button -->
+        <a href="index.html" class="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-6 group">
+            <div class="p-2 rounded-full bg-slate-800 group-hover:bg-slate-700">
+                <i data-lucide="arrow-left" class="w-5 h-5"></i>
+            </div>
+            <span class="font-medium">Back to Portal</span>
+        </a>
+
+        <!-- Document Container -->
+        <div class="bg-white rounded-xl shadow-2xl overflow-hidden min-h-[800px]">
+            
+            <!-- Document Header -->
+            <div class="bg-slate-50 border-b border-slate-200 px-8 py-6">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <span class="inline-block px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs font-bold uppercase tracking-wide mb-2">
+                            Week 2 - Lab 2
+                        </span>
+                        <h1 class="text-3xl font-bold text-slate-900 mb-2">NumPy Library Mastery</h1>
+                        <div class="flex items-center gap-4 text-sm text-slate-500">
+                            <span class="flex items-center gap-1"><i data-lucide="calendar" class="w-4 h-4"></i> Date: Jan 20, 2026</span>
+                            <span class="flex items-center gap-1"><i data-lucide="database" class="w-4 h-4"></i> Subject: AI Lab</span>
+                        </div>
+                    </div>
+                    <div class="text-right hidden sm:block">
+                        <div class="text-2xl font-bold text-indigo-600">IIIT Bhagalpur</div>
+                        <div class="text-sm text-slate-500">Dept. of Computer Science</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Document Content -->
+            <div class="px-8 py-8">
+                
+                <!-- Objectives -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-bold text-slate-900 border-b-2 border-indigo-500 inline-block mb-4 pb-1">
+                        Lab Objectives
+                    </h3>
+                    <p class="text-slate-700 mb-2">By the end of this session, you should be able to:</p>
+                    <ul class="list-disc list-inside space-y-1 text-slate-700">
+                        <li>Create and inspect NumPy arrays of various dimensions.</li>
+                        <li>Perform advanced slicing, indexing, and boolean masking.</li>
+                        <li>Understand array shapes, reshaping, and broadcasting rules.</li>
+                        <li>Execute linear algebra operations and statistical aggregations.</li>
+                    </ul>
+                </div>
+
+                <!-- PART 1: Basics -->
+                <div class="mb-10">
+                    <h3 class="text-xl font-bold text-indigo-700 mb-4 flex items-center gap-2">
+                        <i data-lucide="box" class="w-5 h-5"></i> Part 1: Creation & Inspection
+                    </h3>
+                    <div class="space-y-4">
+                        <!-- Q1 -->
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5 hover:border-indigo-300 transition-colors">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-indigo-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q1</span>
+                                <h4 class="font-bold text-slate-800">Array Initialization</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Create a 1D array of integers from 0 to 9. Then, create a 3x3 matrix of all boolean <code>True</code> values.</p>
+                        </div>
+                        <!-- Q2 -->
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5 hover:border-indigo-300 transition-colors">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-indigo-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q2</span>
+                                <h4 class="font-bold text-slate-800">Sequence Generation</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Create an array of 10 equally spaced points between 0 and 1 (inclusive) using <code>linspace</code>. Compare this with <code>arange</code>.</p>
+                        </div>
+                        <!-- Q3 -->
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5 hover:border-indigo-300 transition-colors">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-indigo-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q3</span>
+                                <h4 class="font-bold text-slate-800">Array Attributes</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Create a random 3x4x2 array. Print its <code>ndim</code> (dimensions), <code>shape</code>, <code>size</code> (total elements), and <code>dtype</code>.</p>
+                        </div>
+                        <!-- Q4 -->
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5 hover:border-indigo-300 transition-colors">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-indigo-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q4</span>
+                                <h4 class="font-bold text-slate-800">Reshaping</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Create a 1D array of numbers from 0 to 19. Reshape it into a matrix of shape (4, 5). Then, flatten it back to 1D.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PART 2: Indexing -->
+                <div class="mb-10">
+                    <h3 class="text-xl font-bold text-indigo-700 mb-4 flex items-center gap-2">
+                        <i data-lucide="scissors" class="w-5 h-5"></i> Part 2: Indexing & Slicing
+                    </h3>
+                    <div class="space-y-4">
+                        <!-- Q5 -->
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5 hover:border-indigo-300 transition-colors">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-indigo-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q5</span>
+                                <h4 class="font-bold text-slate-800">Slicing Matrix</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Given a 5x5 identity matrix, extract the sub-matrix consisting of the central 3x3 part.</p>
+                        </div>
+                        <!-- Q6 -->
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5 hover:border-indigo-300 transition-colors">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-indigo-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q6</span>
+                                <h4 class="font-bold text-slate-800">Boolean Indexing</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Create a random array of 20 integers between 1 and 50. Replace all odd numbers in the array with -1 without using a loop.</p>
+                        </div>
+                        <!-- Q7 -->
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5 hover:border-indigo-300 transition-colors">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-indigo-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q7</span>
+                                <h4 class="font-bold text-slate-800">Where Condition</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Given two arrays <code>a</code> and <code>b</code>, create a new array containing elements from <code>a</code> where <code>a > b</code>, otherwise take elements from <code>b</code> using <code>np.where</code>.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PART 3: Math -->
+                <div class="mb-10">
+                    <h3 class="text-xl font-bold text-indigo-700 mb-4 flex items-center gap-2">
+                        <i data-lucide="calculator" class="w-5 h-5"></i> Part 3: Math & Statistics
+                    </h3>
+                    <div class="space-y-4">
+                        <!-- Q8 -->
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5 hover:border-indigo-300 transition-colors">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-indigo-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q8</span>
+                                <h4 class="font-bold text-slate-800">Axis Aggregations</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Create a 2D array of shape (3, 4). Calculate the sum of columns and the maximum value of rows.</p>
+                        </div>
+                        <!-- Q9 -->
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5 hover:border-indigo-300 transition-colors">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-indigo-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q9</span>
+                                <h4 class="font-bold text-slate-800">Broadcasting</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Subtract the mean of each row of a matrix from each element of that row. (Hint: Use <code>keepdims=True</code>).</p>
+                        </div>
+                        <!-- Q10 -->
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5 hover:border-indigo-300 transition-colors">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-indigo-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q10</span>
+                                <h4 class="font-bold text-slate-800">Standard Deviation</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Generate 1000 random numbers from a standard normal distribution. Calculate their mean and standard deviation. Are they close to 0 and 1?</p>
+                        </div>
+                        <!-- Q11 -->
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5 hover:border-indigo-300 transition-colors">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-indigo-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q11</span>
+                                <h4 class="font-bold text-slate-800">Matrix Multiplication</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Perform matrix multiplication between a (5x3) matrix and a (3x2) matrix. What is the shape of the result?</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PART 4: Advanced -->
+                <div class="mb-10">
+                    <h3 class="text-xl font-bold text-indigo-700 mb-4 flex items-center gap-2">
+                        <i data-lucide="layers" class="w-5 h-5"></i> Part 4: Manipulation & Linear Algebra
+                    </h3>
+                    <div class="space-y-4">
+                        <!-- Q12 -->
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5 hover:border-indigo-300 transition-colors">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-indigo-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q12</span>
+                                <h4 class="font-bold text-slate-800">Stacking Arrays</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Given two 1D arrays, stack them vertically (`vstack`) to form a 2-row matrix, and horizontally (`hstack`) to form one long array.</p>
+                        </div>
+                        <!-- Q13 -->
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5 hover:border-indigo-300 transition-colors">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-indigo-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q13</span>
+                                <h4 class="font-bold text-slate-800">Unique Items & Counts</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Generate an array of 50 random integers between 0 and 10. Find the unique values and how often each value appears.</p>
+                        </div>
+                        <!-- Q14 -->
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5 hover:border-indigo-300 transition-colors">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-indigo-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q14</span>
+                                <h4 class="font-bold text-slate-800">Linear Algebra (Inverse)</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Create a random 3x3 matrix. Compute its determinant and inverse using <code>np.linalg</code>.</p>
+                        </div>
+                        <!-- Q15 -->
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5 hover:border-indigo-300 transition-colors">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-indigo-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q15</span>
+                                <h4 class="font-bold text-slate-800">Set Operations</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Find the common elements between two arrays: <code>a = np.array([1,2,3,2,3,4,3,4,5,6])</code> and <code>b = np.array([7,2,10,2,7,4,9,4,9,8])</code>.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- Document Footer -->
+            <div class="bg-slate-50 border-t border-slate-200 px-8 py-4 text-center text-slate-400 text-sm">
+                -- End of Lab Sheet --
+            </div>
         </div>
-    </header>
+    </div>
 
-    <main class="container mx-auto px-6 py-12 max-w-3xl">
-        <div class="bg-white p-8 rounded-lg shadow-lg">
-            <h2 class="text-3xl font-bold text-center mb-6 text-sky-700">AI Lab 2: Python Questions</h2>
-            <p class="text-lg mb-6 text-center text-gray-600">
-                A total of 15 questions to test your Python fundamentals.
-            </p>
-            <ol class="list-decimal list-inside space-y-4 text-gray-700 text-lg">
-                <li>Write a python program to display a particular month of a year using the `calendar` module.</li>
-                <li>Write a python program to print all the months of a given year.</li>
-                <li>Write a python program to print whether a number is positive, negative, or zero using if-elif-else.</li>
-                <li>Write a python program to find the largest number among three numbers.</li>
-                <li>Write a python program to read a number (1-7) and display the corresponding day of the week.</li>
-                <li>Write a python program to check whether a given string is a palindrome or not.</li>
-                <li>Write a python program to find the factorial of a given number using a function.</li>
-                <li>Write a Python function that takes two lists and returns `True` if they are equal, otherwise `False`.</li>
-                <li>Write a Python function to check if a given number is a prime number.</li>
-                <li>Write a Python program to count the number of vowels in a given string.</li>
-                <li>Create a Python script that takes a list of numbers and returns a new list containing only the even numbers.</li>
-                <li>Write a function that accepts an arbitrary number of arguments and returns their sum.</li>
-                <li>Write a program that swaps the values of two variables without using a temporary variable.</li>
-                <li>Write a program to merge two dictionaries.</li>
-                <li>Write a Python program to handle a `ValueError` when converting a non-integer string to an integer.</li>
-            </ol>
-        </div>
-    </main>
-
-    <footer class="bg-gray-200 text-center py-4 mt-8 text-gray-600">
-        <p>&copy; 2023 Python Lab. All rights reserved.</p>
-    </footer>
-
+    <!-- Initialize Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>
