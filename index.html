@@ -37,8 +37,8 @@
         const LATEST_LAB_LINK = "lab02.html";
 
         const NOTICES = [
-            { id: 1, text: "Week 1 Solutions are now LIVE. Check the Solutions tab.", date: "Today" },
-            { id: 2, text: "Lab Session 2 (Pandas) scheduled for Jan 19th.", date: "Yesterday" },
+            { id: 1, text: "Week 1 Solutions are now LIVE. Check the Solutions tab.", date: "Yesterday" },
+            { id: 2, text: "Lab Session 2 (Pandas) scheduled for Jan 19th.", date: "Today" },
             { 
                 id: 3, 
                 text: "Next lab will be on NumPy, so get yourself familiar with the library. You may use ", 
@@ -79,7 +79,7 @@
         const LAB_SOLUTIONS = [
             { id: 1, week: "Week 1", title: "Solution: Python for AI", status: "Available", date: "Released", link: "lab1solution.html" },
             { id: 2, week: "Week 2", title: "Solution: Pandas Usage", status: "Upcoming", date: "Avail: Jan 24", link: "lab02solution.html" },
-            { id: 3, week: "Week 3", title: "Solution: NumPy Mastery", status: "Locked", date: "Avail: Feb 01", link: "lab3solution.html"},
+            { id: 3, week: "Week 3", title: "Solution: NumPy Mastery", status: "Locked", date: "Avail: Feb 01" },
         ];
 
         // --- Components ---
@@ -576,7 +576,19 @@
                                                 <div key={notice.id} className="flex items-start gap-4 p-3 hover:bg-slate-800 rounded-lg transition-colors border-l-2 border-indigo-500/0 hover:border-indigo-500">
                                                     <FileText className="text-slate-500 mt-1 flex-shrink-0" size={16} />
                                                     <div>
-                                                        <p className="text-slate-300 text-sm font-medium">{notice.text}</p>
+                                                        <p className="text-slate-300 text-sm font-medium">
+                                                            {notice.text}
+                                                            {notice.link && (
+                                                                <a 
+                                                                    href={notice.link} 
+                                                                    target="_blank" 
+                                                                    rel="noopener noreferrer" 
+                                                                    className="text-indigo-400 hover:text-indigo-300 underline ml-1"
+                                                                >
+                                                                    {notice.linkText || "Click here"}
+                                                                </a>
+                                                            )}
+                                                        </p>
                                                         <p className="text-slate-500 text-xs mt-1">{notice.date}</p>
                                                     </div>
                                                 </div>
