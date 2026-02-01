@@ -34,18 +34,19 @@
         // --- Mock Data ---
 
         // CONFIGURATION: Manually update this link to point to the current week's lab HTML file
-        const LATEST_LAB_LINK = "lab02.html";
+        const LATEST_LAB_LINK = "lab3.html";
 
         const NOTICES = [
-            { id: 1, text: "Week 1 Solutions are now LIVE. Check the Solutions tab.", date: "Yesterday" },
-            { id: 2, text: "Lab Session 2 (Pandas) scheduled for Jan 19th.", date: "Today" },
+            // { id: 1, text: "Week 1 Solutions are now LIVE. Check the Solutions tab.", date: "Yesterday" },
+            // { id: 2, text: "Lab Session 2 (Pandas) scheduled for Jan 19th.", date: "Today" },
             { 
-                id: 3, 
-                text: "Next lab will be on NumPy, so get yourself familiar with the library. You may use ", 
+                id: 1, 
+                text: "Today's lab will be on NumPy, I hope you've gone through the ", 
                 date: "Today",
                 link: "https://www.youtube.com/watch?v=QUT1VHiLmmI",
                 linkText: "FreeCodeCamp NumPy Tutorial"
             },
+        
         ];
 
         const RESOURCES = [
@@ -73,13 +74,13 @@
                 status: "Active",
                 htmlUrl: "lab02.html", 
             },
-            { id: 3, week: "Week 3", title: "NumPy Mastery", date: "Jan 26, 2026", status: "Upcoming", content: null },
+            { id: 3, week: "Week 3", title: "NumPy Mastery", date: "Feb 02, 2026", status: "Active", htmlUrl: "lab3.html", },
         ];
 
         const LAB_SOLUTIONS = [
             { id: 1, week: "Week 1", title: "Solution: Python for AI", status: "Available", date: "Released", link: "lab1solution.html" },
             { id: 2, week: "Week 2", title: "Solution: Pandas Usage", status: "Available", date: "Released", link: "lab02solution.html" },
-            { id: 3, week: "Week 3", title: "Solution: NumPy Mastery", status: "Locked", date: "Avail: Feb 01" },
+            { id: 3, week: "Week 3", title: "Solution: NumPy Mastery", status: "Locked", date: "Avail: Feb 07" },
         ];
 
         // --- Components ---
