@@ -9,7 +9,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- Babel for JSX transformation -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Fixed: Pinned specific version to avoid 'esmodules' target error in latest release -->
+    <script src="https://unpkg.com/@babel/standalone@7.23.5/babel.min.js"></script>
     
     <!-- Custom Font (Inter) -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -33,20 +34,17 @@
 
         // --- Mock Data ---
 
-        // CONFIGURATION: Manually update this link to point to the current week's lab HTML file
+        // CONFIGURATION: Points to the new NumPy Lab
         const LATEST_LAB_LINK = "lab3.html";
 
         const NOTICES = [
-             { id: 1, text: "Week 1 Solutions are now LIVE. Check the Solutions tab.", date: "Yesterday" },
-             { id: 2, text: "Lab Session 2 (Pandas) scheduled for Jan 19th.", date: "Today" },
             { 
-                id: 3, 
+                id: 1, 
                 text: "Today's lab will be on NumPy, I hope you've gone through the ", 
                 date: "Today",
                 link: "https://www.youtube.com/watch?v=QUT1VHiLmmI",
                 linkText: "FreeCodeCamp NumPy Tutorial"
             },
-        
         ];
 
         const RESOURCES = [
@@ -80,7 +78,8 @@
                 title: "NumPy Mastery", 
                 date: "Feb 02, 2026", 
                 status: "Active", 
-                htmlUrl: "lab3.html", },
+                htmlUrl: "lab3.html", 
+            },
         ];
 
         const LAB_SOLUTIONS = [
@@ -200,7 +199,6 @@
             </div>
         );
 
-        // --- Lab Viewer Component ---
         const LabSheetView = ({ lab, onBack }) => {
             if (!lab.content) {
                 return (
@@ -231,7 +229,6 @@
 
             return (
                 <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                    {/* Header Navigation */}
                     <div className="flex justify-between items-center mb-6">
                         <button 
                             onClick={onBack} 
@@ -254,9 +251,7 @@
                         )}
                     </div>
 
-                    {/* Document Container */}
                     <div className="bg-white text-slate-900 rounded-xl shadow-2xl overflow-hidden min-h-[800px]">
-                        {/* Document Header */}
                         <div className="bg-slate-50 border-b border-slate-200 px-8 py-6">
                             <div className="flex justify-between items-start">
                                 <div>
@@ -276,9 +271,7 @@
                             </div>
                         </div>
 
-                        {/* Document Content */}
                         <div className="px-8 py-8">
-                            {/* Objectives */}
                             <div className="mb-8">
                                 <h3 className="text-lg font-bold text-slate-900 border-b-2 border-indigo-500 inline-block mb-4 pb-1">
                                     Lab Objectives
@@ -290,7 +283,6 @@
                                 </ul>
                             </div>
 
-                            {/* Instructions */}
                             <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-8 flex gap-3">
                                 <AlertCircle className="text-amber-600 flex-shrink-0" size={20} />
                                 <div className="text-sm text-amber-900">
@@ -299,7 +291,6 @@
                                 </div>
                             </div>
 
-                            {/* Questions */}
                             <div className="space-y-8">
                                 <h3 className="text-lg font-bold text-slate-900 border-b-2 border-indigo-500 inline-block mb-4 pb-1">
                                     Problem Set
@@ -321,7 +312,6 @@
                             </div>
                         </div>
                         
-                        {/* Document Footer */}
                         <div className="bg-slate-50 border-t border-slate-200 px-8 py-4 text-center text-slate-400 text-sm">
                             -- End of Lab Sheet --
                         </div>
