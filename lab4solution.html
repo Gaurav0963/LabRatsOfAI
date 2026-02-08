@@ -3,398 +3,221 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Lab 4 Solutions</title>
-    <link rel="icon" type="image/png" href="favicon-16x16.png">
+    <title>AI Lab - Solutions</title>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Custom Font (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f0f9ff; /* Sky-50 */
-        }
-        .code-block {
-            background-color: #1e293b; /* Slate-800 */
-            color: #e2e8f0; /* Slate-200 */
-            padding: 1.25rem;
-            border-radius: 0.5rem;
-            font-family: 'Fira Code', monospace;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            position: relative;
-        }
-        details > summary {
-            list-style: none;
-            cursor: pointer;
-        }
-        details > summary::-webkit-details-marker {
-            display: none;
-        }
-        .solution-card {
-            background-color: white;
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            margin-bottom: 2rem;
-            overflow: hidden;
-        }
-        .solution-header {
-            padding: 1rem 1.5rem;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        .solution-body {
-            padding: 1.5rem;
-            background-color: #f8fafc;
-        }
-        .copy-btn {
-            position: absolute;
-            top: 0.75rem;
-            right: 0.75rem;
-            background-color: #475569;
-            color: #e2e8f0;
-            border: none;
-            padding: 0.25rem 0.75rem;
-            border-radius: 0.375rem;
-            font-size: 0.875rem;
-            cursor: pointer;
-            transition: all 0.2s ease-in-out;
-        }
-        .copy-btn:hover {
-            background-color: #64748b;
-        }
-        .toggle-btn {
-            display: inline-block;
-            background-color: #0d9488; /* Teal-600 */
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 0.375rem;
-            font-weight: 500;
-            transition: background-color 0.2s;
-        }
-        .toggle-btn:hover {
-            background-color: #0f766e; /* Teal-700 */
-        }
+        body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
-<body class="text-slate-800">
-    <div class="container mx-auto p-4 sm:p-6 lg:p-8 max-w-5xl">
-        <header class="bg-gradient-to-r from-teal-500 to-cyan-600 text-white shadow-lg rounded-lg p-8 mb-10">
-            <h1 class="text-4xl font-bold">Pandas Lab Assignment - Solutions</h1>
-        </header>
+<body class="bg-slate-950 text-slate-900 py-8 min-h-screen">
 
-        <main>
-            <h2 class="text-2xl font-semibold mb-6 text-slate-700">Part 1: Solutions</h2>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Back Button -->
+        <a href="index.html" class="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-6 group">
+            <div class="p-2 rounded-full bg-slate-800 group-hover:bg-slate-700">
+                <i data-lucide="arrow-left" class="w-5 h-5"></i>
+            </div>
+            <span class="font-medium">Back to Portal</span>
+        </a>
 
-            <!-- Solution 1 -->
-            <div class="solution-card">
-                <div class="solution-header">
-                    <h3 class="text-xl font-semibold text-teal-800">Solution 1: Time Series Resampling</h3>
-                </div>
-                <div class="solution-body">
-                    <details>
-                        <summary class="toggle-btn">Show Solution</summary>
-                        <div class="code-block mt-4">
-                            <button class="copy-btn">Copy</button>
-<code class="language-python">
-import pandas as pd
-import numpy as np
-
-data = {
-    'DateTime': pd.to_datetime([
-        '2025-08-15 00:00:00', '2025-08-15 01:00:00', '2025-08-15 02:30:00',
-        '2025-08-15 03:30:00', '2025-08-15 04:00:00', '2025-08-15 07:00:00'
-    ]),
-    'Value': [10, 12, 8, 15, 18, 20]
-}
-ts_df = pd.DataFrame(data)
-
-# Solution:
-resampled_df = ts_df.resample('3H', on='DateTime')['Value'].mean()
-print(resampled_df)
-</code>
+        <!-- Document Container -->
+        <div class="bg-white rounded-xl shadow-2xl overflow-hidden min-h-[800px]">
+            
+            <!-- Document Header -->
+            <div class="bg-purple-50 border-b border-purple-200 px-8 py-6">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <span class="inline-block px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-xs font-bold uppercase tracking-wide mb-2">
+                            Verified Solutions
+                        </span>
+                        <h1 class="text-3xl font-bold text-slate-900 mb-2">Lab 4: EDA & Visualization Solutions</h1>
+                        <div class="flex items-center gap-4 text-sm text-slate-500">
+                            <span class="flex items-center gap-1"><i data-lucide="check-circle" class="w-4 h-4"></i> Status: Verified</span>
                         </div>
-                    </details>
+                    </div>
                 </div>
             </div>
 
-            <!-- Solution 2 -->
-            <div class="solution-card">
-                <div class="solution-header">
-                    <h3 class="text-xl font-semibold text-teal-800">Solution 2: Using `pipe()`</h3>
+            <div class="px-8 py-8 space-y-10">
+
+                <!-- Q1 -->
+                <div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Q1. Inspection & Structure</h3>
+                    <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>import pandas as pd
+import seaborn as sns
+
+# Load dataset
+df = sns.load_dataset('iris')
+
+# Inspect
+print(df.head())
+print("\nInfo:")
+print(df.info()) # Shows types and memory usage</code></pre>
                 </div>
-                <div class="solution-body">
-                    <details>
-                        <summary class="toggle-btn">Show Solution</summary>
-                        <div class="code-block mt-4">
-                            <button class="copy-btn">Copy</button>
-<code class="language-python">
-data = {'Price': [100, 150, 200], 'Quantity': [5, 10, 4]}
-pipe_df = pd.DataFrame(data)
 
-# Solution:
-def add_revenue_col(df):
-    df['Revenue'] = df['Price'] * df['Quantity']
-    return df
-
-def apply_discount(df, discount=0.10):
-    df['Price'] = df['Price'] * (1 - discount)
-    return df
-
-result_df = pipe_df.pipe(add_revenue_col).pipe(apply_discount, discount=0.10)
-print(result_df)
-</code>
-                        </div>
-                    </details>
+                <!-- Q2 -->
+                <div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Q2. Statistical Summary</h3>
+                    <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code># Describe and transpose for readability
+stats = df.describe().T
+print(stats)</code></pre>
                 </div>
+
+                <!-- Q3 -->
+                <div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Q3. Class Balance</h3>
+                    <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code># Count species
+print(df['species'].value_counts())
+
+# Check nulls
+print("\nMissing Values:", df.isnull().sum().sum())</code></pre>
+                </div>
+
+                <!-- Q4 -->
+                <div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Q4. Aggregations</h3>
+                    <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code># Groupby and multiple aggregations
+grouped = df.groupby('species')['sepal_length'].agg(['mean', 'median'])
+print(grouped)</code></pre>
+                </div>
+
+                <!-- Q5 -->
+                <div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Q5. Array Conversion (NumPy)</h3>
+                    <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>import numpy as np
+
+sepal_length_arr = df['sepal_length'].values # or .to_numpy()
+
+print("Variance:", np.var(sepal_length_arr))
+print("Std Dev:", np.std(sepal_length_arr))</code></pre>
+                </div>
+
+                <!-- Q6 -->
+                <div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Q6. Standardization</h3>
+                    <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>sw = df['sepal_width'].values
+mean_sw = np.mean(sw)
+std_sw = np.std(sw)
+
+# Vectorized operation
+df['sepal_width_z'] = (sw - mean_sw) / std_sw
+
+print(df[['sepal_width', 'sepal_width_z']].head())</code></pre>
+                </div>
+
+                <!-- Q7 -->
+                <div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Q7. Filtering with NumPy</h3>
+                    <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code># np.where(condition, value_if_true, value_if_false)
+df['petal_size_category'] = np.where(df['petal_length'] > 4.5, 'Large', 'Small')
+
+print(df[['petal_length', 'petal_size_category']].sample(5))</code></pre>
+                </div>
+
+                <!-- Q8 -->
+                <div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Q8. Matrix Operations</h3>
+                    <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code># Drop non-numeric columns
+numeric_data = df.select_dtypes(include=[np.number])
+
+# Pandas correlation
+print("Pandas Corr:\n", numeric_data.corr())
+
+# NumPy correlation (requires transposing so rows are variables)
+print("\nNumPy Corr:\n", np.corrcoef(numeric_data.T))</code></pre>
+                </div>
+
+                <!-- Q9 -->
+                <div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Q9. Scatter Plot (Matplotlib)</h3>
+                    <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>import matplotlib.pyplot as plt
+
+plt.figure(figsize=(8, 6))
+plt.scatter(df['sepal_length'], df['sepal_width'], c='blue', alpha=0.5)
+plt.title("Sepal Dimensions")
+plt.xlabel("Sepal Length")
+plt.ylabel("Sepal Width")
+plt.show()</code></pre>
+                </div>
+
+                <!-- Q10 -->
+                <div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Q10. Histograms (Matplotlib)</h3>
+                    <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>plt.figure(figsize=(8, 6))
+plt.hist(df['petal_length'], bins=15, color='green', alpha=0.7)
+plt.title("Distribution of Petal Length")
+plt.xlabel("Length")
+plt.ylabel("Frequency")
+plt.show()</code></pre>
+                </div>
+
+                <!-- Q11 -->
+                <div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Q11. Boxplot (Seaborn)</h3>
+                    <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>plt.figure(figsize=(8, 6))
+sns.boxplot(x='species', y='petal_width', data=df)
+plt.title("Petal Width by Species")
+plt.show()</code></pre>
+                </div>
+
+                <!-- Q12 -->
+                <div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Q12. Violin Plot</h3>
+                    <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>plt.figure(figsize=(8, 6))
+sns.violinplot(x='species', y='sepal_length', data=df)
+plt.title("Sepal Length Distribution (Violin)")
+plt.show()</code></pre>
+                </div>
+
+                <!-- Q13 -->
+                <div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Q13. Pairplot</h3>
+                    <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>sns.pairplot(df, hue='species')
+plt.show()</code></pre>
+                </div>
+
+                <!-- Q14 -->
+                <div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Q14. Heatmap</h3>
+                    <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code># Drop non-numeric for correlation
+corr = df.drop(columns=['species', 'petal_size_category', 'sepal_width_z'], errors='ignore').corr()
+
+plt.figure(figsize=(8, 6))
+sns.heatmap(corr, annot=True, cmap='coolwarm')
+plt.title("Feature Correlation")
+plt.show()
+# Observation: Petal Length and Petal Width are strongly correlated.</code></pre>
+                </div>
+
+                <!-- Q15 -->
+                <div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Q15. FacetGrid</h3>
+                    <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>g = sns.FacetGrid(df, col="species")
+g.map(plt.hist, "sepal_length")
+plt.show()</code></pre>
+                </div>
+
             </div>
             
-            <!-- Solution 3 -->
-            <div class="solution-card">
-                <div class="solution-header">
-                    <h3 class="text-xl font-semibold text-teal-800">Solution 3: `transform()`</h3>
-                </div>
-                <div class="solution-body">
-                    <details>
-                        <summary class="toggle-btn">Show Solution</summary>
-                        <div class="code-block mt-4">
-                            <button class="copy-btn">Copy</button>
-<code class="language-python">
-data = {'Category': ['A', 'A', 'B', 'B'], 'Value': [10, 30, 20, 80]}
-transform_df = pd.DataFrame(data)
-
-# Solution:
-transform_df['Pct_of_Category_Value'] = transform_df['Value'] / transform_df.groupby('Category')['Value'].transform('sum')
-print(transform_df)
-</code>
-                        </div>
-                    </details>
-                </div>
+            <!-- Document Footer -->
+            <div class="bg-purple-50 border-t border-purple-200 px-8 py-4 text-center text-purple-800 text-sm">
+                -- End of Solutions --
             </div>
-
-            <!-- Solution 4 -->
-            <div class="solution-card">
-                <div class="solution-header">
-                    <h3 class="text-xl font-semibold text-teal-800">Solution 4: MultiIndex</h3>
-                </div>
-                <div class="solution-body">
-                    <details>
-                        <summary class="toggle-btn">Show Solution</summary>
-                        <div class="code-block mt-4">
-                            <button class="copy-btn">Copy</button>
-<code class="language-python">
-data = {
-    'Year': [2024, 2024, 2025, 2025],
-    'Quarter': ['Q1', 'Q2', 'Q1', 'Q2'],
-    'Sales': [1000, 1200, 1100, 1300]
-}
-multi_df = pd.DataFrame(data)
-
-# Solution:
-multi_indexed_df = multi_df.set_index(['Year', 'Quarter'])
-print(multi_indexed_df)
-</code>
-                        </div>
-                    </details>
-                </div>
-            </div>
-
-            <!-- Solution 5 -->
-            <div class="solution-card">
-                <div class="solution-header">
-                    <h3 class="text-xl font-semibold text-teal-800">Solution 5: `agg()` vs. `transform()`</h3>
-                </div>
-                <div class="solution-body">
-                    <details>
-                        <summary class="toggle-btn">Show Solution</summary>
-                        <div class="code-block mt-4">
-                            <button class="copy-btn">Copy</button>
-<code class="language-python">
-data = {'Group': ['X', 'X', 'Y', 'Y'], 'Value': [15, 25, 30, 40]}
-agg_trans_df = pd.DataFrame(data)
-
-# Solution a:
-avg_value_df = agg_trans_df.groupby('Group')[['Value']].mean()
-
-# Solution b:
-agg_trans_df['Group_Avg_Value'] = agg_trans_df.groupby('Group')['Value'].transform('mean')
-
-print("--- Aggregated DataFrame (a) ---")
-print(avg_value_df)
-print("\n--- Original DataFrame with Transformed Column (b) ---")
-print(agg_trans_df)
-</code>
-                        </div>
-                    </details>
-                </div>
-            </div>
-
-            <h2 class="text-2xl font-semibold mb-6 text-slate-700">Part 2: Solutions</h2>
-
-            <!-- Solution 6 -->
-            <div class="solution-card">
-                <div class="solution-header">
-                    <h3 class="text-xl font-semibold text-teal-800">Solution 6: Filtered Aggregation</h3>
-                </div>
-                <div class="solution-body">
-                    <details>
-                        <summary class="toggle-btn">Show Solution</summary>
-                        <div class="code-block mt-4">
-                            <button class="copy-btn">Copy</button>
-<code class="language-python">
-# Setup from lab sheet must be run first
-electronics_revenue = sales_df[sales_df['Product'] == 'Electronics'].groupby('Region').apply(lambda df: (df['Units Sold'] * df['Price']).sum())
-print(electronics_revenue)
-</code>
-                        </div>
-                    </details>
-                </div>
-            </div>
-
-            <!-- Solution 7 -->
-            <div class="solution-card">
-                <div class="solution-header">
-                    <h3 class="text-xl font-semibold text-teal-800">Solution 7: Time-Series Growth</h3>
-                </div>
-                <div class="solution-body">
-                    <details>
-                        <summary class="toggle-btn">Show Solution</summary>
-                        <div class="code-block mt-4">
-                            <button class="copy-btn">Copy</button>
-<code class="language-python">
-# Setup from lab sheet must be run first
-sales_df['Revenue'] = sales_df['Units Sold'] * sales_df['Price']
-north_sales = sales_df[sales_df['Region'] == 'North'].copy()
-monthly_growth = north_sales.set_index('Date').resample('M')['Revenue'].sum().pct_change()
-month_with_highest_growth = monthly_growth.idxmax()
-print(month_with_highest_growth)
-</code>
-                        </div>
-                    </details>
-                </div>
-            </div>
-
-            <!-- Solution 8 -->
-            <div class="solution-card">
-                <div class="solution-header">
-                    <h3 class="text-xl font-semibold text-teal-800">Solution 8: Pivot Table</h3>
-                </div>
-                <div class="solution-body">
-                    <details>
-                        <summary class="toggle-btn">Show Solution</summary>
-                        <div class="code-block mt-4">
-                            <button class="copy-btn">Copy</button>
-<code class="language-python">
-# Setup from lab sheet must be run first
-pivot = sales_df.pivot_table(index='Product', columns='Region', values='Units Sold', aggfunc='mean')
-print(pivot)
-</code>
-                        </div>
-                    </details>
-                </div>
-            </div>
-
-            <!-- Solution 9 -->
-            <div class="solution-card">
-                <div class="solution-header">
-                    <h3 class="text-xl font-semibold text-teal-800">Solution 9: N-Largest</h3>
-                </div>
-                <div class="solution-body">
-                    <details>
-                        <summary class="toggle-btn">Show Solution</summary>
-                        <div class="code-block mt-4">
-                            <button class="copy-btn">Copy</button>
-<code class="language-python">
-# Setup from lab sheet must be run first
-top_2_per_region = sales_df.groupby('Region', group_keys=False).apply(lambda x: x.nlargest(2, 'Units Sold'))
-print(top_2_per_region)
-</code>
-                        </div>
-                    </details>
-                </div>
-            </div>
-
-            <!-- Solution 10 -->
-            <div class="solution-card">
-                <div class="solution-header">
-                    <h3 class="text-xl font-semibold text-teal-800">Solution 10: Filtering with Transform</h3>
-                </div>
-                <div class="solution-body">
-                    <details>
-                        <summary class="toggle-btn">Show Solution</summary>
-                        <div class="code-block mt-4">
-                            <button class="copy-btn">Copy</button>
-<code class="language-python">
-# Setup from lab sheet must be run first
-avg_units_by_product = sales_df.groupby('Product')['Units Sold'].transform('mean')
-above_avg_sales = sales_df[sales_df['Units Sold'] > avg_units_by_product]
-print(above_avg_sales.shape)
-</code>
-                        </div>
-                    </details>
-                </div>
-            </div>
-
-            <!-- Solution 11 -->
-            <div class="solution-card">
-                <div class="solution-header">
-                    <h3 class="text-xl font-semibold text-teal-800">Solution 11: Missing Data Imputation</h3>
-                </div>
-                <div class="solution-body">
-                    <details>
-                        <summary class="toggle-btn">Show Solution</summary>
-                        <div class="code-block mt-4">
-                            <button class="copy-btn">Copy</button>
-<code class="language-python">
-# Solution:
-url = 'https://raw.githubusercontent.com/Gaurav0963/pandas-data-analysis/refs/heads/main/aps_failure_sample.csv'
-df = pd.read_csv(url, na_values='na')
-
-# 1. Calculate total missing values
-total_missing = df.isnull().sum().sum()
-print(f"Total missing values: {total_missing}")
-
-# 2. Impute missing values with the mean of each column
-df_imputed = df.apply(lambda x: x.fillna(x.mean()), axis=0)
-
-# Verification (optional): Check if any NaNs are left in the new DataFrame
-print(f"Missing values after imputation: {df_imputed.isnull().sum().sum()}")
-</code>
-                        </div>
-                    </details>
-                </div>
-            </div>
-        </main>
+        </div>
     </div>
+
+    <!-- Initialize Icons -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.copy-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    const codeBlock = button.nextElementSibling;
-                    const codeText = codeBlock.innerText;
-
-                    navigator.clipboard.writeText(codeText).then(() => {
-                        button.textContent = 'Copied!';
-                        button.style.backgroundColor = '#10b981'; // Emerald-500
-                        setTimeout(() => {
-                            button.textContent = 'Copy';
-                            button.style.backgroundColor = '#475569'; // Original color
-                        }, 2000);
-                    }).catch(err => {
-                        console.error('Failed to copy text: ', err);
-                        button.textContent = 'Error';
-                    });
-                });
-            });
-
-            document.querySelectorAll('details').forEach(detail => {
-                detail.addEventListener('toggle', event => {
-                    const summary = detail.querySelector('summary');
-                    if (detail.open) {
-                        summary.textContent = 'Hide Solution';
-                    } else {
-                        summary.textContent = 'Show Solution';
-                    }
-                });
-            });
-        });
+        lucide.createIcons();
     </script>
 </body>
 </html>
