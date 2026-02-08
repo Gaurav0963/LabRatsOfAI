@@ -3,350 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI LAB 4: Pandas Assignment</title>
+    <title>AI Lab - Data Visualization</title>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Custom Font (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .code-block {
-            background-color: #1f2937; /* Gray-900 */
-            color: #d1d5db; /* Gray-300 */
-            padding: 1rem;
-            border-radius: 0.5rem;
-            font-family: monospace;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            position: relative;
-        }
-        .expected-output {
-            background-color: #f3f4f6; /* Gray-100 */
-            color: #374151; /* Gray-700 */
-            padding: 1rem;
-            border-radius: 0.5rem;
-            border-left: 4px solid #4ade80; /* Green-400 */
-            font-family: monospace;
-            white-space: pre;
-            overflow-x: auto;
-        }
-        h2 {
-            border-bottom: 2px solid #e5e7eb;
-            padding-bottom: 0.5rem;
-            margin-top: 2rem;
-        }
-        h3 {
-            margin-top: 1.5rem;
-            margin-bottom: 0.75rem;
-        }
-        .copy-btn {
-            position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            background-color: #4b5563;
-            color: #e5e7eb;
-            border: none;
-            padding: 0.25rem 0.75rem;
-            border-radius: 0.375rem;
-            font-size: 0.875rem;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        .copy-btn:hover {
-            background-color: #6b7280;
-        }
+        body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
-    <div class="container mx-auto p-4 sm:p-6 lg:p-8 max-w-5xl">
-        <header class="bg-white shadow-md rounded-lg p-6 mb-8">
-            <h1 class="text-3xl font-bold text-gray-900">Pandas Lab Assignment: Data Manipulation and Analysis</h1>
-            <p class="mt-2 text-gray-600"><strong>Objective:</strong> To solve a series of problems using the pandas library, testing your ability to manipulate, aggregate, and analyze data.</p>
+<body class="bg-slate-950 text-slate-900 py-8 min-h-screen">
 
-        </header>
-
-        <main class="bg-white shadow-md rounded-lg p-6">
-            <h2 class="text-2xl font-semibold mb-4">Part 1: General Pandas Problems</h2>
-
-            <!-- Question 1 -->
-            <div class="mb-12">
-                <h3 class="text-xl font-semibold">Question 1: Time Series Resampling</h3>
-                <p class="mb-4">Given the time-series DataFrame `ts_df`, resample the data to find the mean of the 'Value' column for each 3-hour interval.</p>
-                <div class="code-block">
-                    <button class="copy-btn">Copy</button>
-<code class="language-python">
-import pandas as pd
-import numpy as np
-
-# Data Setup
-data = {
-    'DateTime': pd.to_datetime([
-        '2025-08-15 00:00:00', '2025-08-15 01:00:00', '2025-08-15 02:30:00',
-        '2025-08-15 03:30:00', '2025-08-15 04:00:00', '2025-08-15 07:00:00'
-    ]),
-    'Value': [10, 12, 8, 15, 18, 20]
-}
-ts_df = pd.DataFrame(data)
-
-# Your code here:
-</code>
-                </div>
-                <h4 class="font-semibold mt-4 mb-2">Expected Output:</h4>
-                <div class="expected-output">DateTime
-2025-08-15 00:00:00    10.0
-2025-08-15 03:00:00    16.5
-2025-08-15 06:00:00    20.0
-Name: Value, dtype: float64</div>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Back Button -->
+        <a href="index.html" class="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-6 group">
+            <div class="p-2 rounded-full bg-slate-800 group-hover:bg-slate-700">
+                <i data-lucide="arrow-left" class="w-5 h-5"></i>
             </div>
+            <span class="font-medium">Back to Portal</span>
+        </a>
 
-            <!-- Question 2 -->
-            <div class="mb-12">
-                <h3 class="text-xl font-semibold">Question 2: Using `pipe()` for Chainable Operations</h3>
-                <p class="mb-4">Create two functions: `add_revenue_col(df)` and `apply_discount(df, discount=0.10)`. Then, use `df.pipe()` to apply them sequentially to `pipe_df`.</p>
-                <div class="code-block">
-                    <button class="copy-btn">Copy</button>
-<code class="language-python">
-# Data Setup
-data = {'Price': [100, 150, 200], 'Quantity': [5, 10, 4]}
-pipe_df = pd.DataFrame(data)
-
-# Your function definitions here:
-
-
-# Your code here using .pipe():
-</code>
-                </div>
-                <h4 class="font-semibold mt-4 mb-2">Expected Output:</h4>
-                <div class="expected-output">   Price  Quantity  Revenue
-0   90.0         5      500
-1  135.0        10     1500
-2  180.0         4      800</div>
-            </div>
-
-            <!-- Question 3 -->
-            <div class="mb-12">
-                <h3 class="text-xl font-semibold">Question 3: Group-wise Percentage with `transform()`</h3>
-                <p class="mb-4">In `transform_df`, create a new column `'Pct_of_Category_Value'` that contains the percentage of each 'Value' relative to the sum of values within its own 'Category'.</p>
-                <div class="code-block">
-                    <button class="copy-btn">Copy</button>
-<code class="language-python">
-# Data Setup
-data = {'Category': ['A', 'A', 'B', 'B'], 'Value': [10, 30, 20, 80]}
-transform_df = pd.DataFrame(data)
-
-# Your code here:
-</code>
-                </div>
-                <h4 class="font-semibold mt-4 mb-2">Expected Output:</h4>
-                <div class="expected-output">  Category  Value  Pct_of_Category_Value
-0        A     10                   0.25
-1        A     30                   0.75
-2        B     20                   0.20
-3        B     80                   0.80</div>
-            </div>
-
-            <!-- Question 4 -->
-            <div class="mb-12">
-                <h3 class="text-xl font-semibold">Question 4: Creating a MultiIndex</h3>
-                <p class="mb-4">Convert `multi_df` to use a `MultiIndex` composed of the 'Year' and 'Quarter' columns.</p>
-                <div class="code-block">
-                    <button class="copy-btn">Copy</button>
-<code class="language-python">
-# Data Setup
-data = {
-    'Year': [2024, 2024, 2025, 2025],
-    'Quarter': ['Q1', 'Q2', 'Q1', 'Q2'],
-    'Sales': [1000, 1200, 1100, 1300]
-}
-multi_df = pd.DataFrame(data)
-
-# Your code here:
-</code>
-                </div>
-                <h4 class="font-semibold mt-4 mb-2">Expected Output:</h4>
-                <div class="expected-output">             Sales
-Year Quarter       
-2024 Q1       1000
-     Q2       1200
-2025 Q1       1100
-     Q2       1300</div>
-            </div>
-
-            <!-- Question 5 -->
-            <div class="mb-12">
-                <h3 class="text-xl font-semibold">Question 5: `agg()` vs. `transform()`</h3>
-                <p class="mb-4">a) Create `avg_value_df` showing the single average 'Value' for each 'Group'.<br>b) Add a `'Group_Avg_Value'` column to `agg_trans_df` showing the group average for each row.</p>
-                <div class="code-block">
-                    <button class="copy-btn">Copy</button>
-<code class="language-python">
-# Data Setup
-data = {'Group': ['X', 'X', 'Y', 'Y'], 'Value': [15, 25, 30, 40]}
-agg_trans_df = pd.DataFrame(data)
-
-# a) Your code for the aggregated DataFrame:
-
-
-# b) Your code to add the transformed column:
-
-
-print("--- Aggregated DataFrame (a) ---")
-# print(avg_value_df)
-print("\n--- Original DataFrame with Transformed Column (b) ---")
-# print(agg_trans_df)
-</code>
-                </div>
-                 <h4 class="font-semibold mt-4 mb-2">Expected Output:</h4>
-                <div class="expected-output">--- Aggregated DataFrame (a) ---
-       Value
-Group       
-X       20.0
-Y       35.0
-
---- Original DataFrame with Transformed Column (b) ---
-  Group  Value  Group_Avg_Value
-0     X     15             20.0
-1     X     25             20.0
-2     Y     30             35.0
-3     Y     40             35.0</div>
-            </div>
-
-            <hr class="my-12 border-t-2">
-
-            <h2 class="text-2xl font-semibold mb-4">Part 2: Dataset-Based Problems</h2>
-            <p class="mb-4">Use the DataFrame `sales_df` created by the setup cell below for all questions in this part.</p>
-            <div class="code-block">
-                <button class="copy-btn">Copy</button>
-<code class="language-python">
-# --- DATASET SETUP ---
-# Execute this cell to create the DataFrame for Part 2
-np.random.seed(42)
-dates = pd.date_range(start='2025-01-01', end='2025-06-30', freq='D')
-regions = ['North', 'South', 'East', 'West']
-products = ['Electronics', 'Clothing', 'Books', 'Home Goods']
-
-data = {
-    'Date': np.random.choice(dates, 500),
-    'Region': np.random.choice(regions, 500),
-    'Product': np.random.choice(products, 500),
-    'Units Sold': np.random.randint(10, 100, 500),
-    'Price': np.round(np.random.uniform(20, 500, 500), 2)
-}
-sales_df = pd.DataFrame(data).sort_values(by='Date').reset_index(drop=True)
-print("Sales DataFrame created. Here are the first 5 rows:")
-print(sales_df.head())
-</code>
-            </div>
-
-            <!-- Question 6 -->
-            <div class="mb-12">
-                <h3 class="text-xl font-semibold">Question 6: Filtered Aggregation</h3>
-                <p class="mb-4">Calculate the total revenue (Units Sold * Price) for each region, but only for the 'Electronics' product category.</p>
-                <h4 class="font-semibold mt-4 mb-2">Expected Output:</h4>
-                <div class="expected-output">Region
-East     307409.52
-North    188659.88
-South    252758.55
-West     277568.10
-dtype: float64</div>
-            </div>
-
-            <!-- Question 7 -->
-            <div class="mb-12">
-                <h3 class="text-xl font-semibold">Question 7: Time-Series Growth Calculation</h3>
-                <p class="mb-4">First, create a 'Revenue' column. Then, for the 'North' region only, find the month with the highest percentage sales growth over the previous month.</p>
-                <h4 class="font-semibold mt-4 mb-2">Expected Output:</h4>
-                <div class="expected-output">Timestamp('2025-03-31 00:00:00', freq='M')</div>
-            </div>
-
-            <!-- Question 8 -->
-            <div class="mb-12">
-                <h3 class="text-xl font-semibold">Question 8: Pivot Table Creation</h3>
-                <p class="mb-4">Create a pivot table showing the average 'Units Sold' for each 'Product' (rows) across each 'Region' (columns).</p>
-                <h4 class="font-semibold mt-4 mb-2">Expected Output:</h4>
-                <div class="expected-output">Region         East      North      South       West
-Product                                           
-Books     53.250000  54.677419  54.333333  53.238095
-Clothing  59.000000  51.687500  52.896552  49.500000
-Electronics   54.403509  56.029412  55.511111  52.921569
-Home Goods   52.483871  49.300000  51.583333  58.916667</div>
-            </div>
-
-            <!-- Question 9 -->
-            <div class="mb-12">
-                <h3 class="text-xl font-semibold">Question 9: Group-wise N-Largest</h3>
-                <p class="mb-4">Find the top 2 transactions (rows) with the highest 'Units Sold' within each region.</p>
-                <h4 class="font-semibold mt-4 mb-2">Expected Output:</h4>
-                <div class="expected-output">         Date Region      Product  Units Sold   Price
-102 2025-02-12   East     Clothing          99  131.06
-368 2025-05-18   East        Books          98  331.07
-28  2025-01-14  North   Home Goods          99  357.11
-365 2025-05-16  North        Books          98  472.07
-39  2025-01-18  South        Books          99  107.03
-453 2025-06-15  South     Clothing          99  424.36
-238 2025-04-05   West        Books          99  136.26
-195 2025-03-22   West  Electronics          98  422.37</div>
-            </div>
-
-            <!-- Question 10 -->
-            <div class="mb-12">
-                <h3 class="text-xl font-semibold">Question 10: Filtering with a Transformed Group Value</h3>
-                <p class="mb-4">Find all transactions where 'Units Sold' was greater than the average 'Units Sold' for that specific product category. Display the shape of the resulting DataFrame.</p>
-                <h4 class="font-semibold mt-4 mb-2">Expected Output:</h4>
-                <div class="expected-output">(253, 5)</div>
-            </div>
-
-            <!-- Question 11 -->
-            <div class="mb-12">
-                <h3 class="text-xl font-semibold">Question 11: Missing Data Imputation</h3>
-                <p class="mb-4">
-                    Load the `aps_failure_sample.csv` dataset from the provided URL. The file uses 'na' as the missing value marker. First, calculate and display the total number of missing values. Then, create a new DataFrame `df_imputed` where all missing values are filled with the mean of their respective columns.
-                </p>
-                <a href="https://raw.githubusercontent.com/Gaurav0963/pandas-data-analysis/refs/heads/main/aps_failure_sample.csv" target="_blank" class="text-blue-600 hover:underline">Download Dataset File</a>
-                <div class="code-block">
-                    <button class="copy-btn">Copy</button>
-<code class="language-python">
-# Steps to follow:
-# 1. Load the dataset
-# 2. Calculate and print total missing values
-# 3. Create df_imputed and fill missing values with column means
-</code>
-                </div>
-                <h4 class="font-semibold mt-4 mb-2">Expected Output:</h4>
-                <div class="expected-output">Total missing values: 71649
-<br>
-... (The imputed DataFrame will be too large to display, but your code should create it)
+        <!-- Document Container -->
+        <div class="bg-white rounded-xl shadow-2xl overflow-hidden min-h-[800px]">
+            
+            <!-- Document Header -->
+            <div class="bg-purple-50 border-b border-purple-200 px-8 py-6">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <span class="inline-block px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-bold uppercase tracking-wide mb-2">
+                            Week 4 - Lab 4
+                        </span>
+                        <h1 class="text-3xl font-bold text-slate-900 mb-2">Data Visualization & EDA</h1>
+                        <div class="flex items-center gap-4 text-sm text-slate-500">
+                            <span class="flex items-center gap-1"><i data-lucide="calendar" class="w-4 h-4"></i> Date: Feb 10, 2026</span>
+                            <span class="flex items-center gap-1"><i data-lucide="bar-chart-2" class="w-4 h-4"></i> Subject: AI Lab</span>
+                        </div>
+                    </div>
+                    <div class="text-right hidden sm:block">
+                        <div class="text-2xl font-bold text-indigo-600">IIIT Bhagalpur</div>
+                        <div class="text-sm text-slate-500">Dept. of Computer Science</div>
+                    </div>
                 </div>
             </div>
-        </main>
+
+            <!-- Document Content -->
+            <div class="px-8 py-8">
+                
+                <!-- Dataset Resource Block -->
+                <div class="bg-indigo-50 border border-indigo-100 rounded-xl p-6 mb-10 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 bg-indigo-100 rounded-lg text-indigo-600">
+                            <i data-lucide="database" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-indigo-900">Required Dataset: Iris</h3>
+                            <p class="text-sm text-indigo-700 mt-1">We will use the classic Iris dataset for plotting. Download it here.</p>
+                        </div>
+                    </div>
+                    <a href="https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv" target="_blank" class="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-lg font-medium transition-all shadow-md hover:shadow-lg">
+                        <i data-lucide="download" class="w-4 h-4"></i> Download .csv
+                    </a>
+                </div>
+
+                <!-- Objectives -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-bold text-slate-900 border-b-2 border-purple-500 inline-block mb-4 pb-1">
+                        Lab Objectives
+                    </h3>
+                    <ul class="list-disc list-inside space-y-1 text-slate-700">
+                        <li>Master <strong>Matplotlib</strong> for basic plotting (Line, Scatter, Bar).</li>
+                        <li>Use <strong>Seaborn</strong> for statistical visualization (Distribution, Boxplots).</li>
+                        <li>Understand <strong>EDA</strong> (Exploratory Data Analysis) to find patterns.</li>
+                        <li>Visualize correlations using <strong>Heatmaps</strong>.</li>
+                    </ul>
+                </div>
+
+                <!-- PART 1: Pandas EDA -->
+                <div class="mb-10">
+                    <h3 class="text-xl font-bold text-purple-700 mb-4 flex items-center gap-2">
+                        <i data-lucide="table" class="w-5 h-5"></i> Part 1: Pandas Non-Visual EDA
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5 hover:border-purple-300 transition-colors">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-purple-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q1</span>
+                                <h4 class="font-bold text-slate-800">Inspection & Structure</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Load the Iris dataset. Display the first 5 rows, the data types of columns, and the total memory usage of the DataFrame.</p>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5 hover:border-purple-300 transition-colors">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-purple-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q2</span>
+                                <h4 class="font-bold text-slate-800">Statistical Summary</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Use a single Pandas command to get the count, mean, std, min, and quartiles for all numerical columns. Transpose the result for better readability.</p>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5 hover:border-purple-300 transition-colors">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-purple-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q3</span>
+                                <h4 class="font-bold text-slate-800">Class Balance</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Check if the dataset is balanced. Count the number of samples for each `species`. Also, check for any null values in the dataset.</p>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5 hover:border-purple-300 transition-colors">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-purple-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q4</span>
+                                <h4 class="font-bold text-slate-800">Aggregations</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Group the data by `species` and calculate the <strong>mean</strong> and <strong>median</strong> of `sepal_length` for each species side-by-side.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PART 2: NumPy Integration -->
+                <div class="mb-10">
+                    <h3 class="text-xl font-bold text-purple-700 mb-4 flex items-center gap-2">
+                        <i data-lucide="calculator" class="w-5 h-5"></i> Part 2: NumPy Analysis
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5 hover:border-purple-300 transition-colors">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-purple-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q5</span>
+                                <h4 class="font-bold text-slate-800">Array Conversion</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Extract the `sepal_length` column as a NumPy array. Calculate its variance and standard deviation using NumPy functions.</p>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5 hover:border-purple-300 transition-colors">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-purple-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q6</span>
+                                <h4 class="font-bold text-slate-800">Standardization (Z-Score)</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Standardize the `sepal_width` column using NumPy: `(x - mean) / std`. Create a new column `sepal_width_z` in the dataframe with these values.</p>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5 hover:border-purple-300 transition-colors">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-purple-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q7</span>
+                                <h4 class="font-bold text-slate-800">Filtering with NumPy</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Use <code>np.where</code> to create a new column `petal_size_category`. If `petal_length` > 4.5, assign 'Large', otherwise 'Small'.</p>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5 hover:border-purple-300 transition-colors">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-purple-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q8</span>
+                                <h4 class="font-bold text-slate-800">Matrix Operations</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Compute the Correlation Matrix using NumPy (`np.corrcoef`) on the numerical features only. Compare it with Pandas `.corr()`.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PART 3: Matplotlib Basics -->
+                <div class="mb-10">
+                    <h3 class="text-xl font-bold text-purple-700 mb-4 flex items-center gap-2">
+                        <i data-lucide="pen-tool" class="w-5 h-5"></i> Part 3: Matplotlib Visualization
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5 hover:border-purple-300 transition-colors">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-purple-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q9</span>
+                                <h4 class="font-bold text-slate-800">Scatter Plot</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Create a scatter plot of `sepal_length` vs `sepal_width`. Label axes clearly and add a title "Sepal Dimensions".</p>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5 hover:border-purple-300 transition-colors">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-purple-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q10</span>
+                                <h4 class="font-bold text-slate-800">Histograms</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Plot a histogram of `petal_length` with 15 bins. Set the color to green and transparency (alpha) to 0.7.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PART 4: Seaborn Advanced -->
+                <div class="mb-10">
+                    <h3 class="text-xl font-bold text-purple-700 mb-4 flex items-center gap-2">
+                        <i data-lucide="search" class="w-5 h-5"></i> Part 4: Advanced Seaborn EDA
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5 hover:border-purple-300 transition-colors">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-purple-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q11</span>
+                                <h4 class="font-bold text-slate-800">Boxplot (Outlier Detection)</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Create a boxplot comparing `petal_width` across different `species`. Identify which species has outliers.</p>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5 hover:border-purple-300 transition-colors">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-purple-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q12</span>
+                                <h4 class="font-bold text-slate-800">Violin Plot</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Generate a violin plot for `sepal_length` by `species`. How does this compare to the boxplot information?</p>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5 hover:border-purple-300 transition-colors">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-purple-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q13</span>
+                                <h4 class="font-bold text-slate-800">Pairplot (Multivariate)</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Use `sns.pairplot` to visualize relationships between all numerical variables, distinguishing species by color (hue).</p>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5 hover:border-purple-300 transition-colors">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-purple-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q14</span>
+                                <h4 class="font-bold text-slate-800">Heatmap (Correlation)</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Compute the correlation matrix and visualize it using a heatmap with annotations. Which two features are most strongly positively correlated?</p>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg border border-slate-200 p-5 hover:border-purple-300 transition-colors">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-purple-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q15</span>
+                                <h4 class="font-bold text-slate-800">FacetGrid</h4>
+                            </div>
+                            <p class="text-slate-700 text-sm">Use `sns.FacetGrid` to create a grid of histograms for `sepal_length`, with one plot for each `species`.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- Document Footer -->
+            <div class="bg-slate-50 border-t border-slate-200 px-8 py-4 text-center text-slate-400 text-sm">
+                -- End of Lab Sheet --
+            </div>
+        </div>
     </div>
 
+    <!-- Initialize Icons -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.copy-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    const codeBlock = button.nextElementSibling;
-                    const codeText = codeBlock.innerText;
-
-                    const textArea = document.createElement('textarea');
-                    textArea.value = codeText;
-                    document.body.appendChild(textArea);
-                    textArea.select();
-                    try {
-                        document.execCommand('copy');
-                        button.textContent = 'Copied!';
-                        button.style.backgroundColor = '#22c55e'; // Green
-                        setTimeout(() => {
-                            button.textContent = 'Copy';
-                            button.style.backgroundColor = '#4b5563'; // Original color
-                        }, 2000);
-                    } catch (err) {
-                        console.error('Failed to copy text: ', err);
-                        button.textContent = 'Error';
-                    }
-                    document.body.removeChild(textArea);
-                });
-            });
-        });
+        lucide.createIcons();
     </script>
 </body>
 </html>
