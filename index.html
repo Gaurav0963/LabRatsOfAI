@@ -8,8 +8,7 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Babel for JSX transformation -->
-    <!-- Fixed: Pinned specific version to avoid 'esmodules' target error in latest release -->
+    <!-- Babel for JSX transformation (Pinned Version) -->
     <script src="https://unpkg.com/@babel/standalone@7.23.5/babel.min.js"></script>
     
     <!-- Custom Font (Inter) -->
@@ -34,24 +33,25 @@
 
         // --- Mock Data ---
 
-        // CONFIGURATION: Points to the new NumPy Lab
-        const LATEST_LAB_LINK = "lab3.html";
+        // CONFIGURATION: Points to Week 4 Lab
+        const LATEST_LAB_LINK = "lab4.html";
 
         const NOTICES = [
             { 
                 id: 1, 
-                text: "Today's lab will be on NumPy, I hope you've gone through the ", 
+                text: "Lab 4 (Data Visualization) is LIVE today (Feb 10th). Please ensure ", 
                 date: "Today",
-                link: "https://www.youtube.com/watch?v=QUT1VHiLmmI",
-                linkText: "FreeCodeCamp NumPy Tutorial"
+                link: "https://seaborn.pydata.org/installing.html",
+                linkText: "matplotlib & seaborn are installed"
             },
+            { id: 2, text: "Solutions for Week 3 (NumPy) are now available.", date: "Yesterday" },
         ];
 
         const RESOURCES = [
-            { title: "PyTorch Documentation", category: "Framework", link: "https://docs.pytorch.org/docs/stable/index.html", icon: <Code size={20} /> },
+            { title: "Seaborn Gallery", category: "Visualization", link: "https://seaborn.pydata.org/examples/index.html", icon: <Code size={20} /> },
+            { title: "Matplotlib Cheatsheet", category: "Visualization", link: "https://matplotlib.org/cheatsheets/", icon: <BookOpen size={20} /> },
             { title: "UCI Machine Learning Repo", category: "Datasets", link: "https://archive.ics.uci.edu/ml/index.php", icon: <Database size={20} /> },
-            { title: "CS229 Lecture Notes (Stanford)", category: "Theory", link: "https://cs229.stanford.edu/main_notes.pdf", icon: <BookOpen size={20} /> },
-            { title: "Google Colab Templates", category: "Tools", link: "https://colab.research.google.com/", icon: <Terminal size={20} /> },
+            { title: "Google Colab", category: "Tools", link: "https://colab.research.google.com/", icon: <Terminal size={20} /> },
         ];
 
         const WEEKLY_LABS = [
@@ -60,7 +60,7 @@
                 week: "Week 1", 
                 title: "Intro to Python for AI", 
                 date: "Jan 12, 2026", 
-                status: "Active",
+                status: "Done",
                 pdfUrl: "lab1.pdf", 
                 htmlUrl: "lab1.html",
             },
@@ -69,23 +69,32 @@
                 week: "Week 2", 
                 title: "Data Manipulation with Pandas", 
                 date: "Jan 19, 2026", 
-                status: "Active",
-                htmlUrl: "lab02.html", 
+                status: "Done",
+                htmlUrl: "pandas_questions.html", 
             },
             { 
                 id: 3, 
                 week: "Week 3", 
                 title: "NumPy Mastery", 
                 date: "Feb 02, 2026", 
-                status: "Active", 
+                status: "Done", 
                 htmlUrl: "lab3.html", 
+            },
+            { 
+                id: 4, 
+                week: "Week 4", 
+                title: "Data Visualization & EDA", 
+                date: "Feb 10, 2026", 
+                status: "Active", 
+                htmlUrl: "lab4.html", 
             },
         ];
 
         const LAB_SOLUTIONS = [
             { id: 1, week: "Week 1", title: "Solution: Python for AI", status: "Available", date: "Released", link: "lab1solution.html" },
-            { id: 2, week: "Week 2", title: "Solution: Pandas Usage", status: "Available", date: "Released", link: "lab02solution.html" },
-            { id: 3, week: "Week 3", title: "Solution: NumPy Mastery", status: "Locked", date: "Avail: Feb 07" },
+            { id: 2, week: "Week 2", title: "Solution: Pandas Usage", status: "Available", date: "Released", link: "pandas_solutions.html" },
+            { id: 3, week: "Week 3", title: "Solution: NumPy Mastery", status: "Available", date: "Released", link: "lab3_solutions.html" }, // Assuming you have this from previous week
+            { id: 4, week: "Week 4", title: "Solution: Data Viz & EDA", status: "Locked", date: "Avail: Feb 17" },
         ];
 
         // --- Components ---
@@ -94,7 +103,6 @@
             <nav className="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-16">
-                        {/* Logo */}
                         <div className="flex items-center gap-3 cursor-pointer" onClick={() => setActiveTab('Home')}>
                             <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
                                 <Cpu className="text-white" size={20} />
@@ -105,7 +113,6 @@
                             </div>
                         </div>
 
-                        {/* Desktop Nav */}
                         <div className="hidden md:block">
                             <div className="ml-10 flex items-baseline space-x-4">
                                 {['Home', 'Lab Questions', 'Solutions', 'Resources'].map((item) => (
@@ -124,7 +131,6 @@
                             </div>
                         </div>
 
-                        {/* Mobile menu button */}
                         <div className="-mr-2 flex md:hidden">
                             <button
                                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -136,7 +142,6 @@
                     </div>
                 </div>
 
-                {/* Mobile Nav */}
                 {mobileMenuOpen && (
                     <div className="md:hidden bg-slate-900 border-b border-slate-800">
                         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
@@ -362,7 +367,8 @@
                                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                                     <div className="flex items-start gap-4">
                                         <div className={`w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${
-                                            lab.status === 'Active' ? 'bg-indigo-600/20 text-indigo-400' : 'bg-slate-700/50 text-slate-500'
+                                            lab.status === 'Active' ? 'bg-indigo-600/20 text-indigo-400' : 
+                                            lab.status === 'Done' ? 'bg-emerald-900/20 text-emerald-400' : 'bg-slate-700/50 text-slate-500'
                                         }`}>
                                             <FileText size={24} />
                                         </div>
@@ -372,7 +378,9 @@
                                                 <span className={`text-xs px-2 py-0.5 rounded-full border ${
                                                     lab.status === 'Active' 
                                                         ? 'bg-emerald-900/30 text-emerald-400 border-emerald-800' 
-                                                        : 'bg-slate-700/30 text-slate-400 border-slate-700'
+                                                        : lab.status === 'Done' 
+                                                            ? 'bg-slate-800 text-slate-400 border-slate-700'
+                                                            : 'bg-slate-700/30 text-slate-400 border-slate-700'
                                                 }`}>
                                                     {lab.status}
                                                 </span>
@@ -385,26 +393,30 @@
                                     </div>
 
                                     <div className="flex items-center gap-3">
-                                        {lab.status === 'Active' ? (
+                                        {(lab.status === 'Active' || lab.status === 'Done') ? (
                                             <div className="flex gap-2 w-full md:w-auto">
+                                                {/* Primary View Action */}
                                                 {lab.content ? (
                                                     <button 
                                                         onClick={() => setActiveLabId(lab.id)}
                                                         className="flex-1 md:flex-none bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2 shadow-lg"
                                                     >
-                                                        <BookOpen size={16} /> View in Portal
+                                                        <BookOpen size={16} /> View
                                                     </button>
                                                 ) : lab.htmlUrl ? (
                                                     <a 
                                                         href={lab.htmlUrl} 
                                                         target="_blank" 
                                                         rel="noopener noreferrer"
-                                                        className="flex-1 md:flex-none bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2 shadow-lg"
+                                                        className={`flex-1 md:flex-none px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2 shadow-lg ${
+                                                            lab.status === 'Active' ? 'bg-indigo-600 hover:bg-indigo-700 text-white' : 'bg-slate-700 hover:bg-slate-600 text-slate-200'
+                                                        }`}
                                                     >
                                                         <ExternalLink size={16} /> Open HTML
                                                     </a>
                                                 ) : null}
 
+                                                {/* Secondary PDF Action */}
                                                 {lab.pdfUrl && (
                                                     <a 
                                                         href={lab.pdfUrl} 
@@ -611,3 +623,4 @@
     </script>
 </body>
 </html>
+
