@@ -33,18 +33,18 @@
 
         // --- Mock Data ---
 
-        // CONFIGURATION: Points to Week 4 Lab
-        const LATEST_LAB_LINK = "lab4.html";
+        // CONFIGURATION: Points to Week 5 Lab
+        const LATEST_LAB_LINK = "lab5_search.html";
 
         const NOTICES = [
             { 
                 id: 1, 
-                text: "Lab 4 (Data Visualization) is LIVE today (Feb 10th). Please ensure ", 
+                text: "Lab 5 (Search Algorithms) is LIVE today (Feb 17th). Prepare for ", 
                 date: "Today",
-                link: "https://seaborn.pydata.org/installing.html",
-                linkText: "matplotlib & seaborn are installed"
+                link: "https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/",
+                linkText: "BFS & DFS traversal"
             },
-            { id: 2, text: "Solutions for Week 3 (NumPy) are now available.", date: "Yesterday" },
+            { id: 2, text: "Solutions for Week 4 (EDA) are now available.", date: "Yesterday" },
         ];
 
         const RESOURCES = [
@@ -85,16 +85,25 @@
                 week: "Week 4", 
                 title: "Data Visualization & EDA", 
                 date: "Feb 10, 2026", 
+                status: "Done", 
+                htmlUrl: "lab4_visualization.html", 
+            },
+            { 
+                id: 5, 
+                week: "Week 5", 
+                title: "Search Strategies: BFS & DFS", 
+                date: "Feb 17, 2026", 
                 status: "Active", 
-                htmlUrl: "lab4.html", 
+                htmlUrl: "lab5_search.html", 
             },
         ];
 
         const LAB_SOLUTIONS = [
             { id: 1, week: "Week 1", title: "Solution: Python for AI", status: "Available", date: "Released", link: "lab1solution.html" },
             { id: 2, week: "Week 2", title: "Solution: Pandas Usage", status: "Available", date: "Released", link: "pandas_solutions.html" },
-            { id: 3, week: "Week 3", title: "Solution: NumPy Mastery", status: "Available", date: "Released", link: "lab3_solutions.html" }, // Assuming you have this from previous week
-            { id: 4, week: "Week 4", title: "Solution: Data Viz & EDA", status: "Locked", date: "Avail: Feb 17" },
+            { id: 3, week: "Week 3", title: "Solution: NumPy Mastery", status: "Available", date: "Released", link: "lab3_solutions.html" }, 
+            { id: 4, week: "Week 4", title: "Solution: Data Viz & EDA", status: "Available", date: "Released", link: "lab4_solutions.html" },
+            { id: 5, week: "Week 5", title: "Solution: BFS & DFS", status: "Locked", date: "Avail: Feb 24" },
         ];
 
         // --- Components ---
