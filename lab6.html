@@ -3,272 +3,227 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Lab 6</title>
-    <link rel="icon" type="image/png" href="favicon-16x16.png">
+    <title>AI Lab - Advanced Search</title>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Custom Font (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            /* Disable text selection by default */
-            -webkit-user-select: none; /* Safari */
-            -ms-user-select: none; /* IE 10+ and Edge */
-            user-select: none; /* Standard syntax */
+        body { font-family: 'Inter', sans-serif; }
+        /* LeetCode-like code block style */
+        .code-block {
+            background-color: #f7f9fa;
+            border-radius: 8px;
+            padding: 12px;
+            font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+            font-size: 0.875rem;
+            color: #262626;
+            margin-top: 8px;
+            margin-bottom: 8px;
+            border: 1px solid #e5e7eb;
         }
-        /* Allow text selection for code blocks */
-        pre, code {
-            -webkit-user-select: text; /* Safari */
-            -ms-user-select: text; /* IE 10+ and Edge */
-            user-select: text; /* Standard syntax */
-        }
-        details > summary {
-            list-style: none;
-        }
-        details > summary::-webkit-details-marker {
-            display: none;
+        .example-label {
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 4px;
+            display: block;
         }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="bg-slate-950 text-slate-900 py-8 min-h-screen">
 
-    <div class="container mx-auto p-4 sm:p-6 md:p-8">
-        <header class="text-center mb-8">
-            <h1 class="text-3xl md:text-4xl font-bold text-gray-900">AI (Blind Search) & Game Programming Questions</h1>
-            <p class="text-md text-gray-600 mt-2">AI Lab (1 SEP, 2025)</p>
-        </header>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Back Button -->
+        <a href="index.html" class="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-6 group">
+            <div class="p-2 rounded-full bg-slate-800 group-hover:bg-slate-700">
+                <i data-lucide="arrow-left" class="w-5 h-5"></i>
+            </div>
+            <span class="font-medium">Back to Portal</span>
+        </a>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- Question 1: BFS -->
-            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-                <h2 class="text-xl font-semibold mb-3 border-b pb-2 text-blue-700">1. Graph Traversal using BFS</h2>
-                <p class="mb-4">
-                    Write a program to perform a Breadth-First Search (BFS) on a directed graph. Given a graph represented by an adjacency list and a starting node, your program should print the nodes in the order they are visited.
-                </p>
-                <div class="bg-gray-50 p-4 rounded-lg">
-                    <h3 class="font-semibold mb-2">Sample Input:</h3>
-                    <p class="text-sm mb-3">The input should be a dictionary or map representing the adjacency list, and an integer or string for the starting node.</p>
-                    <pre class="bg-gray-200 text-gray-700 p-3 rounded-md text-sm"><code>graph = {
-  'A': ['B', 'C'],
-  'B': ['D', 'E'],
-  'C': ['F'],
-  'D': [],
-  'E': ['F'],
-  'F': []
-}
-start_node = 'A'</code></pre>
-                </div>
-                <div class="bg-gray-50 p-4 rounded-lg mt-4">
-                    <h3 class="font-semibold mb-2">Expected Output:</h3>
-                    <p class="text-sm mb-3">A list or a string showing the sequence of visited nodes.</p>
-                     <pre class="bg-gray-200 text-gray-700 p-3 rounded-md text-sm"><code>['A', 'B', 'C', 'D', 'E', 'F']</code></pre>
-                </div>
-                <details class="mt-4 group">
-                    <summary class="font-semibold text-indigo-600 cursor-pointer hover:text-indigo-800 flex items-center">
-                        <span class="group-open:rotate-90 transition-transform duration-200">&#9654;</span>
-                        <span class="ml-2">View Approach & Pseudocode</span>
-                    </summary>
-                    <div class="mt-2 pt-3 border-t">
-                        <h4 class="font-semibold mb-2">Approach:</h4>
-                        <p class="text-sm mb-3">Use a queue to store nodes to visit and a set to track visited nodes. Start with the root, add it to the queue and visited set. While the queue isn't empty, dequeue a node, process it, and add its unvisited neighbors to both the queue and the visited set.</p>
-                        <h4 class="font-semibold mb-2">Pseudocode:</h4>
-                        <pre class="bg-gray-200 text-gray-700 p-3 rounded-md text-sm"><code>function BFS(graph, startNode):
-  queue = new Queue()
-  visited = new Set()
-  result = []
-
-  queue.enqueue(startNode)
-  visited.add(startNode)
-
-  while queue is not empty:
-    currentNode = queue.dequeue()
-    result.add(currentNode)
-
-    for each neighbor in graph[currentNode]:
-      if neighbor is not in visited:
-        visited.add(neighbor)
-        queue.enqueue(neighbor)
-  
-  return result</code></pre>
+        <!-- Document Container -->
+        <div class="bg-white rounded-xl shadow-2xl overflow-hidden min-h-[800px]">
+            
+            <!-- Document Header -->
+            <div class="bg-cyan-50 border-b border-cyan-200 px-8 py-6">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <span class="inline-block px-3 py-1 bg-cyan-100 text-cyan-800 rounded-full text-xs font-bold uppercase tracking-wide mb-2">
+                            Week 6 - Lab 6
+                        </span>
+                        <h1 class="text-3xl font-bold text-slate-900 mb-2">Advanced Search: 8-Puzzle & 4-Queens</h1>
+                        <div class="flex items-center gap-4 text-sm text-slate-500">
+                            <span class="flex items-center gap-1"><i data-lucide="calendar" class="w-4 h-4"></i> Date: Feb 24, 2026</span>
+                            <span class="flex items-center gap-1"><i data-lucide="cpu" class="w-4 h-4"></i> Subject: AI Lab</span>
+                        </div>
                     </div>
-                </details>
+                    <div class="text-right hidden sm:block">
+                        <div class="text-2xl font-bold text-indigo-600">IIIT Bhagalpur</div>
+                        <div class="text-sm text-slate-500">Dept. of Computer Science</div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Question 2: DFS -->
-            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-                <h2 class="text-xl font-semibold mb-3 border-b pb-2 text-blue-700">2. Path Finding using DFS</h2>
-                <p class="mb-4">
-                    Implement Depth-First Search (DFS) to find if a path exists in a maze. The maze is given as a 2D grid where 'S' is the start, 'E' is the end, '.' is a valid path, and '#' is a wall.
-                </p>
-                <div class="bg-gray-50 p-4 rounded-lg">
-                    <h3 class="font-semibold mb-2">Sample Input:</h3>
-                    <p class="text-sm mb-3">A 2D list or array representing the maze.</p>
-                    <pre class="bg-gray-200 text-gray-700 p-3 rounded-md text-sm"><code>maze = [
-  ['S', '.', '.', '#'],
-  ['.', '#', '.', '#'],
-  ['.', '#', '.', '.'],
-  ['.', '.', '#', 'E']
-]</code></pre>
+            <!-- Document Content -->
+            <div class="px-8 py-8">
+                
+                <!-- Objectives -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-bold text-slate-900 border-b-2 border-cyan-500 inline-block mb-4 pb-1">
+                        Lab Objectives
+                    </h3>
+                    <ul class="list-disc list-inside space-y-1 text-slate-700">
+                        <li>Implement heuristic-based search or graph traversal for the <strong>8-Puzzle problem</strong>.</li>
+                        <li>Implement backtracking algorithms for Constraint Satisfaction Problems (CSP) like the <strong>4-Queens problem</strong>.</li>
+                        <li>Understand state generation, goal testing, and pathfinding tracking.</li>
+                    </ul>
                 </div>
-                <div class="bg-gray-50 p-4 rounded-lg mt-4">
-                    <h3 class="font-semibold mb-2">Expected Output:</h3>
-                    <p class="text-sm mb-3">A boolean value: `True` if a path is found, otherwise `False`.</p>
-                     <pre class="bg-gray-200 text-gray-700 p-3 rounded-md text-sm"><code>True</code></pre>
-                </div>
-                <details class="mt-4 group">
-                    <summary class="font-semibold text-indigo-600 cursor-pointer hover:text-indigo-800 flex items-center">
-                        <span class="group-open:rotate-90 transition-transform duration-200">&#9654;</span>
-                        <span class="ml-2">View Approach & Pseudocode</span>
-                    </summary>
-                    <div class="mt-2 pt-3 border-t">
-                        <h4 class="font-semibold mb-2">Approach:</h4>
-                        <p class="text-sm mb-3">Use recursion or a stack. From the starting point 'S', explore one neighbor as far as possible. If you hit a dead end (a wall or visited cell), backtrack and try another path. The base cases for the recursion are: finding 'E' (success), or going out of bounds/hitting a wall (failure). Mark visited cells to avoid loops.</p>
-                        <h4 class="font-semibold mb-2">Pseudocode:</h4>
-                        <pre class="bg-gray-200 text-gray-700 p-3 rounded-md text-sm"><code>function solveMaze(maze, row, col):
-  if out_of_bounds(row, col) or maze[row][col] is '#':
-    return false
-  if maze[row][col] is 'E':
-    return true
-  if maze[row][col] is 'visited':
-    return false
-  
-  mark maze[row][col] as 'visited'
 
-  path_found = solveMaze(maze, row+1, col) OR
-               solveMaze(maze, row-1, col) OR
-               solveMaze(maze, row, col+1) OR
-               solveMaze(maze, row, col-1)
-
-  return path_found</code></pre>
+                <!-- Submission Instructions -->
+                <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-10 flex gap-3">
+                    <i data-lucide="alert-circle" class="w-5 h-5 text-amber-600 flex-shrink-0"></i>
+                    <div class="text-sm text-amber-900">
+                        <strong>Submission:</strong> Submit a single Python file or Notebook named <code>RollNo_Lab06.ipynb</code> implementing the solutions below.
                     </div>
-                </details>
+                </div>
+
+                <!-- PART 1: 8-Puzzle -->
+                <div class="mb-12">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="bg-blue-600 text-white font-bold px-3 py-1 rounded text-sm">Q1 - State Space Search</span>
+                        <h2 class="text-2xl font-bold text-slate-900">8-Puzzle Problem</h2>
+                        <span class="ml-auto text-xs font-semibold text-rose-600 bg-rose-100 px-2 py-1 rounded">Hard</span>
+                    </div>
+                    
+                    <div class="prose max-w-none text-slate-700">
+                        <p class="mb-4">
+                            You are given a <code>3 x 3</code> board representing the 8-puzzle. The board contains tiles numbered from <code>1</code> to <code>8</code> and one empty space represented by <code>0</code>.
+                        </p>
+                        <p class="mb-4">
+                            In a single move, you can slide a tile adjacent to the empty space (horizontally or vertically) into the empty space. 
+                            Your goal is to write a program that finds the <strong>minimum number of moves</strong> required to transform the <code>initial</code> state of the board into the <code>target</code> state.
+                        </p>
+
+                        <!-- Example 1 -->
+                        <div class="mb-6">
+                            <span class="example-label">Example 1:</span>
+                            <div class="flex gap-4 mb-2">
+                                <div class="bg-white border p-2 text-center text-xs font-mono">
+                                    <strong>Initial</strong><br>
+                                    1 2 3<br>4 0 5<br>7 8 6
+                                </div>
+                                <div class="flex items-center text-slate-400">
+                                    <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                                </div>
+                                <div class="bg-white border p-2 text-center text-xs font-mono">
+                                    <strong>Target</strong><br>
+                                    1 2 3<br>4 5 6<br>7 8 0
+                                </div>
+                            </div>
+                            <div class="code-block">
+                                <strong>Input:</strong> <br>
+                                initial = [[1, 2, 3], [4, 0, 5], [7, 8, 6]]<br>
+                                target = [[1, 2, 3], [4, 5, 6], [7, 8, 0]]<br>
+                                <strong>Output:</strong> 2<br>
+                                <strong>Explanation:</strong><br>
+                                Move 1: Slide the '5' left into the empty space.<br>
+                                Move 2: Slide the '6' up into the empty space.
+                            </div>
+                        </div>
+
+                        <!-- Example 2 -->
+                        <div class="mb-6">
+                            <span class="example-label">Example 2:</span>
+                            <div class="code-block">
+                                <strong>Input:</strong> <br>
+                                initial = [[1, 2, 3], [4, 5, 6], [7, 8, 0]]<br>
+                                target = [[1, 2, 3], [4, 5, 6], [7, 8, 0]]<br>
+                                <strong>Output:</strong> 0<br>
+                                <strong>Explanation:</strong> The board is already in the target state.
+                            </div>
+                        </div>
+
+                        <!-- Constraints -->
+                        <div class="mt-4 p-4 bg-slate-50 rounded-lg border border-slate-200">
+                            <h4 class="font-bold text-slate-800 text-sm mb-2">Constraints:</h4>
+                            <ul class="list-disc list-inside text-xs text-slate-600 font-mono">
+                                <li>initial.length == target.length == 3</li>
+                                <li>initial[i].length == target[i].length == 3</li>
+                                <li>Both boards contain the integers 0 through 8 exactly once.</li>
+                                <li>Assume a solution always exists for the given test cases.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="border-slate-200 my-10">
+
+                <!-- PART 2: 4-Queens -->
+                <div class="mb-12">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="bg-rose-600 text-white font-bold px-3 py-1 rounded text-sm">Q2 - Backtracking</span>
+                        <h2 class="text-2xl font-bold text-slate-900">4-Queens Simulation</h2>
+                        <span class="ml-auto text-xs font-semibold text-amber-600 bg-amber-100 px-2 py-1 rounded">Intermediate</span>
+                    </div>
+                    
+                    <div class="prose max-w-none text-slate-700">
+                        <p class="mb-4">
+                            The <strong>4-queens puzzle</strong> is the problem of placing 4 chess queens on a <code>4 x 4</code> chessboard such that no two queens threaten each other. 
+                        </p>
+                        <p class="mb-4">
+                            This means no two queens can share the same row, column, or diagonal. Write a program to return <strong>all distinct solutions</strong> to the 4-queens puzzle. Each solution should be a list of strings where <code>'Q'</code> and <code>'.'</code> indicate a queen and an empty space, respectively.
+                        </p>
+
+                        <!-- Example 1 -->
+                        <div class="mb-6">
+                            <span class="example-label">Example 1:</span>
+                            <div class="code-block">
+                                <strong>Input:</strong> n = 4<br>
+                                <strong>Output:</strong><br>
+[<br>
+&nbsp;&nbsp;[".Q..",  // Solution 1<br>
+&nbsp;&nbsp;&nbsp;"...Q",<br>
+&nbsp;&nbsp;&nbsp;"Q...",<br>
+&nbsp;&nbsp;&nbsp;"..Q."],<br>
+<br>
+&nbsp;&nbsp;["..Q.",  // Solution 2<br>
+&nbsp;&nbsp;&nbsp;"Q...",<br>
+&nbsp;&nbsp;&nbsp;"...Q",<br>
+&nbsp;&nbsp;&nbsp;".Q.."]<br>
+]<br>
+                                <strong>Explanation:</strong> There exist exactly two distinct solutions to the 4-queens puzzle as shown above.
+                            </div>
+                        </div>
+
+                        <!-- Constraints -->
+                        <div class="mt-4 p-4 bg-slate-50 rounded-lg border border-slate-200">
+                            <h4 class="font-bold text-slate-800 text-sm mb-2">Constraints:</h4>
+                            <ul class="list-disc list-inside text-xs text-slate-600 font-mono">
+                                <li>n == 4</li>
+                                <li>Your algorithm should use a recursive backtracking approach to simulate placing the queens row by row.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-
-            <!-- Question 3: Tic-Tac-Toe -->
-            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-                <h2 class="text-xl font-semibold mb-3 border-b pb-2 text-green-700">3. Implement Tic-Tac-Toe Game</h2>
-                <p class="mb-4">
-                    Create a two-player, command-line Tic-Tac-Toe game. The program should display the 3x3 board, accept player moves, update the board, and declare a winner or a draw. It should also handle invalid moves (e.g., choosing an already occupied cell).
-                </p>
-                <div class="bg-gray-50 p-4 rounded-lg">
-                    <h3 class="font-semibold mb-2">Sample Input:</h3>
-                    <p class="text-sm mb-3">A sequence of integer inputs from 1 to 9 from two alternating players, corresponding to the board positions.</p>
-                    <pre class="bg-gray-200 text-gray-700 p-3 rounded-md text-sm"><code>Player X, enter your move (1-9): 5
-Player O, enter your move (1-9): 1
-...and so on.</code></pre>
-                </div>
-                <div class="bg-gray-50 p-4 rounded-lg mt-4">
-                    <h3 class="font-semibold mb-2">Expected Output:</h3>
-                    <p class="text-sm mb-3">The board state printed after each move, followed by a final game-over message.</p>
-                     <pre class="bg-gray-200 text-gray-700 p-3 rounded-md text-sm"><code>  |   |  
------------
-  | X |  
------------
-  |   |  
-...
-Player X wins!</code></pre>
-                </div>
-                <details class="mt-4 group">
-                    <summary class="font-semibold text-indigo-600 cursor-pointer hover:text-indigo-800 flex items-center">
-                        <span class="group-open:rotate-90 transition-transform duration-200">&#9654;</span>
-                        <span class="ml-2">View Approach & Pseudocode</span>
-                    </summary>
-                    <div class="mt-2 pt-3 border-t">
-                        <h4 class="font-semibold mb-2">Approach:</h4>
-                        <p class="text-sm mb-3">Use a 1D or 2D array to represent the board. Create a game loop that continues until a win or draw. Inside the loop: display the board, get the current player's input, validate it, update the board state, check for a win/draw, and then switch players.</p>
-                        <h4 class="font-semibold mb-2">Pseudocode:</h4>
-                        <pre class="bg-gray-200 text-gray-700 p-3 rounded-md text-sm"><code>function main():
-  board = create_empty_board()
-  currentPlayer = 'X'
-
-  while game_is_not_over:
-    printBoard(board)
-    move = getPlayerInput(currentPlayer)
-    
-    if isValidMove(board, move):
-      updateBoard(board, move, currentPlayer)
-      if checkWinner(board, currentPlayer):
-        print(currentPlayer + " wins!")
-        break
-      if isBoardFull(board):
-        print("It's a draw!")
-        break
-      currentPlayer = switchPlayer(currentPlayer)
-    else:
-      print("Invalid move.")</code></pre>
-                    </div>
-                </details>
-            </div>
-
-            <!-- Question 4: Card Shuffle -->
-            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-                <h2 class="text-xl font-semibold mb-3 border-b pb-2 text-green-700">4. Shuffle a Deck of Cards in Python</h2>
-                <p class="mb-4">
-                   Write a Python program that creates a standard 52-card deck (4 suits, 13 ranks), and then shuffles it into a random order.
-                </p>
-                <div class="bg-gray-50 p-4 rounded-lg">
-                    <h3 class="font-semibold mb-2">NoInputNeeded:</h3>
-                    <p class="text-sm">This program does not require any user input.</p>
-                </div>
-                <div class="bg-gray-50 p-4 rounded-lg mt-4">
-                    <h3 class="font-semibold mb-2">Expected Output:</h3>
-                    <p class="text-sm mb-3">A list of 52 strings, where each string represents a card. The order of the cards in the list should be random.</p>
-                     <pre class="bg-gray-200 text-gray-700 p-3 rounded-md text-sm"><code>['7 of Diamonds', 'King of Spades', '2 of Clubs', ... (and 49 other random cards)]</code></pre>
-                </div>
-                <details class="mt-4 group">
-                    <summary class="font-semibold text-indigo-600 cursor-pointer hover:text-indigo-800 flex items-center">
-                        <span class="group-open:rotate-90 transition-transform duration-200">&#9654;</span>
-                        <span class="ml-2">View Approach & Pseudocode</span>
-                    </summary>
-                    <div class="mt-2 pt-3 border-t">
-                        <h4 class="font-semibold mb-2">Approach:</h4>
-                        <p class="text-sm mb-3">First, generate a list of all 52 cards. You can do this with nested loops: one for suits and one for ranks. Once you have the ordered list, use a shuffling algorithm like Fisher-Yates or a built-in library function (e.g., Python's `random.shuffle`) to randomize the list in-place.</p>
-                        <h4 class="font-semibold mb-2">Pseudocode:</h4>
-                        <pre class="bg-gray-200 text-gray-700 p-3 rounded-md text-sm"><code>function createDeck():
-  suits = ["Hearts", "Diamonds", "Clubs", "Spades"]
-  ranks = ["2", "3", "4", ..., "King", "Ace"]
-  deck = new List()
-  
-  for each suit in suits:
-    for each rank in ranks:
-      deck.add(rank + " of " + suit)
-  return deck
-
-function shuffle(deck):
-  // Use built-in random shuffle function
-  random.shuffle(deck)
-
-// Main execution
-deck = createDeck()
-shuffle(deck)
-print(deck)</code></pre>
-                    </div>
-                </details>
+            
+            <!-- Document Footer -->
+            <div class="bg-cyan-50 border-t border-cyan-200 px-8 py-4 text-center text-slate-500 text-sm">
+                -- End of Lab Sheet --
             </div>
         </div>
     </div>
 
+    <!-- Initialize Icons -->
     <script>
-        // Disable right-click context menu, but allow it on code blocks
-        document.addEventListener('contextmenu', event => {
-            if (!event.target.closest('pre')) {
-                event.preventDefault();
-            }
-        });
-
-        // Disable specific key combinations for copying, except in code blocks
-        document.addEventListener('keydown', function(e) {
-            // If the event target is inside a <pre> element, allow default behavior
-            if (e.target.closest('pre')) {
-                return;
-            }
-
-            // Disable Ctrl+C, Ctrl+X, Ctrl+U elsewhere
-            if (e.ctrlKey && (e.key === 'c' || e.key === 'x' || e.key === 'u')) {
-                e.preventDefault();
-            }
-        });
+        lucide.createIcons();
     </script>
-
 </body>
 </html>
-
