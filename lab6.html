@@ -16,69 +16,85 @@
     
     <style>
         body { font-family: 'Inter', sans-serif; }
-        /* LeetCode-like code block style */
+        
+        /* LeetCode-like code block style (Dark Mode) */
         .code-block {
-            background-color: #f7f9fa;
+            background-color: #09090b; /* zinc-950 */
             border-radius: 8px;
-            padding: 12px;
+            padding: 16px;
             font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
             font-size: 0.875rem;
-            color: #262626;
-            margin-top: 8px;
-            margin-bottom: 8px;
-            border: 1px solid #e5e7eb;
+            color: #d4d4d8; /* zinc-300 */
+            margin-top: 12px;
+            margin-bottom: 12px;
+            border: 1px solid #27272a; /* zinc-800 */
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
         }
+        
         .example-label {
-            font-weight: 600;
-            color: #374151;
-            margin-bottom: 4px;
+            font-weight: 700;
+            color: #f4f4f5; /* zinc-100 */
+            margin-bottom: 6px;
             display: block;
+        }
+
+        /* Inline code styling */
+        code:not(pre code):not(.code-block code) {
+            background-color: #27272a; /* zinc-800 */
+            color: #2dd4bf; /* teal-400 */
+            padding: 0.2em 0.4em;
+            border-radius: 0.25rem;
+            font-size: 0.875em;
+            font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
         }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-900 py-8 min-h-screen">
+<body class="bg-zinc-950 text-zinc-300 py-8 min-h-screen selection:bg-emerald-500/30 selection:text-emerald-200">
 
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Back Button -->
-        <a href="index.html" class="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-6 group">
-            <div class="p-2 rounded-full bg-slate-800 group-hover:bg-slate-700">
-                <i data-lucide="arrow-left" class="w-5 h-5"></i>
+        <a href="index.html" class="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition-colors mb-6 group">
+            <div class="p-2 rounded-full bg-zinc-900 border border-zinc-800 group-hover:bg-zinc-800 transition-colors">
+                <i data-lucide="arrow-left" class="w-5 h-5 text-emerald-400"></i>
             </div>
             <span class="font-medium">Back to Portal</span>
         </a>
 
         <!-- Document Container -->
-        <div class="bg-white rounded-xl shadow-2xl overflow-hidden min-h-[800px]">
+        <div class="bg-zinc-900/80 backdrop-blur-lg rounded-xl shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden min-h-[800px] border border-zinc-800">
             
             <!-- Document Header -->
-            <div class="bg-cyan-50 border-b border-cyan-200 px-8 py-6">
+            <div class="bg-zinc-900 border-b border-zinc-800 px-8 py-6 relative">
+                <!-- Top Gradient Accent -->
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 to-cyan-500"></div>
+                
                 <div class="flex justify-between items-start">
                     <div>
-                        <span class="inline-block px-3 py-1 bg-cyan-100 text-cyan-800 rounded-full text-xs font-bold uppercase tracking-wide mb-2">
+                        <span class="inline-block px-3 py-1 bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 rounded-full text-xs font-bold uppercase tracking-wide mb-3 shadow-[0_0_10px_rgba(6,182,212,0.1)]">
                             Week 6 - Lab 6
                         </span>
-                        <h1 class="text-3xl font-bold text-slate-900 mb-2">Advanced Search: 8-Puzzle & 4-Queens</h1>
-                        <div class="flex items-center gap-4 text-sm text-slate-500">
-                            <span class="flex items-center gap-1"><i data-lucide="calendar" class="w-4 h-4"></i> Date: Feb 24, 2026</span>
-                            <span class="flex items-center gap-1"><i data-lucide="cpu" class="w-4 h-4"></i> Subject: AI Lab</span>
+                        <h1 class="text-3xl font-extrabold text-white mb-2 tracking-tight">Advanced Search: 8-Puzzle & 4-Queens</h1>
+                        <div class="flex items-center gap-4 text-sm text-zinc-400">
+                            <span class="flex items-center gap-1.5"><i data-lucide="calendar" class="w-4 h-4 text-emerald-500"></i> Date: Feb 24, 2026</span>
+                            <span class="flex items-center gap-1.5"><i data-lucide="cpu" class="w-4 h-4 text-cyan-500"></i> Subject: AI Lab</span>
                         </div>
                     </div>
                     <div class="text-right hidden sm:block">
-                        <div class="text-2xl font-bold text-indigo-600">IIIT Bhagalpur</div>
-                        <div class="text-sm text-slate-500">Dept. of Computer Science</div>
+                        <div class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">IIIT Bhagalpur</div>
+                        <div class="text-sm text-zinc-500 font-medium">Dept. of Computer Science</div>
                     </div>
                 </div>
             </div>
 
             <!-- Document Content -->
-            <div class="px-8 py-8">
+            <div class="px-8 py-10">
                 
                 <!-- Objectives -->
-                <div class="mb-8">
-                    <h3 class="text-lg font-bold text-slate-900 border-b-2 border-cyan-500 inline-block mb-4 pb-1">
+                <div class="mb-10">
+                    <h3 class="text-lg font-bold text-white border-b-2 border-emerald-500 inline-block mb-5 pb-1">
                         Lab Objectives
                     </h3>
-                    <ul class="list-disc list-inside space-y-1 text-slate-700">
+                    <ul class="list-disc list-inside space-y-2 text-zinc-400">
                         <li>Implement heuristic-based search or graph traversal for the <strong>8-Puzzle problem</strong>.</li>
                         <li>Implement backtracking algorithms for Constraint Satisfaction Problems (CSP) like the <strong>4-Queens problem</strong>.</li>
                         <li>Understand state generation, goal testing, and pathfinding tracking.</li>
@@ -86,136 +102,177 @@
                 </div>
 
                 <!-- Submission Instructions -->
-                <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-10 flex gap-3">
-                    <i data-lucide="alert-circle" class="w-5 h-5 text-amber-600 flex-shrink-0"></i>
-                    <div class="text-sm text-amber-900">
-                        <strong>Submission:</strong> Submit a single Python file or Notebook named <code>RollNo_Lab06.ipynb</code> implementing the solutions below.
+                <div class="bg-emerald-500/5 border border-emerald-500/20 rounded-lg p-5 mb-12 flex gap-4 shadow-lg shadow-emerald-500/5">
+                    <i data-lucide="alert-circle" class="w-6 h-6 text-emerald-400 flex-shrink-0 mt-0.5"></i>
+                    <div class="text-sm text-emerald-200/80 leading-relaxed">
+                        <strong class="text-emerald-300">Submission Instructions:</strong> Submit a single Python file or Notebook named <code>RollNo_Lab06.ipynb</code> implementing the solutions below. Ensure your code is well-commented.
                     </div>
                 </div>
 
                 <!-- PART 1: 8-Puzzle -->
-                <div class="mb-12">
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="bg-blue-600 text-white font-bold px-3 py-1 rounded text-sm">Q1 - State Space Search</span>
-                        <h2 class="text-2xl font-bold text-slate-900">8-Puzzle Problem</h2>
-                        <span class="ml-auto text-xs font-semibold text-rose-600 bg-rose-100 px-2 py-1 rounded">Hard</span>
+                <div class="mb-14">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-bold px-3 py-1 rounded text-sm">Q1 - State Space Search</span>
+                        <h2 class="text-2xl font-bold text-white">8-Puzzle Problem</h2>
+                        <span class="ml-auto text-xs font-bold text-rose-400 bg-rose-500/10 border border-rose-500/20 px-2.5 py-1 rounded shadow-[0_0_10px_rgba(244,63,94,0.1)]">Hard</span>
                     </div>
                     
-                    <div class="prose max-w-none text-slate-700">
+                    <div class="prose max-w-none text-zinc-400 leading-relaxed">
                         <p class="mb-4">
                             You are given a <code>3 x 3</code> board representing the 8-puzzle. The board contains tiles numbered from <code>1</code> to <code>8</code> and one empty space represented by <code>0</code>.
                         </p>
-                        <p class="mb-4">
+                        <p class="mb-6">
                             In a single move, you can slide a tile adjacent to the empty space (horizontally or vertically) into the empty space. 
                             Your goal is to write a program that finds the <strong>minimum number of moves</strong> required to transform the <code>initial</code> state of the board into the <code>target</code> state.
                         </p>
 
                         <!-- Example 1 -->
-                        <div class="mb-6">
+                        <div class="mb-8">
                             <span class="example-label">Example 1:</span>
-                            <div class="flex gap-4 mb-2">
-                                <div class="bg-white border p-2 text-center text-xs font-mono">
-                                    <strong>Initial</strong><br>
+                            <div class="flex gap-4 mb-3">
+                                <div class="bg-zinc-950 border border-zinc-800 p-3 rounded text-center text-sm font-mono shadow-inner">
+                                    <strong class="text-emerald-400 block mb-2 text-xs uppercase tracking-wider">Initial</strong>
                                     1 2 3<br>4 0 5<br>7 8 6
                                 </div>
-                                <div class="flex items-center text-slate-400">
-                                    <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                                <div class="flex items-center text-zinc-600">
+                                    <i data-lucide="arrow-right" class="w-6 h-6"></i>
                                 </div>
-                                <div class="bg-white border p-2 text-center text-xs font-mono">
-                                    <strong>Target</strong><br>
+                                <div class="bg-zinc-950 border border-zinc-800 p-3 rounded text-center text-sm font-mono shadow-inner">
+                                    <strong class="text-cyan-400 block mb-2 text-xs uppercase tracking-wider">Target</strong>
                                     1 2 3<br>4 5 6<br>7 8 0
                                 </div>
                             </div>
                             <div class="code-block">
-                                <strong>Input:</strong> <br>
-                                initial = [[1, 2, 3], [4, 0, 5], [7, 8, 6]]<br>
-                                target = [[1, 2, 3], [4, 5, 6], [7, 8, 0]]<br>
-                                <strong>Output:</strong> 2<br>
-                                <strong>Explanation:</strong><br>
+                                <span class="text-zinc-500">Input:</span> <br>
+                                <span class="text-cyan-300">initial</span> = [[1, 2, 3], [4, 0, 5], [7, 8, 6]]<br>
+                                <span class="text-cyan-300">target</span> = [[1, 2, 3], [4, 5, 6], [7, 8, 0]]<br>
+                                <span class="text-zinc-500 mt-2 block">Output:</span> <span class="text-emerald-400 font-bold">2</span><br>
+                                <span class="text-zinc-500 mt-2 block">Explanation:</span>
                                 Move 1: Slide the '5' left into the empty space.<br>
                                 Move 2: Slide the '6' up into the empty space.
                             </div>
                         </div>
 
                         <!-- Example 2 -->
-                        <div class="mb-6">
+                        <div class="mb-8">
                             <span class="example-label">Example 2:</span>
                             <div class="code-block">
-                                <strong>Input:</strong> <br>
-                                initial = [[1, 2, 3], [4, 5, 6], [7, 8, 0]]<br>
-                                target = [[1, 2, 3], [4, 5, 6], [7, 8, 0]]<br>
-                                <strong>Output:</strong> 0<br>
-                                <strong>Explanation:</strong> The board is already in the target state.
+                                <span class="text-zinc-500">Input:</span> <br>
+                                <span class="text-cyan-300">initial</span> = [[1, 2, 3], [4, 5, 6], [7, 8, 0]]<br>
+                                <span class="text-cyan-300">target</span> = [[1, 2, 3], [4, 5, 6], [7, 8, 0]]<br>
+                                <span class="text-zinc-500 mt-2 block">Output:</span> <span class="text-emerald-400 font-bold">0</span><br>
+                                <span class="text-zinc-500 mt-2 block">Explanation:</span> The board is already in the target state.
                             </div>
                         </div>
 
                         <!-- Constraints -->
-                        <div class="mt-4 p-4 bg-slate-50 rounded-lg border border-slate-200">
-                            <h4 class="font-bold text-slate-800 text-sm mb-2">Constraints:</h4>
-                            <ul class="list-disc list-inside text-xs text-slate-600 font-mono">
+                        <div class="mt-6 p-5 bg-zinc-950 rounded-lg border border-zinc-800 shadow-inner">
+                            <h4 class="font-bold text-white text-sm mb-3 flex items-center gap-2">
+                                <i data-lucide="settings-2" class="w-4 h-4 text-zinc-500"></i> Constraints:
+                            </h4>
+                            <ul class="list-disc list-inside text-sm text-zinc-500 font-mono space-y-1.5 ml-1">
                                 <li>initial.length == target.length == 3</li>
                                 <li>initial[i].length == target[i].length == 3</li>
                                 <li>Both boards contain the integers 0 through 8 exactly once.</li>
                                 <li>Assume a solution always exists for the given test cases.</li>
                             </ul>
                         </div>
+
+                        <!-- Approach Hint Dropdown -->
+                        <details class="group bg-zinc-950 border border-zinc-800 rounded-lg overflow-hidden mt-6 shadow-inner">
+                            <summary class="flex items-center justify-between cursor-pointer p-4 hover:bg-zinc-900 transition-colors select-none">
+                                <div class="flex items-center gap-2">
+                                    <i data-lucide="lightbulb" class="w-5 h-5 text-amber-400"></i>
+                                    <span class="font-bold text-zinc-300 group-hover:text-white transition-colors">Approach Hint</span>
+                                </div>
+                                <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-500 group-open:-rotate-180 transition-transform duration-300"></i>
+                            </summary>
+                            <div class="p-5 border-t border-zinc-800 bg-zinc-950/50 text-sm text-zinc-400 leading-relaxed space-y-3">
+                                <p><strong class="text-cyan-400">1. State Representation:</strong> It is easier to track visited states if you flatten the 3x3 grid into a 1D string or tuple (e.g., <code>"123405786"</code>).</p>
+                                <p><strong class="text-cyan-400">2. Algorithm Choice:</strong> Because we want the <em>minimum</em> number of moves, <strong>Breadth-First Search (BFS)</strong> is the optimal choice. It guarantees the shortest path in an unweighted graph.</p>
+                                <p><strong class="text-cyan-400">3. Traversal:</strong> Use a Queue to store the current state and the number of moves taken <code>(state, moves)</code>. Pop the front, find the index of <code>'0'</code>, and generate new states by swapping it with valid neighboring indices.</p>
+                            </div>
+                        </details>
                     </div>
                 </div>
 
-                <hr class="border-slate-200 my-10">
+                <hr class="border-zinc-800/80 my-12">
 
                 <!-- PART 2: 4-Queens -->
-                <div class="mb-12">
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="bg-rose-600 text-white font-bold px-3 py-1 rounded text-sm">Q2 - Backtracking</span>
-                        <h2 class="text-2xl font-bold text-slate-900">4-Queens Simulation</h2>
-                        <span class="ml-auto text-xs font-semibold text-amber-600 bg-amber-100 px-2 py-1 rounded">Intermediate</span>
+                <div class="mb-8">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold px-3 py-1 rounded text-sm">Q2 - Backtracking</span>
+                        <h2 class="text-2xl font-bold text-white">4-Queens Simulation</h2>
+                        <span class="ml-auto text-xs font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded shadow-[0_0_10px_rgba(245,158,11,0.1)]">Intermediate</span>
                     </div>
                     
-                    <div class="prose max-w-none text-slate-700">
+                    <div class="prose max-w-none text-zinc-400 leading-relaxed">
                         <p class="mb-4">
                             The <strong>4-queens puzzle</strong> is the problem of placing 4 chess queens on a <code>4 x 4</code> chessboard such that no two queens threaten each other. 
                         </p>
-                        <p class="mb-4">
+                        <p class="mb-6">
                             This means no two queens can share the same row, column, or diagonal. Write a program to return <strong>all distinct solutions</strong> to the 4-queens puzzle. Each solution should be a list of strings where <code>'Q'</code> and <code>'.'</code> indicate a queen and an empty space, respectively.
                         </p>
 
                         <!-- Example 1 -->
-                        <div class="mb-6">
+                        <div class="mb-8">
                             <span class="example-label">Example 1:</span>
                             <div class="code-block">
-                                <strong>Input:</strong> n = 4<br>
-                                <strong>Output:</strong><br>
+                                <span class="text-zinc-500">Input:</span> <span class="text-cyan-300">n</span> = 4<br>
+                                <span class="text-zinc-500 mt-2 block">Output:</span>
 [<br>
-&nbsp;&nbsp;[".Q..",  // Solution 1<br>
-&nbsp;&nbsp;&nbsp;"...Q",<br>
-&nbsp;&nbsp;&nbsp;"Q...",<br>
-&nbsp;&nbsp;&nbsp;"..Q."],<br>
+&nbsp;&nbsp;[<span class="text-emerald-400">".Q.."</span>,  <span class="text-zinc-600 italic">// Solution 1</span><br>
+&nbsp;&nbsp;&nbsp;<span class="text-emerald-400">"...Q"</span>,<br>
+&nbsp;&nbsp;&nbsp;<span class="text-emerald-400">"Q..."</span>,<br>
+&nbsp;&nbsp;&nbsp;<span class="text-emerald-400">"..Q."</span>],<br>
 <br>
-&nbsp;&nbsp;["..Q.",  // Solution 2<br>
-&nbsp;&nbsp;&nbsp;"Q...",<br>
-&nbsp;&nbsp;&nbsp;"...Q",<br>
-&nbsp;&nbsp;&nbsp;".Q.."]<br>
+&nbsp;&nbsp;[<span class="text-emerald-400">"..Q."</span>,  <span class="text-zinc-600 italic">// Solution 2</span><br>
+&nbsp;&nbsp;&nbsp;<span class="text-emerald-400">"Q..."</span>,<br>
+&nbsp;&nbsp;&nbsp;<span class="text-emerald-400">"...Q"</span>,<br>
+&nbsp;&nbsp;&nbsp;<span class="text-emerald-400">".Q.."</span>]<br>
 ]<br>
-                                <strong>Explanation:</strong> There exist exactly two distinct solutions to the 4-queens puzzle as shown above.
+                                <span class="text-zinc-500 mt-3 block">Explanation:</span> There exist exactly two distinct solutions to the 4-queens puzzle as shown above.
                             </div>
                         </div>
 
                         <!-- Constraints -->
-                        <div class="mt-4 p-4 bg-slate-50 rounded-lg border border-slate-200">
-                            <h4 class="font-bold text-slate-800 text-sm mb-2">Constraints:</h4>
-                            <ul class="list-disc list-inside text-xs text-slate-600 font-mono">
+                        <div class="mt-6 p-5 bg-zinc-950 rounded-lg border border-zinc-800 shadow-inner">
+                            <h4 class="font-bold text-white text-sm mb-3 flex items-center gap-2">
+                                <i data-lucide="settings-2" class="w-4 h-4 text-zinc-500"></i> Constraints:
+                            </h4>
+                            <ul class="list-disc list-inside text-sm text-zinc-500 font-mono space-y-1.5 ml-1">
                                 <li>n == 4</li>
                                 <li>Your algorithm should use a recursive backtracking approach to simulate placing the queens row by row.</li>
                             </ul>
                         </div>
+
+                        <!-- Approach Hint Dropdown -->
+                        <details class="group bg-zinc-950 border border-zinc-800 rounded-lg overflow-hidden mt-6 shadow-inner">
+                            <summary class="flex items-center justify-between cursor-pointer p-4 hover:bg-zinc-900 transition-colors select-none">
+                                <div class="flex items-center gap-2">
+                                    <i data-lucide="lightbulb" class="w-5 h-5 text-amber-400"></i>
+                                    <span class="font-bold text-zinc-300 group-hover:text-white transition-colors">Approach Hint</span>
+                                </div>
+                                <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-500 group-open:-rotate-180 transition-transform duration-300"></i>
+                            </summary>
+                            <div class="p-5 border-t border-zinc-800 bg-zinc-950/50 text-sm text-zinc-400 leading-relaxed space-y-3">
+                                <p><strong class="text-emerald-400">1. Algorithm:</strong> Use <strong>Recursive Backtracking (DFS)</strong>. Try placing exactly one queen per row, starting from row 0.</p>
+                                <p><strong class="text-emerald-400">2. Constraint Checking:</strong> Maintain three <code>sets</code> to track which <em>columns</em>, <em>positive diagonals</em>, and <em>negative diagonals</em> already contain a queen.</p>
+                                <p><strong class="text-emerald-400">3. The Math Trick:</strong> For any cell at <code>(row, col)</code>:
+                                    <ul class="list-disc list-inside ml-4 mt-1 space-y-1">
+                                        <li>Every cell on the same positive diagonal shares the same <code>row + col</code> value.</li>
+                                        <li>Every cell on the same negative diagonal shares the same <code>row - col</code> value.</li>
+                                    </ul>
+                                </p>
+                            </div>
+                        </details>
                     </div>
                 </div>
 
             </div>
             
             <!-- Document Footer -->
-            <div class="bg-cyan-50 border-t border-cyan-200 px-8 py-4 text-center text-slate-500 text-sm">
+            <div class="bg-zinc-950 border-t border-zinc-800 px-8 py-5 text-center text-zinc-600 text-sm font-medium">
                 -- End of Lab Sheet --
             </div>
         </div>
