@@ -28,29 +28,34 @@
         import { 
             Search, BookOpen, Code, Cpu, Calendar, ChevronRight, Menu, X, 
             FileText, Database, Terminal, Lock, Unlock, Clock, CheckCircle, 
-            ArrowLeft, List, AlertCircle, Download, ExternalLink 
+            ArrowLeft, List, AlertCircle, Download, ExternalLink, Activity
         } from 'https://esm.sh/lucide-react@0.263.1';
 
         // --- Mock Data ---
 
-        // CONFIGURATION: Points to Week 5 Lab
-        const LATEST_LAB_LINK = "lab5.html";
+        // CONFIGURATION: Points to Week 6 Lab
+        const LATEST_LAB_LINK = "lab6.html";
 
         const NOTICES = [
             { 
                 id: 1, 
-                text: "Lab 5 (Search Algorithms) is LIVE today (Feb 17th). Prepare for ", 
+                text: "Lab 6 (Advanced Search) is LIVE today (Feb 24th). Prepare for ", 
                 date: "Today",
-                link: "https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/",
-                linkText: "BFS & DFS traversal"
+                link: "https://www.geeksforgeeks.org/8-puzzle-problem-using-branch-and-bound/",
+                linkText: "8-Puzzle & N-Queens"
             },
-            { id: 2, text: "Solutions for Week 4 (EDA) are now available.", date: "Yesterday" },
+            { id: 2, text: "Solutions for Week 5 (BFS & DFS) are now available.", date: "Yesterday" },
         ];
 
+        // UPDATED: Expanded resources specifically tailored for AI, Search Algorithms, and ML
         const RESOURCES = [
+            { title: "Pathfinding Visualizer", category: "Algorithms", link: "https://clementmihailescu.github.io/Pathfinding-Visualizer/", icon: <Activity size={20} /> },
+            { title: "Berkeley Pacman AI", category: "Projects", link: "http://ai.berkeley.edu/project_overview.html", icon: <Terminal size={20} /> },
+            { title: "Harvard CS50's AI", category: "Theory", link: "https://cs50.harvard.edu/ai/", icon: <BookOpen size={20} /> },
+            { title: "Python Collections (deque)", category: "Documentation", link: "https://docs.python.org/3/library/collections.html", icon: <Code size={20} /> },
+            { title: "Kaggle Datasets", category: "Datasets", link: "https://www.kaggle.com/datasets", icon: <Database size={20} /> },
             { title: "Seaborn Gallery", category: "Visualization", link: "https://seaborn.pydata.org/examples/index.html", icon: <Code size={20} /> },
-            { title: "Matplotlib Cheatsheet", category: "Visualization", link: "https://matplotlib.org/cheatsheets/", icon: <BookOpen size={20} /> },
-            { title: "UCI Machine Learning Repo", category: "Datasets", link: "https://archive.ics.uci.edu/ml/index.php", icon: <Database size={20} /> },
+            { title: "PyTorch Tutorials", category: "Framework", link: "https://pytorch.org/tutorials/", icon: <Cpu size={20} /> },
             { title: "Google Colab", category: "Tools", link: "https://colab.research.google.com/", icon: <Terminal size={20} /> },
         ];
 
@@ -70,7 +75,7 @@
                 title: "Data Manipulation with Pandas", 
                 date: "Jan 19, 2026", 
                 status: "Done",
-                htmlUrl: "pandas_questions.html", 
+                htmlUrl: "lab2.html", 
             },
             { 
                 id: 3, 
@@ -93,8 +98,16 @@
                 week: "Week 5", 
                 title: "Search Strategies: BFS & DFS", 
                 date: "Feb 17, 2026", 
-                status: "Active", 
+                status: "Done", 
                 htmlUrl: "lab5.html", 
+            },
+            { 
+                id: 6, 
+                week: "Week 6", 
+                title: "Advanced Search: 8-Puzzle & 4-Queens", 
+                date: "Feb 24, 2026", 
+                status: "Active", 
+                htmlUrl: "lab6.html", 
             },
         ];
 
@@ -103,7 +116,8 @@
             { id: 2, week: "Week 2", title: "Solution: Pandas Usage", status: "Available", date: "Released", link: "lab02solution.html" },
             { id: 3, week: "Week 3", title: "Solution: NumPy Mastery", status: "Available", date: "Released", link: "lab3solution.html" }, 
             { id: 4, week: "Week 4", title: "Solution: Data Viz & EDA", status: "Available", date: "Released", link: "lab4solution.html" },
-            { id: 5, week: "Week 5", title: "Solution: BFS & DFS", status: "Locked", date: "Avail: Feb 24" },
+            { id: 5, week: "Week 5", title: "Solution: BFS & DFS", status: "Available", date: "Released", link: "lab5solution.html" },
+            { id: 6, week: "Week 6", title: "Solution: 8-Puzzle & 4-Queens", status: "Locked", date: "Avail: Mar 03" },
         ];
 
         // --- Components ---
@@ -404,7 +418,6 @@
                                     <div className="flex items-center gap-3">
                                         {(lab.status === 'Active' || lab.status === 'Done') ? (
                                             <div className="flex gap-2 w-full md:w-auto">
-                                                {/* Primary View Action */}
                                                 {lab.content ? (
                                                     <button 
                                                         onClick={() => setActiveLabId(lab.id)}
@@ -425,7 +438,6 @@
                                                     </a>
                                                 ) : null}
 
-                                                {/* Secondary PDF Action */}
                                                 {lab.pdfUrl && (
                                                     <a 
                                                         href={lab.pdfUrl} 
@@ -478,7 +490,6 @@
                             <h3 className="text-lg font-bold text-white mb-2">{sol.title}</h3>
                             <p className="text-slate-400 text-sm mb-6">{sol.date}</p>
                             
-                            {/* Logic to render Link or Button */}
                             {(sol.status === 'Available' || sol.status === 'Active') && (sol.link || sol.htmlUrl) ? (
                                  <a 
                                     href={sol.link || sol.htmlUrl}
@@ -506,9 +517,10 @@
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div className="mb-8">
                     <h2 className="text-2xl font-bold text-white">Student Resources</h2>
-                    <p className="text-slate-400">Curated tools and libraries for AI Lab experiments.</p>
+                    <p className="text-slate-400">Curated tools, visualizers, and documentation for AI Lab experiments.</p>
                 </div>
 
+                {/* UPDATED: Changed grid template to handle 8 resources beautifully */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {RESOURCES.map((res, idx) => (
                         <a 
