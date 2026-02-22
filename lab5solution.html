@@ -3,268 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Lab 5 Solutions</title>
-    <link rel="icon" type="image/png" href="favicon-16x16.png">
+    <title>AI Lab - Lab 5 Solutions</title>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Custom Font (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        pre {
-            background-color: #1f2937; /* gray-800 */
-            color: #d1d5db; /* gray-300 */
-            padding: 1rem;
-            border-radius: 0.5rem;
-            overflow-x: auto;
-            font-size: 0.875rem;
-        }
-        code {
-            font-family: 'Courier New', Courier, monospace;
-        }
+        body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="bg-slate-950 text-slate-900 py-8 min-h-screen">
 
-    <div class="container mx-auto p-4 sm:p-6 md:p-8">
-        <header class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-gray-900">AI Lab: Full Python Solutions</h1>
-            <p class="text-lg text-gray-600 mt-2">
-                <!-- This link assumes the main page is named ai_lab_main_v2.html -->
-                <a href="./ai_lab_main_v2.html" class="text-indigo-600 hover:underline">&larr; Back to Questions</a>
-            </p>
-        </header>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Back Button -->
+        <a href="index.html" class="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-6 group">
+            <div class="p-2 rounded-full bg-slate-800 group-hover:bg-slate-700">
+                <i data-lucide="arrow-left" class="w-5 h-5"></i>
+            </div>
+            <span class="font-medium">Back to Portal</span>
+        </a>
 
-        <main class="space-y-8">
-            <!-- BFS Solutions -->
-            <div>
-                <h2 class="text-3xl font-bold mb-4 border-l-4 border-indigo-500 pl-4">BFS Solutions</h2>
-                <div class="space-y-6">
-                    <!-- Solution 1 -->
-                    <div class="bg-white p-6 rounded-lg shadow-md">
-                        <h3 class="text-xl font-semibold mb-2">1. Implement Breadth-First Search</h3>
-                        <pre><code class="language-python">
-import collections
-
-def bfs(graph, start_node):
-    """
-    Performs BFS on a graph represented as an adjacency list.
-    
-    Args:
-        graph (dict): The graph as an adjacency list.
-        start_node: The node to start the traversal from.
-        
-    Returns:
-        list: A list of nodes in the order they were visited.
-    """
-    if start_node not in graph:
-        return []
-
-    visited = set()
-    queue = collections.deque([start_node])
-    visited.add(start_node)
-    traversal_order = []
-
-    while queue:
-        # Dequeue a vertex from the front of the queue
-        current_node = queue.popleft()
-        traversal_order.append(current_node)
-
-        # Get all adjacent vertices of the dequeued vertex.
-        # If an adjacent has not been visited, then mark it
-        # visited and enqueue it.
-        for neighbor in graph.get(current_node, []):
-            if neighbor not in visited:
-                visited.add(neighbor)
-                queue.append(neighbor)
-    
-    return traversal_order
-
-# Example Usage:
-graph = {'A': ['B', 'C'], 'B': ['A', 'D', 'E'], 'C': ['A', 'F'], 'D': ['B'], 'E': ['B', 'F'], 'F': ['C', 'E']}
-print(f"BFS Traversal: {bfs(graph, 'A')}") 
-# Expected Output: ['A', 'B', 'C', 'D', 'E', 'F']
-                        </code></pre>
+        <!-- Document Container -->
+        <div class="bg-white rounded-xl shadow-2xl overflow-hidden min-h-[800px]">
+            
+            <!-- Document Header -->
+            <div class="bg-indigo-50 border-b border-indigo-200 px-8 py-6">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <span class="inline-block px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-xs font-bold uppercase tracking-wide mb-2">
+                            Verified Solutions
+                        </span>
+                        <h1 class="text-3xl font-bold text-slate-900 mb-2">Lab 5: Search Strategies (BFS & DFS)</h1>
+                        <div class="flex items-center gap-4 text-sm text-slate-500">
+                            <span class="flex items-center gap-1"><i data-lucide="check-circle" class="w-4 h-4"></i> Status: Verified</span>
+                        </div>
                     </div>
-                    <!-- Solution 2 -->
-                    <div class="bg-white p-6 rounded-lg shadow-md">
-                        <h3 class="text-xl font-semibold mb-2">2. Shortest Path in a Grid</h3>
-                        <pre><code class="language-python">
-import collections
+                </div>
+            </div>
 
-def shortest_path_grid(grid):
-    """
-    Finds the shortest path in a binary grid from (0,0) to (n-1, n-1).
-    """
-    n = len(grid)
-    # If start or end is an obstacle, no path is possible.
-    if grid[0][0] == 1 or grid[n-1][n-1] == 1:
+            <div class="px-8 py-8 space-y-10">
+
+                <!-- Q1 -->
+                <div>
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="bg-emerald-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q1</span>
+                        <h3 class="font-bold text-lg text-slate-800">Rotting Oranges (BFS)</h3>
+                    </div>
+                    <p class="text-slate-600 text-sm mb-4"><strong>Approach:</strong> We use a Queue to perform Breadth-First Search. We first enqueue all initially rotten oranges. Then, we process them level by level (minute by minute), infecting adjacent fresh oranges. We keep a count of fresh oranges to easily check if any are left at the end.</p>
+                    <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>from collections import deque
+
+def orangesRotting(grid):
+    rows, cols = len(grid), len(grid[0])
+    queue = deque()
+    fresh_count = 0
+    
+    # Step 1: Initialize the queue with all rotten oranges
+    # and count the fresh ones.
+    for r in range(rows):
+        for c in range(cols):
+            if grid[r][c] == 2:
+                queue.append((r, c, 0)) # (row, col, minutes_passed)
+            elif grid[r][c] == 1:
+                fresh_count += 1
+                
+    # If there are no fresh oranges, it takes 0 minutes.
+    if fresh_count == 0:
+        return 0
+        
+    directions = [(1,0), (-1,0), (0,1), (0,-1)]
+    minutes_passed = 0
+    
+    # Step 2: Perform BFS
+    while queue:
+        r, c, mins = queue.popleft()
+        minutes_passed = mins
+        
+        for dr, dc in directions:
+            nr, nc = r + dr, c + dc
+            # If adjacent cell is within bounds and has a fresh orange
+            if 0 <= nr < rows and 0 <= nc < cols and grid[nr][nc] == 1:
+                # Rot the orange
+                grid[nr][nc] = 2
+                fresh_count -= 1
+                queue.append((nr, nc, mins + 1))
+                
+    # Step 3: Check if any fresh oranges are left
+    if fresh_count == 0:
+        return minutes_passed
+    else:
         return -1
 
-    # 8 possible directions
-    directions = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
+# Test the function
+grid = [[2,1,1],[1,1,0],[0,1,1]]
+print("Minimum minutes:", orangesRotting(grid)) # Output: 4</code></pre>
+                </div>
+
+                <hr class="border-slate-200">
+
+                <!-- Q2 -->
+                <div>
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="bg-purple-600 text-white font-bold px-2 py-0.5 rounded text-xs">Q2</span>
+                        <h3 class="font-bold text-lg text-slate-800">Word Search (DFS)</h3>
+                    </div>
+                    <p class="text-slate-600 text-sm mb-4"><strong>Approach:</strong> We iterate through each cell. If the letter matches the start of the word, we trigger a Depth-First Search with backtracking. We maintain a set of <code>visited</code> coordinates to avoid reusing cells in the current path. If a path fails, we backtrack by removing the cell from <code>visited</code>.</p>
+                    <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-slate-700"><code>def exist(board, word):
+    rows, cols = len(board), len(board[0])
+    path = set() # To keep track of visited cells in current DFS path
     
-    # Queue stores (row, col, path_length)
-    queue = collections.deque([(0, 0, 1)])
-    visited = set([(0, 0)])
+    def dfs(r, c, i):
+        # Base Case 1: We found all characters of the word
+        if i == len(word):
+            return True
+            
+        # Base Case 2: Out of bounds, wrong letter, or cell already visited
+        if (r < 0 or c < 0 or 
+            r >= rows or c >= cols or 
+            word[i] != board[r][c] or 
+            (r, c) in path):
+            return False
+            
+        # Add current cell to path before exploring neighbors
+        path.add((r, c))
+        
+        # Explore all 4 adjacent directions
+        res = (dfs(r + 1, c, i + 1) or 
+               dfs(r - 1, c, i + 1) or 
+               dfs(r, c + 1, i + 1) or 
+               dfs(r, c - 1, i + 1))
+               
+        # Backtrack: Remove cell from path so it can be used in other DFS branches
+        path.remove((r, c))
+        return res
 
-    while queue:
-        row, col, length = queue.popleft()
-
-        # If we reached the destination
-        if row == n - 1 and col == n - 1:
-            return length
-
-        for dr, dc in directions:
-            new_row, new_col = row + dr, col + dc
-
-            # Check if the new position is valid
-            if (0 <= new_row < n and 
-                0 <= new_col < n and 
-                grid[new_row][new_col] == 0 and 
-                (new_row, new_col) not in visited):
+    # Start DFS from every cell
+    for r in range(rows):
+        for c in range(cols):
+            if dfs(r, c, 0): 
+                return True
                 
-                visited.add((new_row, new_col))
-                queue.append((new_row, new_col, length + 1))
-    
-    # If the queue becomes empty and we haven't reached the end
-    return -1
+    return False
 
-# Example Usage:
-grid = [[0,0,0],[1,1,0],[1,1,0]]
-print(f"Shortest Path Length: {shortest_path_grid(grid)}")
-# Expected Output: 4
-                        </code></pre>
-                    </div>
+# Test the function
+board = [
+    ["A","B","C","E"],
+    ["S","F","C","S"],
+    ["A","D","E","E"]
+]
+print("Exists 'ABCCED':", exist(board, "ABCCED")) # Output: True
+print("Exists 'ABCB':", exist(board, "ABCB"))     # Output: False</code></pre>
                 </div>
-            </div>
 
-            <!-- DFS Solutions -->
-            <div>
-                <h2 class="text-3xl font-bold mb-4 border-l-4 border-indigo-500 pl-4">DFS Solutions</h2>
-                <div class="space-y-6">
-                    <!-- Solution 3 -->
-                    <div class="bg-white p-6 rounded-lg shadow-md">
-                        <h3 class="text-xl font-semibold mb-2">3. Implement Depth-First Search</h3>
-                        <pre><code class="language-python">
-def dfs(graph, start_node):
-    """
-    Performs DFS on a graph using recursion.
-    """
-    if start_node not in graph:
-        return []
-
-    visited = set()
-    traversal_order = []
-
-    def _dfs_recursive(node):
-        # If node is already visited, do nothing
-        if node in visited:
-            return
-        
-        # Mark the current node as visited and add to result
-        visited.add(node)
-        traversal_order.append(node)
-        
-        # Recur for all the vertices adjacent to this vertex
-        for neighbor in graph.get(node, []):
-            _dfs_recursive(neighbor)
-
-    _dfs_recursive(start_node)
-    return traversal_order
-
-# Example Usage:
-graph = {'A': ['B', 'C'], 'B': ['A', 'D', 'E'], 'C': ['A', 'F'], 'D': ['B'], 'E': ['B', 'F'], 'F': ['C', 'E']}
-print(f"DFS Traversal: {dfs(graph, 'A')}")
-# Expected Output: ['A', 'B', 'D', 'E', 'F', 'C'] (Note: Order can vary)
-                        </code></pre>
-                    </div>
-                    <!-- Solution 4 -->
-                    <div class="bg-white p-6 rounded-lg shadow-md">
-                        <h3 class="text-xl font-semibold mb-2">4. Connected Components in a Network</h3>
-                        <pre><code class="language-python">
-def count_components(isConnected):
-    """
-    Counts the number of connected components in a network
-    represented by an adjacency matrix.
-    """
-    n = len(isConnected)
-    visited = set()
-    component_count = 0
-
-    def _dfs(start_node):
-        # Use a stack for iterative DFS to avoid recursion depth issues
-        stack = [start_node]
-        while stack:
-            node = stack.pop()
-            # Find all connected neighbors
-            for neighbor in range(n):
-                if isConnected[node][neighbor] == 1 and neighbor not in visited:
-                    visited.add(neighbor)
-                    stack.append(neighbor)
-
-    # Iterate through all computers
-    for i in range(n):
-        # If we find a computer that hasn't been visited,
-        # it's the start of a new component.
-        if i not in visited:
-            component_count += 1
-            visited.add(i)
-            # Start DFS to find all computers in this component
-            _dfs(i)
-            
-    return component_count
-
-# Example Usage:
-isConnected = [[1,1,0],[1,1,0],[0,0,1]]
-print(f"Number of Components: {count_components(isConnected)}")
-# Expected Output: 2
-                        </code></pre>
-                    </div>
-                </div>
             </div>
             
-            <!-- Data Analysis Solution -->
-            <div>
-                <h2 class="text-3xl font-bold mb-4 border-l-4 border-indigo-500 pl-4">Data Analysis Solution</h2>
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold mb-2">5. Analysis of the Iris Dataset</h3>
-                    <pre><code class="language-python">
-import pandas as pd
-
-def analyze_iris():
-    """
-    Performs the requested analysis on the Iris dataset.
-    """
-    try:
-        # 1. Load Data
-        url = 'https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv'
-        df = pd.read_csv(url)
-        print("--- 1. Data Loaded Successfully (First 5 Rows) ---")
-        print(df.head())
-        print("\\n" + "="*50 + "\\n")
-
-        # 2. Grouped Analysis
-        print("--- 2. Average Petal Length by Species ---")
-        avg_petal_length = df.groupby('species')['petal_length'].mean()
-        print(avg_petal_length)
-        print("\\n" + "="*50 + "\\n")
-
-        # 3. Filtering
-        print("--- 3. Virginica Species with Sepal Width > 3.5 ---")
-        filtered_df = df[(df['species'] == 'virginica') & (df['sepal_width'] > 3.5)]
-        print(filtered_df)
-        
-    except Exception as e:
-        print(f"An error occurred: {e}")
-
-# Run the analysis
-analyze_iris()
-                    </code></pre>
-                </div>
+            <!-- Document Footer -->
+            <div class="bg-indigo-50 border-t border-indigo-200 px-8 py-4 text-center text-indigo-800 text-sm">
+                -- End of Solutions --
             </div>
-        </main>
+        </div>
     </div>
 
+    <!-- Initialize Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>
